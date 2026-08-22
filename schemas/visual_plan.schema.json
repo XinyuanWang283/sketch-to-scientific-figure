@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Approved Visual Plan Binding",
+  "type": "object",
+  "required": [
+    "schema_version", "case_id", "visual_mode", "status", "spatial_locks",
+    "allowed_changes", "forbidden_visual_grammars", "text_policy",
+    "wireframe_artifacts", "approval_gate"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "case_id": {"type": "string"},
+    "visual_mode": {
+      "type": "string",
+      "enum": ["faithful_redraw", "guided_redesign", "open_exploration"]
+    },
+    "status": {"type": "string"},
+    "spatial_locks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "allowed_changes": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "forbidden_visual_grammars": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "text_policy": {"type": "object"},
+    "wireframe_artifacts": {
+      "type": "object",
+      "required": ["wireframe_svg", "wireframe_png"],
+      "properties": {
+        "wireframe_svg": {"type": "string"},
+        "wireframe_png": {"type": "string"}
+      }
+    },
+    "approval_gate": {
+      "type": "object",
+      "required": ["image_generation_authorized", "approved_wireframe_sha256"],
+      "properties": {
+        "image_generation_authorized": {"const": true},
+        "approved_wireframe_revision": {"type": "integer", "minimum": 1},
+        "approved_wireframe_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Canonical Semantic Figure Source",
+  "type": "object",
+  "required": [
+    "schema_version", "figure_id", "canvas", "entities", "groups", "shapes",
+    "text_objects", "equation_objects", "ports", "connectors", "z_order",
+    "style_tokens", "platform_overrides", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "figure_id": {"type": "string"},
+    "canvas": {
+      "type": "object", "required": ["width", "height", "background"],
+      "properties": {
+        "width": {"type": "number", "minimum": 100},
+        "height": {"type": "number", "minimum": 100},
+        "background": {"type": "string"}
+      }
+    },
+    "entities": {"type": "array", "items": {"type": "object"}},
+    "groups": {"type": "array", "items": {"type": "object"}},
+    "shapes": {"type": "array", "items": {"type": "object"}},
+    "text_objects": {"type": "array", "items": {"type": "object"}},
+    "equation_objects": {"type": "array", "items": {"type": "object"}},
+    "ports": {"type": "array", "items": {"type": "object"}},
+    "connectors": {"type": "array", "items": {"type": "object"}},
+    "z_order": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "style_tokens": {"type": "object"},
+    "platform_overrides": {"type": "object"},
+    "provenance": {
+      "type": "object", "required": ["truth_source", "equation_manifest", "generated_at", "source_hashes"],
+      "properties": {
+        "truth_source": {"type": "string"},
+        "equation_manifest": {"type": "string"},
+        "generated_at": {"type": "string"},
+        "source_hashes": {"type": "object"}
+      }
+    }
+  }
+}

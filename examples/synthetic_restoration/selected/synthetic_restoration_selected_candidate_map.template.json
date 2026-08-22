@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "synthetic_restoration",
+  "image_hash": "pending",
+  "major_region_bboxes": {
+    "input": [
+      0.04,
+      0.18,
+      0.22,
+      0.64
+    ],
+    "process": [
+      0.34,
+      0.12,
+      0.32,
+      0.76
+    ],
+    "output": [
+      0.74,
+      0.18,
+      0.22,
+      0.64
+    ]
+  },
+  "palette_samples": {},
+  "stroke_character": "pending human selection",
+  "corner_language": "pending human selection",
+  "whitespace_rhythm": [],
+  "glyph_reference_crops": [],
+  "art_direction_notes": "Populate only after Gate 2 macro-layout selection.",
+  "scientific_overrides": [
+    "ignore_all_generated_text",
+    "ignore_all_generated_equations",
+    "ignore_generated_indices",
+    "ignore_generated_connector_endpoints",
+    "ignore_generated_arrow_directions",
+    "ignore_generated_centroids"
+  ]
+}

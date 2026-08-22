@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this workflow, please cite the repository."
+title: "Sketch to Scientific Figure"
+type: software
+version: 0.1.0
+authors:
+  - family-names: Wang
+    given-names: Xinyuan
+repository-code: "https://github.com/XinyuanWang283/sketch-to-scientific-figure"
+url: "https://github.com/XinyuanWang283/sketch-to-scientific-figure"
+abstract: "A researcher-controlled workflow for turning hand-drawn method sketches and authoritative scientific text into validated, editable scientific figures."
+keywords:
+  - scientific figures
+  - scientific visualization
+  - editable vector graphics
+  - human-in-the-loop

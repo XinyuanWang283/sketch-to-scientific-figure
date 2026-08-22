@@ -1,0 +1,291 @@
+{
+  "schema_version": "1.0",
+  "source_registry": [
+    "rules/common_rules.json"
+  ],
+  "rules": [
+    {
+      "rule_id": "ARTIFACT_REQUIRED_FIELDS",
+      "description": "Every authoritative artifact contains the required stage-specific fields.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "artifact"
+      ],
+      "predicate_type": "required_fields",
+      "predicate_parameters": {},
+      "verification_method": "standard-library structural validation",
+      "png_classification": "caption-only"
+    },
+    {
+      "rule_id": "ARTIFACT_SCHEMA_VALIDITY",
+      "description": "Truth, blueprints, rules, reviews, selected-candidate maps, and SVG specs match their repository JSON Schema contracts.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "artifact",
+        "blueprint"
+      ],
+      "predicate_type": "schema_validity",
+      "predicate_parameters": {},
+      "verification_method": "standard-library validation of the JSON Schema subset used by this repository",
+      "png_classification": "caption-only"
+    },
+    {
+      "rule_id": "ARTIFACT_SOURCE_HASHES",
+      "description": "Every declared authoritative source exists and matches its SHA-256 hash.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "artifact"
+      ],
+      "predicate_type": "source_hashes",
+      "predicate_parameters": {},
+      "verification_method": "recompute SHA-256 from workspace-relative source paths",
+      "png_classification": "caption-only"
+    },
+    {
+      "rule_id": "ARTIFACT_UNIQUE_IDS",
+      "description": "Entity, instance, relation, equation, node, edge, and SVG IDs are unique in their scopes.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "artifact",
+        "blueprint",
+        "svg"
+      ],
+      "predicate_type": "unique_ids",
+      "predicate_parameters": {},
+      "verification_method": "duplicate-ID scan",
+      "png_classification": "caption-only"
+    },
+    {
+      "rule_id": "ARTIFACT_REFERENCE_INTEGRITY",
+      "description": "All truth, instance, rule, port, source, and target references resolve.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "artifact",
+        "blueprint",
+        "svg"
+      ],
+      "predicate_type": "reference_integrity",
+      "predicate_parameters": {},
+      "verification_method": "reference graph lookup",
+      "png_classification": "caption-only"
+    },
+    {
+      "rule_id": "BLUEPRINT_TRUTH_COVERAGE",
+      "description": "Every blueprint covers every authoritative truth instance exactly once.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "blueprint",
+        "skeleton"
+      ],
+      "predicate_type": "truth_coverage",
+      "predicate_parameters": {},
+      "verification_method": "set equality between truth instances and blueprint instance_refs",
+      "png_classification": "caption-only"
+    },
+    {
+      "rule_id": "BLUEPRINT_FINGERPRINT_DIVERSITY",
+      "description": "Directed candidate blueprints differ in region graph or in at least three categorical fingerprint fields when their core layout is shared.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "blueprint",
+        "skeleton"
+      ],
+      "predicate_type": "fingerprint_diversity",
+      "predicate_parameters": {},
+      "verification_method": "pairwise categorical fingerprint comparison",
+      "png_classification": "caption-only"
+    },
+    {
+      "rule_id": "SVG_PARSEABLE",
+      "description": "The canonical SVG is parseable XML.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_parseable",
+      "predicate_parameters": {},
+      "verification_method": "XML parser",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_UNIQUE_IDS",
+      "description": "Every SVG ID is unique.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_unique_ids",
+      "predicate_parameters": {},
+      "verification_method": "XML ID scan",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_FORBIDDEN_CONTENT",
+      "description": "The SVG contains no script, animation, foreignObject, filter, gradient, mask, event handler, or external reference.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_forbidden_content",
+      "predicate_parameters": {},
+      "verification_method": "tag and attribute scan",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_NO_WHOLE_RASTER",
+      "description": "The canonical SVG contains no whole-canvas raster image unless an explicit asset policy permits a bounded, replaceable raster atom.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_no_raster",
+      "predicate_parameters": {},
+      "verification_method": "image-element scan plus raster policy",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_SEMANTIC_GROUPS",
+      "description": "Required scientific stage and object groups exist with stable semantic IDs.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_semantic_groups",
+      "predicate_parameters": {},
+      "verification_method": "expected group-ID lookup",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_LIVE_TEXT_AND_EQUATIONS",
+      "description": "Required text remains live and required equations preserve their exact source LaTeX metadata.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_live_text",
+      "predicate_parameters": {},
+      "verification_method": "text transcription and data-latex comparison",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_SOURCE_TARGET_METADATA",
+      "description": "Every scientific connector independently records resolvable source and target IDs.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_source_target",
+      "predicate_parameters": {},
+      "verification_method": "connector metadata graph check",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_RELATION_ENDPOINT_TYPES",
+      "description": "Every recognized scientific connector joins semantic object types allowed by its declared relation type.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_relation_endpoint_types",
+      "predicate_parameters": {},
+      "verification_method": "compare connector relation type with source and target data-entity-type metadata",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_MIN_FONT_SIZE",
+      "description": "Live text respects the intended-paper-size minimum font-size policy.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_min_font_size",
+      "predicate_parameters": {},
+      "verification_method": "font-size scan",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_OBJECT_BOUNDS",
+      "description": "Principal object centers lie inside the SVG viewBox.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_object_bounds",
+      "predicate_parameters": {},
+      "verification_method": "primitive geometry bounds check",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_GLOBAL_STYLE_TOKENS",
+      "description": "The locked palette is declared once as reusable global SVG style tokens.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_global_tokens",
+      "predicate_parameters": {},
+      "verification_method": "style-token declaration scan",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_ORTHOGONAL_CONNECTORS",
+      "description": "When requested by the figure contract, connector shafts use horizontal and vertical segments only.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_orthogonal_connectors",
+      "predicate_parameters": {},
+      "verification_method": "connector-segment geometry scan",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_ENTITY_COUNTS",
+      "description": "Entity counts match the stage- and type-specific counts declared by the reconstruction spec.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_entity_counts",
+      "predicate_parameters": {},
+      "verification_method": "data-stage and data-entity-type count comparison",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_DERIVED_PLACEMENT",
+      "description": "Objects with a declared derived-placement rule match the geometry computed from their referenced members.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_derived_placement",
+      "predicate_parameters": {},
+      "verification_method": "member-coordinate geometry check",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_CONGRUENT_REPETITIONS",
+      "description": "Repeated entity types declared as congruent use the same normalized geometry.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_congruent_repetitions",
+      "predicate_parameters": {},
+      "verification_method": "normalized geometry comparison",
+      "png_classification": "must-fix in SVG"
+    },
+    {
+      "rule_id": "SVG_RELATION_COUNTS",
+      "description": "Connector multiplicities match the relation counts declared by the reconstruction spec.",
+      "severity": "blocker",
+      "applicable_stages": [
+        "svg"
+      ],
+      "predicate_type": "svg_relation_counts",
+      "predicate_parameters": {},
+      "verification_method": "data-relation-type count comparison",
+      "png_classification": "must-fix in SVG"
+    }
+  ]
+}

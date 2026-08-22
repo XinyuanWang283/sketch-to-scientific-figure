@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LaTeX-first Equation Manifest",
+  "type": "object",
+  "required": ["schema_version", "authoritative_tex", "equations"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "authoritative_tex": {"type": "string"},
+    "equations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "equation_id", "latex_source", "role", "paper_source", "display_mode",
+          "anchor_id", "alignment", "style_role", "platform_render_policy", "checksum"
+        ],
+        "properties": {
+          "equation_id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9._-]*$"},
+          "latex_source": {"type": "string"},
+          "role": {"type": "string"},
+          "paper_source": {"type": "object"},
+          "display_mode": {"type": "string", "enum": ["inline", "display"]},
+          "anchor_id": {"type": "string"},
+          "alignment": {"type": "string", "enum": ["left", "center", "right"]},
+          "style_role": {"type": "string"},
+          "platform_render_policy": {"type": "object"},
+          "checksum": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    }
+  }
+}

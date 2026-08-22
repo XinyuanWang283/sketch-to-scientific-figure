@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sketch-to-scientific-figure"
+version = "0.1.0"
+description = "A researcher-controlled workflow for turning sketches into editable scientific figures."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+keywords = [
+  "scientific-figures",
+  "scientific-visualization",
+  "svg",
+  "research-tools",
+  "codex-skill",
+]
+authors = [
+  { name = "Xinyuan Wang" },
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Visualization",
+]
+dependencies = [
+  "Pillow>=10.0",
+]
+
+[project.urls]
+Repository = "https://github.com/XinyuanWang283/sketch-to-scientific-figure"
+Issues = "https://github.com/XinyuanWang283/sketch-to-scientific-figure/issues"
+Documentation = "https://github.com/XinyuanWang283/sketch-to-scientific-figure#readme"
+
+[tool.setuptools]
+py-modules = []

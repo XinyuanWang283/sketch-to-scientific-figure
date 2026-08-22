@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "figure_id": "synthetic_restoration",
+  "truth_sha256": "1a0253352763fb151cf3c9d0f8b9a1f725dd9cbfd024743fe9d66f79d707d636",
+  "rule_count": 23,
+  "candidate_count": 1,
+  "fingerprint_diversity_pass": true,
+  "compiled": [
+    {
+      "candidate_id": "synthetic_restoration",
+      "blueprint_sha256": "01b38a9846cb5dcd4c93ed63cdd7d61d00f5283eedc3c1ad2debad76f63e93a0",
+      "prompt_sha256": "8660da0163ef0133f1becd40a035c0d258e94a2c9eee55541a0c80e6413d7aa1",
+      "prompt_word_count": 449
+    }
+  ]
+}

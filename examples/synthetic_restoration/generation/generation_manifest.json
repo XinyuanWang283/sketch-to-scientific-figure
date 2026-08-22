@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "execution_mode": "built-in_chat_image_generation_only",
+  "image_api_forbidden": true,
+  "independent_calls_required": true,
+  "entries": [
+    {
+      "candidate_id": "synthetic_restoration",
+      "workflow": "compiled_skeleton_v2",
+      "status": "prepared",
+      "prompt_path": "generation/synthetic_restoration_prompt.md",
+      "prompt_sha256": "8660da0163ef0133f1becd40a035c0d258e94a2c9eee55541a0c80e6413d7aa1",
+      "prompt_word_count": 449,
+      "reference_roles": [
+        {
+          "image": "skeletons/synthetic_restoration_skeleton.png",
+          "role": "topology_skeleton",
+          "authority": "structure"
+        }
+      ],
+      "generation_call_completed": false,
+      "output_path": null
+    }
+  ]
+}

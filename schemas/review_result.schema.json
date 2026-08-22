@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "review_result.schema.json",
+  "title": "PNG macro-topology review result",
+  "type": "object",
+  "required": [
+    "candidate_id", "truth_hash", "blueprint_hash", "prompt_hash", "image_hash",
+    "machine_checks", "human_checks", "blocking_failures",
+    "acceptable_raster_imperfections", "svg_reconstruction_fixes",
+    "repair_budget_used", "decision", "decision_reason"
+  ],
+  "properties": {
+    "candidate_id": {"type": "string"},
+    "truth_hash": {"type": "string"},
+    "blueprint_hash": {"type": "string"},
+    "prompt_hash": {"type": "string"},
+    "image_hash": {"type": "string"},
+    "machine_checks": {"type": "array"},
+    "human_checks": {"type": "array"},
+    "blocking_failures": {"type": "array"},
+    "acceptable_raster_imperfections": {"type": "array"},
+    "svg_reconstruction_fixes": {"type": "array"},
+    "repair_budget_used": {
+      "type": "object",
+      "required": ["regenerations", "local_style_edits"]
+    },
+    "decision": {
+      "enum": [
+        "pending", "accept_for_svg", "accept_for_svg_with_deterministic_structural_corrections", "regenerate_from_same_blueprint",
+        "revise_blueprint", "switch_candidate", "local_style_edit", "reject"
+      ]
+    },
+    "decision_reason": {"type": "string"}
+  }
+}

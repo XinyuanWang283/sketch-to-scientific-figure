@@ -1,0 +1,188 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "synthetic_restoration",
+  "truth_figure_id": "synthetic_restoration",
+  "width": 1600,
+  "height": 900,
+  "regions": [
+    {
+      "id": "input",
+      "label": "Input",
+      "bbox": [
+        86.08,
+        177.35999999999999,
+        341.44,
+        545.28
+      ]
+    },
+    {
+      "id": "process",
+      "label": "Process",
+      "bbox": [
+        551.6800000000001,
+        126.24,
+        496.64,
+        647.52
+      ]
+    },
+    {
+      "id": "output",
+      "label": "Output",
+      "bbox": [
+        1172.48,
+        177.35999999999999,
+        341.44,
+        545.28
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "measurement_y",
+      "node_id": "input_node",
+      "type": "measurement",
+      "stage": "input",
+      "status": null,
+      "label": "y",
+      "short_label": "Y",
+      "shape": "circle",
+      "visual_role": "input",
+      "bbox": [
+        244.8,
+        420.96,
+        24.0,
+        24.0
+      ],
+      "center": [
+        256.8,
+        432.96
+      ],
+      "source_node": "input_node"
+    },
+    {
+      "id": "model_f",
+      "node_id": "model_node",
+      "type": "model",
+      "stage": "process",
+      "status": null,
+      "label": "f_theta",
+      "short_label": "F",
+      "shape": "operator",
+      "visual_role": "process",
+      "bbox": [
+        725.0,
+        397.96,
+        150,
+        70
+      ],
+      "center": [
+        800.0,
+        432.96
+      ],
+      "source_node": "model_node"
+    },
+    {
+      "id": "estimate_x",
+      "node_id": "output_node",
+      "type": "estimate",
+      "stage": "output",
+      "status": null,
+      "label": "x_hat",
+      "short_label": "X",
+      "shape": "square",
+      "visual_role": "output",
+      "bbox": [
+        1316.2,
+        405.96,
+        54.0,
+        54.0
+      ],
+      "center": [
+        1343.2,
+        432.96
+      ],
+      "source_node": "output_node"
+    }
+  ],
+  "connectors": [
+    {
+      "id": "measurement_feeds_model",
+      "edge_id": "edge_measurement_model",
+      "relation_id": "measurement_feeds_model",
+      "relation_type": "feeds",
+      "source": "measurement_y",
+      "target": "model_f",
+      "points": [
+        [
+          268.8,
+          432.96
+        ],
+        [
+          496.9,
+          432.96
+        ],
+        [
+          496.9,
+          432.96
+        ],
+        [
+          725.0,
+          432.96
+        ]
+      ],
+      "arrow": true,
+      "rule_ids": [
+        "ARTIFACT_REFERENCE_INTEGRITY"
+      ]
+    },
+    {
+      "id": "model_produces_estimate",
+      "edge_id": "edge_model_estimate",
+      "relation_id": "model_produces_estimate",
+      "relation_type": "produces",
+      "source": "model_f",
+      "target": "estimate_x",
+      "points": [
+        [
+          875.0,
+          432.96
+        ],
+        [
+          1095.6,
+          432.96
+        ],
+        [
+          1095.6,
+          432.96
+        ],
+        [
+          1316.2,
+          432.96
+        ]
+      ],
+      "arrow": true,
+      "rule_ids": [
+        "ARTIFACT_REFERENCE_INTEGRITY"
+      ]
+    }
+  ],
+  "layout_fingerprint": {
+    "reading_axis": "left-to-right",
+    "region_graph": [
+      "input",
+      "process",
+      "output"
+    ],
+    "dominant_region": "process",
+    "stage_arrangement": "three aligned regions",
+    "repetition_strategy": "none",
+    "audit_location": "caption",
+    "symmetry": "balanced around the model",
+    "connector_topology": "single directed path",
+    "occupied_area_distribution": [
+      0.22,
+      0.36,
+      0.22
+    ]
+  }
+}

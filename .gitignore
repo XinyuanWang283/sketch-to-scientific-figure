@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Packaging
+build/
+dist/
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Local runtime and scratch outputs
+run_state.json
+interview_state.yaml
+*.tmp
+*.log
+tmp/
+scratch/
+runs/
+local-runs/

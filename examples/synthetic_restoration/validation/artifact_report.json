@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "figure_id": "synthetic_restoration",
+  "run_dir": "examples/synthetic_restoration",
+  "truth_sha256": "1a0253352763fb151cf3c9d0f8b9a1f725dd9cbfd024743fe9d66f79d707d636",
+  "blueprint_count": 1,
+  "scene_count": 1,
+  "checks": [
+    {
+      "rule_id": "ARTIFACT_SCHEMA_VALIDITY",
+      "severity": "blocker",
+      "status": "pass",
+      "evidence": "repository schema contracts pass"
+    },
+    {
+      "rule_id": "ARTIFACT_REQUIRED_FIELDS",
+      "severity": "blocker",
+      "status": "pass",
+      "evidence": "required fields are present"
+    },
+    {
+      "rule_id": "ARTIFACT_SOURCE_HASHES",
+      "severity": "blocker",
+      "status": "pass",
+      "evidence": "source hashes match"
+    },
+    {
+      "rule_id": "ARTIFACT_UNIQUE_IDS",
+      "severity": "blocker",
+      "status": "pass",
+      "evidence": "truth IDs are unique"
+    },
+    {
+      "rule_id": "ARTIFACT_REFERENCE_INTEGRITY",
+      "severity": "blocker",
+      "status": "pass",
+      "evidence": "truth references resolve"
+    },
+    {
+      "rule_id": "BLUEPRINT_TRUTH_COVERAGE",
+      "severity": "blocker",
+      "status": "pass",
+      "evidence": "every blueprint covers truth exactly once"
+    },
+    {
+      "rule_id": "BLUEPRINT_FINGERPRINT_DIVERSITY",
+      "severity": "blocker",
+      "status": "pass",
+      "evidence": "pairwise fingerprint report overall_pass=True"
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "blockers": 0,
+    "overall": "pass"
+  }
+}

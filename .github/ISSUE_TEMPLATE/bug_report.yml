@@ -1,0 +1,37 @@
+name: Bug report
+description: Report a reproducible workflow, validator, or adapter problem.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Use only fictional or publication-cleared inputs. Do not attach private manuscripts, unpublished data, credentials, or patient information."
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the actual and expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: List the exact commands and use a fictional minimal input when possible.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include OS, Python version, and optional adapter-tool versions.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I confirm this issue contains no private or unpublished material.
+          required: true

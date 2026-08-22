@@ -1,0 +1,268 @@
+#!/usr/bin/env python3
+"""Public regression tests for the generic sketch-to-figure workflow."""
+
+from __future__ import annotations
+
+import json
+import os
+import shutil
+import sys
+import tempfile
+import unittest
+import xml.etree.ElementTree as ET
+from pathlib import Path
+from types import SimpleNamespace
+
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS = REPOSITORY_ROOT / "scripts"
+sys.path.insert(0, str(SCRIPTS))
+
+from build_figure_editorial_review import OVERLAY_END, OVERLAY_START  # noqa: E402
+from build_fixture_semantic_source import build as build_semantic_source  # noqa: E402
+from compile_figure_artifacts import compile_run  # noqa: E402
+from figure_artifacts import load_json, sha256_file  # noqa: E402
+from render_topology_skeleton import render as render_skeleton  # noqa: E402
+from run_workflow import run  # noqa: E402
+from validate_figure_artifacts import validate as validate_artifacts  # noqa: E402
+from validate_semantic_svg import validate_svg  # noqa: E402
+from workflow_v3 import render_semantic_svg, validate_schema  # noqa: E402
+
+
+def args_for(mode: str, run_dir: Path, **overrides: object) -> SimpleNamespace:
+    values = {
+        "mode": mode,
+        "run_dir": run_dir,
+        "resume": False,
+        "decision": None,
+        "truth": None,
+        "paper_source": [],
+        "sketch": None,
+        "visual_plan": None,
+        "approved_wireframe": None,
+        "approved_wireframe_png": None,
+        "fixture_svg": None,
+        "fixture_spec": None,
+        "register_png": None,
+        "register_delivery": None,
+    }
+    values.update(overrides)
+    return SimpleNamespace(**values)
+
+
+class GenericWorkflowTests(unittest.TestCase):
+    def test_safe_example_compiles_renders_and_validates(self) -> None:
+        example = REPOSITORY_ROOT / "examples" / "synthetic_restoration"
+        with tempfile.TemporaryDirectory(prefix="safe-example-") as temporary:
+            run_dir = Path(temporary) / "synthetic_restoration"
+            shutil.copytree(example / "truth", run_dir / "truth")
+            shutil.copytree(example / "blueprints", run_dir / "blueprints")
+            summary = compile_run(run_dir, REPOSITORY_ROOT)
+            self.assertEqual(summary["candidate_count"], 1)
+            self.assertTrue(summary["fingerprint_diversity_pass"])
+
+            render_skeleton(
+                run_dir / "truth" / "scientific_truth.json",
+                run_dir / "blueprints" / "synthetic_restoration.json",
+                run_dir / "skeletons",
+            )
+            report = validate_artifacts(run_dir, REPOSITORY_ROOT, REPOSITORY_ROOT)
+            self.assertEqual(report["summary"]["overall"], "pass")
+
+        svg_report = validate_svg(
+            example / "editable_figure.svg",
+            example / "validation_spec.json",
+        )
+        self.assertEqual(svg_report["summary"]["overall"], "pass")
+
+    def test_repository_schemas_and_rules_parse(self) -> None:
+        paths = sorted((REPOSITORY_ROOT / "schemas").glob("*.json"))
+        paths += sorted((REPOSITORY_ROOT / "rules").glob("*.json"))
+        self.assertGreaterEqual(len(paths), 10)
+        for path in paths:
+            with self.subTest(path=path.name):
+                self.assertIsInstance(load_json(path), dict)
+
+    def test_generic_semantic_svg_passes_and_detects_broken_connector(self) -> None:
+        fixture_dir = REPOSITORY_ROOT / "tests" / "fixtures"
+        source_svg = fixture_dir / "generic_semantic_pass.svg"
+        spec = fixture_dir / "generic_svg_fixture_spec.json"
+        report = validate_svg(source_svg, spec)
+        self.assertEqual(report["summary"]["overall"], "pass")
+
+        with tempfile.TemporaryDirectory(prefix="generic-svg-failure-") as temporary:
+            tree = ET.parse(source_svg)
+            connector = next(
+                element
+                for element in tree.getroot().iter()
+                if element.get("id") == "flow-input-model"
+            )
+            connector.attrib.pop("data-target")
+            mutated = Path(temporary) / "broken.svg"
+            tree.write(mutated, encoding="utf-8", xml_declaration=True)
+            failed = validate_svg(mutated, spec)
+            failures = {
+                check["rule_id"]
+                for check in failed["checks"]
+                if check["status"] == "fail"
+            }
+            self.assertIn("SVG_SOURCE_TARGET_METADATA", failures)
+
+    def test_semantic_builder_supports_generic_groups_connectors_and_equations(self) -> None:
+        fixture_dir = REPOSITORY_ROOT / "tests" / "fixtures"
+        with tempfile.TemporaryDirectory(prefix="generic-semantic-builder-") as temporary:
+            run_dir = Path(temporary) / "run"
+            report = build_semantic_source(
+                fixture_dir / "generic_semantic_pass.svg",
+                fixture_dir / "generic_svg_fixture_spec.json",
+                run_dir,
+                figure_id="generic-builder-test",
+            )
+            self.assertEqual(report["connector_count"], 2)
+            semantic = load_json(run_dir / "source" / "semantic_figure.json")
+            self.assertEqual(semantic["figure_id"], "generic-builder-test")
+            self.assertEqual(len(semantic["equation_objects"]), 2)
+            self.assertEqual(semantic["canvas"]["physical_width_mm"], 180.0)
+            rendered = render_semantic_svg(semantic, profile="svg")
+            self.assertIn('width="180.0mm"', rendered)
+            self.assertIn('data-latex="f_\\theta"', rendered)
+
+    def test_fixture_runs_all_adapters_without_image_generation(self) -> None:
+        if not os.environ.get("RUNTIME_NODE_MODULES"):
+            self.skipTest("bundled artifact-tool runtime not configured")
+        with tempfile.TemporaryDirectory(prefix="generic-adapter-fixture-") as temporary:
+            run_dir = Path(temporary) / "run"
+            state = run(args_for("fixture", run_dir))
+            self.assertEqual(state["state"], "FIXTURE_COMPLETE")
+            self.assertEqual(state["provenance"]["image_generation_calls"], 0)
+            expected = [
+                "source/semantic_figure.json",
+                "source/equations.tex",
+                "master/master.svg",
+                "delivery/svg/master.svg",
+                "delivery/figma/figure_figma.svg",
+                "delivery/pptx/figure.pptx",
+                "delivery/drawio/figure.drawio",
+                "delivery/pdf/publication.pdf",
+                "delivery/pdf/grayscale.pdf",
+                "delivery/delivery_manifest.json",
+                "validation/cross_format_report.json",
+                "validation/cross_format_preview.png",
+            ]
+            for relative in expected:
+                self.assertTrue((run_dir / relative).exists(), relative)
+            report = load_json(run_dir / "validation" / "cross_format_report.json")
+            self.assertEqual(report["status"], "VERIFIED")
+
+    def test_generic_sketch_mode_stops_at_gate_1(self) -> None:
+        from PIL import Image, ImageDraw
+
+        fixture_dir = REPOSITORY_ROOT / "tests" / "fixtures"
+        with tempfile.TemporaryDirectory(prefix="generic-sketch-mode-") as temporary:
+            temporary_dir = Path(temporary)
+            run_dir = temporary_dir / "run"
+            truth = temporary_dir / "scientific_truth.json"
+            truth.write_text(json.dumps({
+                "figure_id": "synthetic_restoration_test",
+                "message": {
+                    "one_sentence": "A synthetic measurement passes through one model to produce an editable estimate.",
+                    "visual_message": "Show a clear left-to-right measurement, model, and estimate path.",
+                    "audience": "scientific software researchers"
+                },
+                "provenance": {"sources": []},
+                "entities": [],
+                "instances": [],
+                "relations": [],
+                "equations": [],
+                "invariants": [],
+                "forbidden_implications": [{"id": "performance", "description": "Do not imply measured performance."}],
+                "sketch_locks": [],
+                "flexibility_zones": [],
+                "unresolved_ambiguities": []
+            }), encoding="utf-8")
+            method = temporary_dir / "method.md"
+            method.write_text("A synthetic measurement enters one abstract restoration model and produces one estimate.\n", encoding="utf-8")
+            contract = temporary_dir / "contract.md"
+            contract.write_text("Keep the left-to-right relation and do not add performance claims.\n", encoding="utf-8")
+            sketch = temporary_dir / "sketch.png"
+            sketch_image = Image.new("RGB", (1200, 675), "white")
+            draw = ImageDraw.Draw(sketch_image)
+            draw.ellipse((120, 250, 300, 430), outline="black", width=4)
+            draw.rectangle((470, 235, 730, 445), outline="black", width=4)
+            draw.rectangle((930, 260, 1080, 420), outline="black", width=4)
+            draw.line((300, 340, 470, 340), fill="black", width=4)
+            draw.line((730, 340, 930, 340), fill="black", width=4)
+            sketch_image.save(sketch)
+
+            approved_wireframe = temporary_dir / "approved_wireframe.svg"
+            shutil.copyfile(fixture_dir / "generic_semantic_pass.svg", approved_wireframe)
+            approved_preview = temporary_dir / "approved_wireframe.png"
+            preview = Image.new("RGB", (1200, 675), "#FCFCFD")
+            preview_draw = ImageDraw.Draw(preview)
+            preview_draw.text((470, 325), "Approved synthetic wireframe", fill="#1F2937")
+            preview.save(approved_preview)
+            visual_plan = temporary_dir / "visual_plan.json"
+            visual_plan.write_text(json.dumps({
+                "schema_version": "1.0",
+                "case_id": "synthetic_restoration_test",
+                "visual_mode": "guided_redesign",
+                "status": "approved",
+                "spatial_locks": ["left-to-right measurement-model-estimate order"],
+                "allowed_changes": ["spacing", "style", "one removable message cue"],
+                "forbidden_visual_grammars": ["dashboard cards", "data-like clinical imagery"],
+                "text_policy": {"short_labels_only": True, "footer": False},
+                "wireframe_artifacts": {
+                    "wireframe_svg": approved_wireframe.name,
+                    "wireframe_png": approved_preview.name
+                },
+                "approval_gate": {
+                    "image_generation_authorized": True,
+                    "approved_wireframe_revision": 1,
+                    "approved_wireframe_sha256": sha256_file(approved_preview)
+                }
+            }), encoding="utf-8")
+
+            state = run(args_for(
+                "sketch",
+                run_dir,
+                truth=truth,
+                paper_source=[method, contract],
+                sketch=sketch,
+                visual_plan=visual_plan,
+                approved_wireframe=approved_wireframe,
+                approved_wireframe_png=approved_preview,
+            ))
+            self.assertEqual(state["state"], "GATE_1_EDITORIAL_STORY_WIREFRAME")
+            self.assertEqual(state["gate_status"]["gate_1"], "awaiting_human")
+            self.assertEqual(state["provenance"]["image_generation_calls"], 0)
+            review = load_json(run_dir / "editorial" / "figure_editorial_review.json")
+            self.assertEqual(validate_schema(review, "figure_editorial_review.schema.json"), [])
+            classifications = {item["classification"] for item in review["items"]}
+            self.assertTrue({"keep", "must-add", "simplify", "remove", "move-to-caption"}.issubset(classifications))
+
+            conservative = run_dir / "editorial" / "wireframe_conservative.svg"
+            recommended = run_dir / "editorial" / "wireframe_recommended.svg"
+            self.assertEqual(sha256_file(conservative), sha256_file(approved_wireframe))
+            base_text = conservative.read_text(encoding="utf-8")
+            recommended_text = recommended.read_text(encoding="utf-8")
+            self.assertIn('id="paper-aware-overlay"', recommended_text)
+            overlay_start = recommended_text.index(OVERLAY_START)
+            overlay_end = recommended_text.index(OVERLAY_END) + len(OVERLAY_END)
+            self.assertEqual(recommended_text[:overlay_start] + recommended_text[overlay_end:], base_text)
+
+    def test_sketch_mode_requires_visual_plan_binding(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="generic-missing-plan-") as temporary:
+            placeholder = Path(temporary) / "placeholder.txt"
+            placeholder.write_text("placeholder", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "--visual-plan"):
+                run(args_for(
+                    "sketch",
+                    Path(temporary) / "run",
+                    truth=placeholder,
+                    paper_source=[placeholder],
+                    sketch=placeholder,
+                ))
+
+
+if __name__ == "__main__":
+    unittest.main()

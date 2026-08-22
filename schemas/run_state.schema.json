@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Scientific Figure Workflow V3 Run State",
+  "type": "object",
+  "required": [
+    "schema_version", "run_id", "workflow_version", "execution_count",
+    "interaction_mode", "state", "gate_status", "completed_artifacts",
+    "delegated_defaults", "decision_packet", "provenance", "history"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "run_id": {"type": "string", "pattern": "^[A-Za-z0-9._-]+$"},
+    "workflow_version": {"const": "3.0"},
+    "execution_count": {"type": "integer", "minimum": 1, "maximum": 1},
+    "interaction_mode": {"const": "autopilot_with_gates"},
+    "state": {
+      "type": "string",
+      "enum": [
+        "INITIALIZED", "EDITORIAL_REVIEW", "GATE_1_EDITORIAL_STORY_WIREFRAME",
+        "PNG_DIRECTION", "GATE_2_PNG_VISUAL_DIRECTION", "SEMANTIC_BUILD",
+        "DELIVERY_BUILD", "GATE_3_FINAL_SCIENTIFIC_DELIVERY", "COMPLETE",
+        "FIXTURE_COMPLETE", "FAILED"
+      ]
+    },
+    "gate_status": {
+      "type": "object",
+      "required": ["gate_1", "gate_2", "gate_3"],
+      "properties": {
+        "gate_1": {"type": "string", "enum": ["not_reached", "awaiting_human", "approved", "rejected", "not_applicable_fixture"]},
+        "gate_2": {"type": "string", "enum": ["not_reached", "awaiting_human", "approved", "rejected", "not_applicable_fixture"]},
+        "gate_3": {"type": "string", "enum": ["not_reached", "awaiting_human", "approved", "rejected", "not_applicable_fixture"]}
+      }
+    },
+    "completed_artifacts": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "delegated_defaults": {
+      "type": "object",
+      "required": ["allow_low_impact_defaults", "decisions"],
+      "properties": {
+        "allow_low_impact_defaults": {"type": "boolean"},
+        "decisions": {"type": "array", "items": {"type": "object"}}
+      }
+    },
+    "decision_packet": {
+      "type": "object",
+      "required": ["gate_id", "status", "summary", "questions", "recommendation", "resume_command"],
+      "properties": {
+        "gate_id": {"type": "string", "enum": ["NONE", "GATE_1", "GATE_2", "GATE_3"]},
+        "status": {"type": "string", "enum": ["not_applicable", "awaiting_human", "resolved"]},
+        "summary": {"type": "string"},
+        "questions": {"type": "array", "maxItems": 3, "items": {"type": "object"}},
+        "recommendation": {"type": "string"},
+        "resume_command": {"type": "string"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["created_at", "updated_at", "repository_root", "input_hashes", "image_generation_calls"],
+      "properties": {
+        "created_at": {"type": "string"},
+        "updated_at": {"type": "string"},
+        "repository_root": {"type": "string"},
+        "input_hashes": {"type": "object"},
+        "image_generation_calls": {"type": "integer", "minimum": 0}
+      }
+    },
+    "history": {"type": "array", "items": {"type": "object"}}
+  }
+}

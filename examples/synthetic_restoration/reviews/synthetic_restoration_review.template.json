@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "synthetic_restoration",
+  "truth_hash": "1a0253352763fb151cf3c9d0f8b9a1f725dd9cbfd024743fe9d66f79d707d636",
+  "blueprint_hash": "01b38a9846cb5dcd4c93ed63cdd7d61d00f5283eedc3c1ad2debad76f63e93a0",
+  "prompt_hash": "8660da0163ef0133f1becd40a035c0d258e94a2c9eee55541a0c80e6413d7aa1",
+  "image_hash": "pending",
+  "machine_checks": [],
+  "human_checks": [],
+  "blocking_failures": [],
+  "acceptable_raster_imperfections": [],
+  "svg_reconstruction_fixes": [
+    "replace all generated text and equations from scientific truth",
+    "rebuild all connectors from source/target metadata",
+    "recompute centroids and exact geometry"
+  ],
+  "repair_budget_used": {
+    "regenerations": 0,
+    "local_style_edits": 0
+  },
+  "decision": "pending",
+  "decision_reason": ""
+}

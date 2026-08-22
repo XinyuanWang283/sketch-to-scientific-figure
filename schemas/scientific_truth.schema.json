@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scientific_truth.schema.json",
+  "title": "Authoritative scientific truth",
+  "type": "object",
+  "required": [
+    "schema_version", "figure_id", "message", "provenance", "entities",
+    "instances", "relations", "equations", "invariants",
+    "forbidden_implications", "sketch_locks", "flexibility_zones",
+    "unresolved_ambiguities"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "figure_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$"},
+    "message": {
+      "type": "object",
+      "required": ["one_sentence", "visual_message", "audience"],
+      "properties": {
+        "one_sentence": {"type": "string"},
+        "visual_message": {"type": "string"},
+        "audience": {"type": "string"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["sources"],
+      "properties": {
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["path", "sha256", "role"],
+            "properties": {
+              "path": {"type": "string"},
+              "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "role": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "entities": {"$ref": "#/$defs/idArray"},
+    "instances": {"$ref": "#/$defs/idArray"},
+    "relations": {"$ref": "#/$defs/idArray"},
+    "equations": {"$ref": "#/$defs/idArray"},
+    "invariants": {"type": "array", "items": {"type": "object", "required": ["rule_id"]}},
+    "forbidden_implications": {"type": "array", "items": {"type": "object", "required": ["id", "description"]}},
+    "sketch_locks": {"type": "array", "items": {"type": "object", "required": ["id", "scope", "rule_ids"]}},
+    "flexibility_zones": {"type": "array"},
+    "unresolved_ambiguities": {"type": "array", "items": {"type": "object", "required": ["id", "classification", "status"]}}
+  },
+  "$defs": {
+    "idArray": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {"id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"}}
+      }
+    }
+  }
+}

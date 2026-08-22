@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "svg_reconstruction_spec.schema.json",
+  "title": "Contract-driven semantic SVG reconstruction specification",
+  "type": "object",
+  "required": [
+    "truth_ref", "blueprint_ref", "selected_candidate_map_ref",
+    "native_object_inventory", "semantic_group_inventory", "exact_text",
+    "exact_equations", "ports", "connectors", "geometry_policy",
+    "style_tokens", "raster_asset_policy", "editability_requirements",
+    "validation_rule_ids"
+  ],
+  "properties": {
+    "truth_ref": {"type": "object"},
+    "blueprint_ref": {"type": "object"},
+    "selected_candidate_map_ref": {"type": "object"},
+    "native_object_inventory": {"type": "array"},
+    "semantic_group_inventory": {"type": "array"},
+    "exact_text": {"type": "array", "items": {"type": "string"}},
+    "exact_equations": {"type": "array", "items": {"type": "string"}},
+    "ports": {"type": "array"},
+    "connectors": {"type": "array"},
+    "depiction_policy": {"type": "object"},
+    "geometry_policy": {"type": "object"},
+    "style_tokens": {"type": "object"},
+    "raster_asset_policy": {"type": "object"},
+    "editability_requirements": {"type": "object"},
+    "validation_rule_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  }
+}

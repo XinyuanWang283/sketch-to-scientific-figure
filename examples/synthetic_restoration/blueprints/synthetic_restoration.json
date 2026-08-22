@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "synthetic_restoration",
+  "truth_ref": {
+    "path": "truth/scientific_truth.json",
+    "sha256": "1a0253352763fb151cf3c9d0f8b9a1f725dd9cbfd024743fe9d66f79d707d636"
+  },
+  "layout_fingerprint": {
+    "reading_axis": "left-to-right",
+    "region_graph": ["input", "process", "output"],
+    "dominant_region": "process",
+    "stage_arrangement": "three aligned regions",
+    "repetition_strategy": "none",
+    "audit_location": "caption",
+    "symmetry": "balanced around the model",
+    "connector_topology": "single directed path",
+    "occupied_area_distribution": [0.22, 0.36, 0.22]
+  },
+  "regions": [
+    {"id": "input", "label": "Input", "bbox": [0.04, 0.18, 0.22, 0.64]},
+    {"id": "process", "label": "Process", "bbox": [0.34, 0.12, 0.32, 0.76]},
+    {"id": "output", "label": "Output", "bbox": [0.74, 0.18, 0.22, 0.64]}
+  ],
+  "nodes": [
+    {
+      "id": "input_node",
+      "type": "measurement",
+      "bbox": [0.10, 0.36, 0.10, 0.24],
+      "instance_refs": ["measurement_y"],
+      "layout": "horizontal"
+    },
+    {
+      "id": "model_node",
+      "type": "model",
+      "bbox": [0.42, 0.35, 0.16, 0.26],
+      "instance_refs": ["model_f"],
+      "layout": "horizontal"
+    },
+    {
+      "id": "output_node",
+      "type": "estimate",
+      "bbox": [0.80, 0.36, 0.10, 0.24],
+      "instance_refs": ["estimate_x"],
+      "layout": "horizontal"
+    }
+  ],
+  "ports": [
+    {"id": "input_node.out", "node_id": "input_node", "name": "out", "position": "right"},
+    {"id": "model_node.in", "node_id": "model_node", "name": "in", "position": "left"},
+    {"id": "model_node.out", "node_id": "model_node", "name": "out", "position": "right"},
+    {"id": "output_node.in", "node_id": "output_node", "name": "in", "position": "left"}
+  ],
+  "edges": [
+    {
+      "id": "edge_measurement_model",
+      "source": "input_node.out",
+      "target": "model_node.in",
+      "relation_types": ["feeds"],
+      "routing": "horizontal",
+      "arrow": true
+    },
+    {
+      "id": "edge_model_estimate",
+      "source": "model_node.out",
+      "target": "output_node.in",
+      "relation_types": ["produces"],
+      "routing": "horizontal",
+      "arrow": true
+    }
+  ],
+  "required_visual_relations": ["measurement_feeds_model", "model_produces_estimate"],
+  "in_scope_rule_ids": [
+    "ARTIFACT_REQUIRED_FIELDS",
+    "ARTIFACT_SCHEMA_VALIDITY",
+    "ARTIFACT_SOURCE_HASHES",
+    "ARTIFACT_UNIQUE_IDS",
+    "ARTIFACT_REFERENCE_INTEGRITY",
+    "BLUEPRINT_TRUTH_COVERAGE",
+    "BLUEPRINT_FINGERPRINT_DIVERSITY"
+  ],
+  "allowed_flexibility": ["palette", "spacing within regions", "corner treatment", "stroke weight"],
+  "deliberate_omissions": ["performance values", "training details", "data examples", "comparison baselines"],
+  "complexity_budget": {
+    "hero_groups": 3,
+    "displayed_equations": 1,
+    "ordinary_prose_labels": 3,
+    "connector_count": 2
+  },
+  "visible_text_whitelist": ["Measurement", "Model", "Estimate"],
+  "connector_style": "orthogonal",
+  "art_direction": {
+    "composition": "one calm horizontal scientific path",
+    "shape_language": "simple native vector glyphs",
+    "color": "restrained blue-violet-green roles with grayscale contrast",
+    "whitespace": "wide gutters around the model",
+    "connectors": "quiet orthogonal arrows"
+  }
+}

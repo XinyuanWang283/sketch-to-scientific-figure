@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "selected_candidate_map.schema.json",
+  "title": "Selected PNG art-direction map",
+  "type": "object",
+  "required": [
+    "candidate_id", "image_hash", "major_region_bboxes", "palette_samples",
+    "stroke_character", "corner_language", "whitespace_rhythm",
+    "glyph_reference_crops", "art_direction_notes", "scientific_overrides"
+  ],
+  "properties": {
+    "candidate_id": {"type": "string"},
+    "image_hash": {"type": "string"},
+    "major_region_bboxes": {"type": "object"},
+    "palette_samples": {"type": "object"},
+    "stroke_character": {"type": "string"},
+    "corner_language": {"type": "string"},
+    "whitespace_rhythm": {"type": "array", "items": {"type": "number"}},
+    "glyph_reference_crops": {"type": "array"},
+    "art_direction_notes": {"type": "string"},
+    "scientific_overrides": {"type": "array", "items": {"type": "string"}}
+  }
+}

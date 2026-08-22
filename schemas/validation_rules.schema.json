@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "validation_rules.schema.json",
+  "title": "Executable figure validation rules",
+  "type": "object",
+  "required": ["schema_version", "rules"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "rule_id", "description", "severity", "applicable_stages",
+          "predicate_type", "predicate_parameters", "verification_method"
+        ],
+        "properties": {
+          "rule_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]*$"},
+          "description": {"type": "string"},
+          "severity": {"enum": ["blocker", "error", "warning", "info"]},
+          "applicable_stages": {"type": "array", "items": {"type": "string"}},
+          "predicate_type": {"type": "string"},
+          "predicate_parameters": {"type": "object"},
+          "verification_method": {"type": "string"},
+          "png_classification": {
+            "enum": ["image-level blocking", "acceptable raster imperfection", "must-fix in SVG", "caption-only"]
+          }
+        }
+      }
+    }
+  }
+}

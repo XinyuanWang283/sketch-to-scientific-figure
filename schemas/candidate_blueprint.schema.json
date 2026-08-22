@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "candidate_blueprint.schema.json",
+  "title": "Candidate topology blueprint",
+  "type": "object",
+  "required": [
+    "schema_version", "candidate_id", "truth_ref", "layout_fingerprint",
+    "regions", "nodes", "ports", "edges", "required_visual_relations",
+    "in_scope_rule_ids", "allowed_flexibility", "deliberate_omissions",
+    "complexity_budget"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "candidate_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$"},
+    "truth_ref": {"$ref": "#/$defs/fileRef"},
+    "layout_fingerprint": {
+      "type": "object",
+      "required": [
+        "reading_axis", "region_graph", "dominant_region", "stage_arrangement",
+        "repetition_strategy", "audit_location", "symmetry",
+        "connector_topology", "occupied_area_distribution"
+      ]
+    },
+    "regions": {"type": "array", "items": {"$ref": "#/$defs/boxObject"}},
+    "nodes": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {"$ref": "#/$defs/boxObject"},
+          {"type": "object", "required": ["type", "instance_refs", "layout"]}
+        ]
+      }
+    },
+    "ports": {
+      "type": "array",
+      "items": {"type": "object", "required": ["id", "node_id", "name", "position"]}
+    },
+    "edges": {
+      "type": "array",
+      "items": {"type": "object", "required": ["id", "source", "target", "relation_types", "routing", "arrow"]}
+    },
+    "required_visual_relations": {"type": "array", "items": {"type": "string"}},
+    "depiction_policy": {
+      "type": "object",
+      "required": [
+        "relation_id", "depiction_mode", "semantic_scope", "visible_scope",
+        "visible_instances", "semantic_multiplicity", "required_visual_sequence",
+        "exact_instance_count_required_in_png", "exact_instance_count_required_in_svg",
+        "caption_support"
+      ],
+      "properties": {
+        "relation_id": {"type": "string"},
+        "depiction_mode": {
+          "enum": ["literal_instances", "representative_template", "multiplicity_badge"]
+        },
+        "semantic_scope": {"type": "string"},
+        "visible_scope": {"type": "string"},
+        "visible_instances": {"type": ["integer", "object"], "minimum": 1},
+        "semantic_multiplicity": {"type": ["string", "object"]},
+        "required_visual_sequence": {"type": "array", "minItems": 5, "items": {"type": "string"}},
+        "exact_instance_count_required_in_png": {"type": "boolean"},
+        "exact_instance_count_required_in_svg": {"type": "boolean"},
+        "caption_support": {"type": "string"}
+      }
+    },
+    "in_scope_rule_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "allowed_flexibility": {"type": "array"},
+    "deliberate_omissions": {"type": "array"},
+    "complexity_budget": {"type": "object"}
+  },
+  "$defs": {
+    "fileRef": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {"path": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+    },
+    "boxObject": {
+      "type": "object",
+      "required": ["id", "bbox"],
+      "properties": {
+        "id": {"type": "string"},
+        "bbox": {
+          "type": "array", "minItems": 4, "maxItems": 4,
+          "items": {"type": "number", "minimum": 0, "maximum": 1}
+        }
+      }
+    }
+  }
+}
