@@ -9,7 +9,7 @@ Do not make the repository public until every P0 item is resolved.
 - [x] Confirm that the author name and citation metadata in `CITATION.cff` are correct.
 - [x] Run the core unit tests from a clean environment.
 - [x] Run the personal-path, credential, cache, and broken-link scans recorded in the preparation report.
-- [ ] Review the repository while the GitHub visibility remains **Private**.
+- [x] Review the pushed repository while the GitHub visibility remains **Private**.
 
 ## P1 — strongly recommended
 
@@ -21,7 +21,7 @@ Do not make the repository public until every P0 item is resolved.
 
 ## First-push boundary
 
-The local preparation process does not initialize, commit, or push this directory. After the P0 review, copy or move the approved contents into the intended Git worktree, inspect `git status`, commit, and push explicitly. Keep the remote private until the pushed tree has been reviewed on GitHub.
+The verified public-ready tree has been pushed to the private `main` branch. Before changing visibility to Public, confirm the latest Actions run is green, inspect the rendered README and safe example on GitHub, and make the visibility change as a separate explicit action.
 
 ## Science Day evidence
 
