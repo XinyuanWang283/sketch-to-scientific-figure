@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import re
+import subprocess
 import unittest
 from pathlib import Path
 from urllib.parse import unquote
@@ -57,11 +58,18 @@ class PublicRepositoryTests(unittest.TestCase):
                     path_problems.append("%s contains %s" % (path.relative_to(REPOSITORY_ROOT), prefix))
         self.assertEqual(path_problems, [])
 
+        tracked_result = subprocess.run(
+            ["git", "ls-files", "-z"],
+            cwd=REPOSITORY_ROOT,
+            capture_output=True,
+            check=True,
+        )
+        tracked = [Path(value.decode("utf-8")) for value in tracked_result.stdout.split(b"\0") if value]
         forbidden_names = {".DS_Store", ".pytest_cache", "__pycache__"}
         artifacts = [
-            str(path.relative_to(REPOSITORY_ROOT))
-            for path in REPOSITORY_ROOT.rglob("*")
-            if path.name in forbidden_names or path.suffix == ".pyc"
+            str(path)
+            for path in tracked
+            if forbidden_names.intersection(path.parts) or path.suffix == ".pyc"
         ]
         self.assertEqual(artifacts, [])
 
