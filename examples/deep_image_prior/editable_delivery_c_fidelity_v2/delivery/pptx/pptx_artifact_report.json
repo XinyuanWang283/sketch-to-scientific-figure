@@ -1,0 +1,248 @@
+{
+  "schema_version": "1.1",
+  "status": "AUTHORED_PENDING_RENDER_AND_HUMAN_REVIEW",
+  "canonical_source": "source/semantic_figure.json",
+  "canonical_source_sha256": "76660213496168cdbfdd8452c99989198b2f477e57a8594fac306b3a01b7a7ff",
+  "canvas": {
+    "width": 1672,
+    "height": 941,
+    "background": "#FFFFFF"
+  },
+  "slide_count": 1,
+  "object_counts": {
+    "native_connector_shafts": 7,
+    "native_arrowheads": 7,
+    "native_frame_fills": 8,
+    "native_frame_outlines": 8,
+    "native_region_shapes": 51,
+    "native_labels": 1,
+    "native_gradient_fills": 14,
+    "native_alpha_fills": 22,
+    "equation_svg_objects": 9,
+    "independent_raster_atoms": 2,
+    "whole_slide_rasters": 0
+  },
+  "raster_atoms": [
+    {
+      "id": "noise-raster-atom",
+      "source": "raster_atoms/noise-content.png",
+      "sha256": "2b9e18b06a576b43ebd3135a5732293f8a98d8bb10b217799e86b4016a5d71c2",
+      "position": {
+        "left": 44,
+        "top": 219,
+        "width": 222,
+        "height": 222
+      },
+      "replaceable": true,
+      "pixel_editable": false,
+      "scientific_status": "synthetic_visual_only"
+    },
+    {
+      "id": "reconstruction-raster-atom",
+      "source": "raster_atoms/reconstruction-content.png",
+      "sha256": "cedf344e8719184d921bb22a2f99dc57a70f38a71aa05c5f0c3e37d199d5d225",
+      "position": {
+        "left": 834,
+        "top": 224,
+        "width": 222,
+        "height": 227
+      },
+      "replaceable": true,
+      "pixel_editable": false,
+      "scientific_status": "synthetic_visual_only"
+    }
+  ],
+  "equation_modules": [
+    {
+      "id": "eq-z",
+      "equation_id": "eq_z",
+      "source": "source/math/eq_z.svg",
+      "sha256": "65ba259590ef2cf6d74644eaf900ee223674703966c13ec31b037afc5e8e7f96",
+      "latex_source": "z",
+      "intrinsic_viewbox": [
+        0,
+        0,
+        5.499377,
+        5.391781
+      ],
+      "target_position": {
+        "left": 135.051,
+        "top": 145,
+        "width": 45.898,
+        "height": 45
+      }
+    },
+    {
+      "id": "eq-generator",
+      "equation_id": "eq_generator",
+      "source": "source/math/eq_generator.svg",
+      "sha256": "98e01b26270659b293c19a57ff964be2f3ea6979caca69bf948a2f12b297f2b1",
+      "latex_source": "G_{\\theta}",
+      "intrinsic_viewbox": [
+        0,
+        0,
+        13.051307,
+        10.289403
+      ],
+      "target_position": {
+        "left": 536.0947,
+        "top": 211,
+        "width": 55.8106,
+        "height": 44
+      }
+    },
+    {
+      "id": "eq-xhat",
+      "equation_id": "eq_xhat",
+      "source": "source/math/eq_xhat.svg",
+      "sha256": "ce2ae646c9ecb4d043fed17d01eb52a78d1f751801dba5659857568e4bfdcc5b",
+      "latex_source": "\\hat{x}",
+      "intrinsic_viewbox": [
+        0,
+        0,
+        6.144956,
+        8.416438
+      ],
+      "target_position": {
+        "left": 925.2869,
+        "top": 145,
+        "width": 39.4261,
+        "height": 54
+      }
+    },
+    {
+      "id": "eq-operator",
+      "equation_id": "eq_operator",
+      "source": "source/math/eq_operator.svg",
+      "sha256": "4aa7aabeb8d3112d568a6d71539042133b5ed49c415addf970e61f512e88e122",
+      "latex_source": "A",
+      "intrinsic_viewbox": [
+        0,
+        0,
+        8.440349,
+        8.53599
+      ],
+      "target_position": {
+        "left": 1167.3249,
+        "top": 298,
+        "width": 57.3501,
+        "height": 58
+      }
+    },
+    {
+      "id": "eq-yhat",
+      "equation_id": "eq_yhat",
+      "source": "source/math/eq_yhat.svg",
+      "sha256": "3e0e037a92d688b2f82e20787b0f0fc3cb42961ecb3c3ebc717c9e813672fbfc",
+      "latex_source": "\\hat{y}",
+      "intrinsic_viewbox": [
+        0,
+        0,
+        5.71457,
+        10.735741
+      ],
+      "target_position": {
+        "left": 1473.3619,
+        "top": 116,
+        "width": 29.2762,
+        "height": 55
+      }
+    },
+    {
+      "id": "eq-y",
+      "equation_id": "eq_y",
+      "source": "source/math/eq_y.svg",
+      "sha256": "bc57930fef1ec2062eb22a62e20a36d1a7ee34ce170e6b9cbb828745be2ffccd",
+      "latex_source": "y",
+      "intrinsic_viewbox": [
+        0,
+        0,
+        5.71457,
+        7.711083
+      ],
+      "target_position": {
+        "left": 1471.214,
+        "top": 652,
+        "width": 35.5721,
+        "height": 48
+      }
+    },
+    {
+      "id": "eq-loss",
+      "equation_id": "eq_loss",
+      "source": "source/math/eq_loss.svg",
+      "sha256": "cd707e1d3e6e7df81af45b7880699b5cc76d8509f7b22a222f0f3b55d8231b1a",
+      "latex_source": "\\lVert\\cdot\\rVert_{2}^{2}",
+      "intrinsic_viewbox": [
+        0,
+        0,
+        19.077847,
+        13.225103
+      ],
+      "target_position": {
+        "left": 1457.7065,
+        "top": 394,
+        "width": 60.587,
+        "height": 42
+      }
+    },
+    {
+      "id": "eq-objective",
+      "equation_id": "eq_objective",
+      "source": "source/math/eq_objective.svg",
+      "sha256": "ba6db6517d348b07793249f091f536121cef8400ba9caf7fa76fb045fd9a856a",
+      "latex_source": "\\theta^{\\ast}\\;=\\;\\operatorname*{arg\\,min}_{\\theta}\\left\\lVert A\\,G_{\\theta}(z)-y\\right\\rVert_{2}^{2}",
+      "intrinsic_viewbox": [
+        0,
+        0,
+        149.082457,
+        21.043286
+      ],
+      "target_position": {
+        "left": 326,
+        "top": 770.3373,
+        "width": 647,
+        "height": 91.3253
+      }
+    },
+    {
+      "id": "eq-reconstruction",
+      "equation_id": "eq_reconstruction",
+      "source": "source/math/eq_reconstruction.svg",
+      "sha256": "b234df9adcd554654079fa89847c9c7e6663f101e9aaa1e456f5da85c65d79e5",
+      "latex_source": "\\hat{x}\\;=\\;G_{\\theta^{\\ast}}(z)",
+      "intrinsic_viewbox": [
+        0,
+        0,
+        61.16896,
+        11.967123
+      ],
+      "target_position": {
+        "left": 1067,
+        "top": 785.4471,
+        "width": 251,
+        "height": 49.1058
+      }
+    }
+  ],
+  "constraints": {
+    "selected_candidate_map_present": true,
+    "whole_candidate_pixels_embedded": false,
+    "approved_raster_atom_count": 2,
+    "native_region_shape_minimum": 40,
+    "native_region_shape_minimum_met": true,
+    "native_connectors_and_explicit_arrowheads": true,
+    "native_gradient_and_alpha_styling_supported": true,
+    "equation_aspect_ratio_preserved": true,
+    "automated_scientific_approval": false,
+    "final_scientific_approval": null
+  },
+  "outputs": {
+    "pptx": "figure.pptx",
+    "preview": "slide-01.png",
+    "layout": "slide-01.layout.json",
+    "inspection": "artifact_tool_inspect.ndjson",
+    "report": "pptx_artifact_report.json"
+  },
+  "verification_boundary": "The exporter checks object structure, approved atom provenance, equation vector form, and declared editability constraints. Independent render comparison and researcher judgment remain required; this report does not validate scientific correctness."
+}

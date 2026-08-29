@@ -8,7 +8,7 @@ authors:
     given-names: Xinyuan
 repository-code: "https://github.com/XinyuanWang283/sketch-to-scientific-figure"
 url: "https://github.com/XinyuanWang283/sketch-to-scientific-figure"
-abstract: "A researcher-controlled workflow for turning hand-drawn method sketches and authoritative scientific text into validated, editable scientific figures."
+abstract: "A researcher-controlled Codex workflow that clarifies a hand-drawn scientific sketch, makes five separate ImageGen proposal calls, and reconstructs an explicitly selected direction as editable SVG and PowerPoint artifacts plus an experimental structural draw.io view, with programmable checks and separate human decisions."
 keywords:
   - scientific figures
   - scientific visualization

@@ -1,0 +1,11 @@
+{
+  "status": "VERIFIED_FIDELITY_V2_STRUCTURAL_EDITING_VIEW",
+  "path": "delivery/drawio/figure.drawio",
+  "sha256": "52de421b7726842d69ee1a4b20e0e8df30307f0ecf2ee52199df232379f8b01e",
+  "directed_topology_edge_count": 7,
+  "generator_layer_cell_count": 11,
+  "synthetic_plot_curve_cell_count": 2,
+  "replaceable_raster_atom_count": 2,
+  "visual_equivalence_claimed": false,
+  "scientific_validation": false
+}

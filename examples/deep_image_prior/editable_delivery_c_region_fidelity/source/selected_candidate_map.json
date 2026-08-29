@@ -1,0 +1,328 @@
+{
+  "schema_version": "1.1",
+  "candidate_id": "C-presentation",
+  "image_hash": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c",
+  "bbox_format": "xywh_source_pixels",
+  "major_region_bboxes": {
+    "noise_input": [
+      38,
+      210,
+      232,
+      238
+    ],
+    "generator_network": [
+      362,
+      185,
+      396,
+      309
+    ],
+    "reconstruction_landscape": [
+      824,
+      214,
+      241,
+      246
+    ],
+    "forward_operator": [
+      1132,
+      274,
+      128,
+      124
+    ],
+    "measurement_comparison": [
+      1328,
+      94,
+      318,
+      636
+    ],
+    "feedback_loop": [
+      555,
+      452,
+      785,
+      274
+    ],
+    "optimization_objective": [
+      320,
+      752,
+      710,
+      106
+    ],
+    "reconstruction_equation": [
+      1062,
+      758,
+      305,
+      94
+    ]
+  },
+  "palette_samples": {
+    "primary_navy": "#0D2F6E",
+    "optimization_purple": "#5A258C",
+    "reconstruction_teal": "#0B6262",
+    "operator_orange": "#C57300",
+    "comparison_panel": "#EDF4FC",
+    "background": "#FFFFFF"
+  },
+  "stroke_character": "Clean 3-4 px scientific outlines, restrained dashed feedback, small filled arrowheads.",
+  "corner_language": "Moderately rounded frames; circular loss node; squared internal network facets.",
+  "whitespace_rhythm": [
+    40,
+    88,
+    76,
+    70,
+    78,
+    80
+  ],
+  "glyph_reference_crops": [
+    {
+      "id": "noise_input",
+      "bbox": [
+        38,
+        210,
+        232,
+        238
+      ],
+      "path": "reference_regions/noise_input.png",
+      "use": "reference_only_not_embedded"
+    },
+    {
+      "id": "generator_network",
+      "bbox": [
+        362,
+        185,
+        396,
+        309
+      ],
+      "path": "reference_regions/generator_network.png",
+      "use": "reference_only_not_embedded"
+    },
+    {
+      "id": "reconstruction_landscape",
+      "bbox": [
+        824,
+        214,
+        241,
+        246
+      ],
+      "path": "reference_regions/reconstruction_landscape.png",
+      "use": "reference_only_not_embedded"
+    },
+    {
+      "id": "forward_operator",
+      "bbox": [
+        1132,
+        274,
+        128,
+        124
+      ],
+      "path": "reference_regions/forward_operator.png",
+      "use": "reference_only_not_embedded"
+    },
+    {
+      "id": "measurement_comparison",
+      "bbox": [
+        1328,
+        94,
+        318,
+        636
+      ],
+      "path": "reference_regions/measurement_comparison.png",
+      "use": "reference_only_not_embedded"
+    },
+    {
+      "id": "feedback_loop",
+      "bbox": [
+        555,
+        452,
+        785,
+        274
+      ],
+      "path": "reference_regions/feedback_loop.png",
+      "use": "reference_only_not_embedded"
+    },
+    {
+      "id": "optimization_objective",
+      "bbox": [
+        320,
+        752,
+        710,
+        106
+      ],
+      "path": "reference_regions/optimization_objective.png",
+      "use": "reference_only_not_embedded"
+    },
+    {
+      "id": "reconstruction_equation",
+      "bbox": [
+        1062,
+        758,
+        305,
+        94
+      ],
+      "path": "reference_regions/reconstruction_equation.png",
+      "use": "reference_only_not_embedded"
+    }
+  ],
+  "art_direction_notes": "Preserve Candidate C's source-pixel region anchors, semantic colors, compact 11-layer generator, straight operator-to-measurement flow, measurement panel, and feedback path. Use only the two approved exact-pixel raster atoms; every other delivered object is native.",
+  "scientific_overrides": [
+    "All generated text and formulas are non-authoritative; use the typed LaTeX source.",
+    "All connectors and arrow directions come from the approved scientific topology.",
+    "The landscape is a synthetic visual glyph, not scientific evidence or measured data.",
+    "Automated checks do not constitute final scientific approval."
+  ],
+  "region_output_ids": {
+    "noise_input": [
+      "noise-frame",
+      "noise-raster-atom"
+    ],
+    "generator_network": [
+      "generator-frame",
+      "generator-network"
+    ],
+    "reconstruction_landscape": [
+      "reconstruction-frame",
+      "reconstruction-raster-atom"
+    ],
+    "forward_operator": [
+      "operator-frame",
+      "eq-operator"
+    ],
+    "measurement_comparison": [
+      "measurement-panel",
+      "predicted-frame",
+      "predicted-plot",
+      "loss-node",
+      "observed-frame",
+      "observed-plot"
+    ],
+    "feedback_loop": [
+      "feedback-optimize-generator",
+      "feedback-caption"
+    ],
+    "optimization_objective": [
+      "eq-objective"
+    ],
+    "reconstruction_equation": [
+      "eq-reconstruction"
+    ]
+  },
+  "reference_policy": {
+    "whole_candidate_pixels_in_delivery": false,
+    "approved_replaceable_raster_atom_count": 2,
+    "reference_crops_are_final_assets": false,
+    "selected_map_is_approval_gate": false,
+    "reference_only_not_embedded": true
+  },
+  "region_overlay": {
+    "path": "region_overlay.png",
+    "use": "reference_only_not_embedded"
+  },
+  "region_conversions": {
+    "noise_input": {
+      "conversion_mode": "exact_replaceable_raster_atom",
+      "native_output_ids": [
+        "noise-frame",
+        "noise-raster-atom"
+      ],
+      "source_bbox": [
+        38,
+        210,
+        232,
+        238
+      ],
+      "raster_atom_id": "noise-raster-atom"
+    },
+    "generator_network": {
+      "conversion_mode": "native_editable_vector",
+      "native_output_ids": [
+        "generator-frame",
+        "generator-network"
+      ],
+      "source_bbox": [
+        362,
+        185,
+        396,
+        309
+      ]
+    },
+    "reconstruction_landscape": {
+      "conversion_mode": "exact_replaceable_raster_atom",
+      "native_output_ids": [
+        "reconstruction-frame",
+        "reconstruction-raster-atom"
+      ],
+      "source_bbox": [
+        824,
+        214,
+        241,
+        246
+      ],
+      "raster_atom_id": "reconstruction-raster-atom"
+    },
+    "forward_operator": {
+      "conversion_mode": "native_editable_vector_and_equation",
+      "native_output_ids": [
+        "operator-frame",
+        "eq-operator"
+      ],
+      "source_bbox": [
+        1132,
+        274,
+        128,
+        124
+      ]
+    },
+    "measurement_comparison": {
+      "conversion_mode": "native_editable_vector",
+      "native_output_ids": [
+        "measurement-panel",
+        "predicted-frame",
+        "predicted-plot",
+        "loss-node",
+        "observed-frame",
+        "observed-plot"
+      ],
+      "source_bbox": [
+        1328,
+        94,
+        318,
+        636
+      ]
+    },
+    "feedback_loop": {
+      "conversion_mode": "native_editable_vector",
+      "native_output_ids": [
+        "feedback-optimize-generator",
+        "feedback-caption"
+      ],
+      "source_bbox": [
+        555,
+        452,
+        785,
+        274
+      ]
+    },
+    "optimization_objective": {
+      "conversion_mode": "intrinsic_aspect_vector_latex",
+      "native_output_ids": [
+        "eq-objective"
+      ],
+      "source_bbox": [
+        320,
+        752,
+        710,
+        106
+      ]
+    },
+    "reconstruction_equation": {
+      "conversion_mode": "intrinsic_aspect_vector_latex",
+      "native_output_ids": [
+        "eq-reconstruction"
+      ],
+      "source_bbox": [
+        1062,
+        758,
+        305,
+        94
+      ]
+    }
+  }
+}

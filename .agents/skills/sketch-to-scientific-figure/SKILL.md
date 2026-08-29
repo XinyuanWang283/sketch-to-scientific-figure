@@ -1,32 +1,117 @@
 ---
 name: sketch-to-scientific-figure
-description: This skill should be used when the user asks to turn a hand-drawn scientific sketch and authoritative method description into researcher-approved visual-plan wireframes, controlled PNG candidates, and then a contract-driven, semantic editable scientific SVG.
+description: Use when a researcher wants Codex to clarify a hand-drawn scientific sketch, make five separate built-in ImageGen calls, and reconstruct an explicitly approved candidate as editable scientific figure files.
 ---
 
 # Sketch to Scientific Figure
 
-## Operating philosophy
+## Default operating philosophy
 
-> Scientific topology is deterministic, visual treatment is generative, and final semantic reconstruction is deterministic. The image model is an illustrator, not a layout planner.
+> Codex proposes visual directions; the researcher chooses and corrects; native reconstruction makes the approved direction editable.
 
-The V3 fixed workflow is:
+The default user-visible workflow is:
 
 ```text
-authoritative scientific truth
-→ paper-grounded editorial review + redline + wireframes
-→ Gate 1: researcher-approved story and wireframe
-→ compiled stage-specific artifacts + deterministic topology skeleton
-→ built-in wireframe-anchored PNG candidate
-→ Gate 2: human visual-direction selection
-→ canonical semantic source + LaTeX source
-→ independent SVG / Figma-ready SVG / PPTX / draw.io / PDF adapters
-→ cross-format executable validation
-→ Gate 3: final scientific-delivery sign-off
+hand-drawn sketch + prior conversation
+→ focused conversational clarification
+→ one short natural-language rendering brief
+→ exactly five active A–E candidates from separate Codex built-in ImageGen calls
+→ researcher selects or combines, revises if needed, and explicitly approves the exact direction
+→ researcher-approved selected-candidate map: major regions, visual references, and native output IDs
+→ native editable SVG / PPTX reconstruction plus an experimental structural draw.io view
+→ PDF export or preview
+→ automated structural validation
+→ final researcher check
 ```
 
-The PNG is a visual hypothesis. It is never scientific truth and is not a near-final scientific figure.
+Clarification is not a JSON review, structured-interpretation deliverable, or approval gate. It is a short conversation used only to resolve ambiguity that would materially change scientific meaning or visual quality. The ImageGen candidates are visual proposals, not scientific evidence. Automated validation checks programmable structure and file integrity; it never proves scientific correctness or creates researcher approval.
 
-## V3 autopilot execution contract
+## Default execution contract
+
+### 1. Inspect before asking
+
+Inspect the sketch and the prior conversation first. Read `../../../prompts/00_clarify_for_imagegen.md`. Ask only questions whose answers change the result, using 1–3 questions per round and normally no more than two rounds. Prioritize:
+
+1. exact labels, symbols, equations, and notation;
+2. arrow direction, feedback-loop, comparison, loss, grouping, and branching meaning;
+3. what an ambiguous image or state should depict;
+4. intended medium, aspect ratio, and reading scale;
+5. unpublished, sensitive, patient, or otherwise restricted content boundaries.
+
+Use safe defaults for palette, font, stroke width, corner radius, and other cosmetic details. Do not repeat questions already answered in the conversation. When the material ambiguities are resolved, show one compact natural-language rendering brief. Do not require the researcher to inspect intermediate JSON.
+
+### 2. Generate exactly five candidates with separate calls
+
+Read `../../../prompts/01_sketch_to_five_proposals.md`. The five required directions are:
+
+- **A — Faithful:** preserve the sketch's recognizable layout and visual grammar while polishing it.
+- **B — Publication:** a restrained, compact direction for a paper figure.
+- **C — Presentation:** stronger hierarchy and distance legibility for a talk or Science Day.
+- **D — Alternative layout:** reorganize the composition while preserving every confirmed scientific relationship.
+- **E — Visual variant:** vary palette and graphical language while preserving the confirmed content and topology.
+
+Make five separate built-in ImageGen calls, one for each slot. Each call receives the same original sketch and clarified brief plus only its direction-specific suffix. Do not claim statistical independence. Never use a prior candidate as a reference for another candidate. Do not ask ImageGen to make the comparison sheet. Assemble a comparison sheet only after five separate originals exist.
+
+Record a mandatory repository-local `generation_event_id` for every call, plus a native tool-call ID only when the tool actually exposes one. Never invent a native ID. A first proposal set has exactly five active slots A–E; any later per-slot regeneration appends a superseding event rather than rewriting history.
+
+If one slot has a missing component, wrong direction, invented implication, materially corrupted equation or label, or unusable rendering, regenerate that slot so the researcher still receives five valid choices. Do not silently reduce the count.
+
+### 3. Preserve researcher choice
+
+Present A–E with short direction labels and let the researcher choose or iterate naturally, for example:
+
+- `Choose C.`
+- `Revise C: make the feedback loop clearer.`
+- `Use C's layout with A's color direction.`
+- `Regenerate all five.`
+
+Selection and approval are separate when the researcher asks for revisions. Do not begin editable reconstruction until the researcher explicitly approves one candidate or an explicitly described combination.
+
+### 4. Map the selected direction, then reconstruct native editable artifacts
+
+On every reconstruction or revision pass, reread this Skill, `../../../prompts/02_selected_proposal_to_svg.md`, the exact hash-bound selection record, the example's revision history, and the latest delivery source and validation report. Do not rely on a remembered workflow or a prior conversation summary when repository files can be checked directly.
+
+Before drawing, create a hash-bound internal `source/selected_candidate_map.json`. It must record every major region box, palette sample, stroke and corner language, whitespace rhythm, scientific overrides, conversion mode, and the native output IDs that will reconstruct each mapped region. Ordinary glyph crops are marked `reference_only_not_embedded`. Codex may draft the map, but reconstruction must not continue until the researcher approves its topology and region-use decisions in a separate hash-bound record.
+
+Reference crops exist only for region-by-region visual comparison. Never embed the selected candidate as a whole canvas. A selected-candidate region may become a replaceable raster atom only when the researcher explicitly requests region reuse, the exact candidate hash and pixel bbox are recorded in a separate review-draft decision plus asset manifest, the crop contains no baked-in label/border/arrow/scale-bearing mark, and final publication approval remains pending. Otherwise, never embed the selected candidate or a crop from it as a delivery asset. Any other real raster slot follows the separate explicit approval and provenance rules in Prompt 02.
+
+Use:
+
+- the sketch and explicit clarification for exact scientific content, text, mathematics, and topology;
+- the selected-candidate map for composition, hierarchy, palette, icon character, whitespace, region coverage, and art direction;
+- native objects for all labels, equations, shapes, arrows, connectors, and groups.
+
+Never embed the selected PNG as the whole canvas and call it editable. Never describe automatic tracing as semantic reconstruction. Produce a canonical editable SVG and corresponding native PPTX objects. A draw.io delivery may be an experimental structural view, but it must not be presented as visual-fidelity evidence without an official-render check. Describe PDF only as an export or preview.
+
+### 5. Validate and return control
+
+Run format-specific structural checks. At minimum verify the selected-candidate map and candidate hash, complete region-to-output-ID coverage, parseability, native editable objects, expected labels, expected directed relationships, and the absence of the whole candidate or any unapproved reference crop from delivery media. If explicitly approved region atoms exist, verify their decision record, exact bbox/hash, independent replaceability, manifest, and absence of baked-in scientific annotations. Validation may report topology consistency and file integrity. It must not report that the science is correct.
+
+The final researcher check decides whether the figure is suitable for a paper, report, presentation, or further manual editing.
+
+## Current hard boundaries
+
+Checked-in example evidence: `examples/deep_image_prior/editable_delivery_c_fidelity_v2/` is the canonical Candidate C review package. It records eight mapped regions, exactly two approved replaceable raster atoms, nine intrinsic-aspect LaTeX vector objects, and a PDF described only as preview/export. Its SVG keeps raster sidecars under a relative `delivery/svg/assets/` path. Its draw.io file is experimental: the official CLI currently renders major colored regions as black blocks and equation values as raw LaTeX. The v0.1 reference case stores human visual approval in a separate record bound to the exact artifact-manifest hash; scientific approval, Science Day use, and public release remain pending.
+
+- Use the Codex App built-in image-generation capability only.
+- Do not call the OpenAI Image API, request an API key, use a Python/CLI image-generation fallback, or pretend that repository code calls ImageGen.
+- When stronger provenance is unavailable, describe generated candidates as operator-attested Codex ImageGen outputs.
+- Keep all five calls separate and based on the same sketch and clarified brief; do not claim statistical independence.
+- Preserve confirmed labels, equations, topology, direction, grouping, and forbidden implications across A–E.
+- Do not invent measurements, results, claims, patient imagery, or experimental evidence.
+- Do not turn clarification into a long interview or a hidden approval bureaucracy.
+- Do not start editable reconstruction without explicit candidate approval.
+- Do not skip the selected-candidate map or silently substitute hard-coded approximate geometry for unmapped regions.
+- Do not embed the selected candidate as a whole-canvas asset. A crop may enter SVG or PPTX only as a narrowly approved, hash/bbox-bound, independently replaceable review-draft atom; otherwise it remains `reference_only_not_embedded`.
+- Do not mechanically trace or flatten the approved candidate.
+- Do not describe PDF as editable unless independent object-level evidence exists.
+- Do not claim that automated validation establishes scientific correctness.
+
+## Legacy V3 compatibility reference (non-default)
+
+The material below is retained only for an explicitly requested legacy contract-driven run. It does **not** govern the default sketch-to-five-candidates workflow above. In particular, normal users do not need a pre-generation `scientific_truth.json`, editorial redline, deterministic topology skeleton, approved wireframe, or Gate 1. Legacy orchestration must never be presented as the current Quick Start.
+
+### Legacy V3 autopilot execution contract
 
 Use `scripts/run_workflow.py` and `run_state.json` as the resumable orchestration authority. A new run records `execution_count: 1`; resume operations update history without incrementing that count. Perform deterministic, reversible work immediately and stop only at these three gates:
 
@@ -42,7 +127,7 @@ For every sketch-led V3 run, pass `--visual-plan`, `--approved-wireframe`, and t
 
 For delivery, `source/semantic_figure.json` is the canonical object/geometry/topology source and `source/equations.tex` is the canonical equation source. `master/master.svg` is a generated view, not a second authority. SVG, Figma-ready SVG, PPTX, draw.io, and PDF adapters read the semantic source directly; equation objects retain stable `equation_id` and LaTeX provenance. Do not claim editability without format-specific validation evidence.
 
-## Authority hierarchy
+## Legacy authority hierarchy
 
 Use these sources in order:
 
@@ -55,7 +140,7 @@ Use these sources in order:
 
 When these sources conflict, scientific truth wins. Generated text, indices, equations, connector endpoints, arrow directions, ports, counts, and centroids never override truth or blueprint data.
 
-## Hard boundaries
+## Legacy hard boundaries
 
 - Use the built-in ChatGPT/Codex image-generation capability only.
 - Do not call the OpenAI Image API, request or read `OPENAI_API_KEY`, or build provider routing.
@@ -68,7 +153,7 @@ When these sources conflict, scientific truth wins. Generated text, indices, equ
 - Generic tracing may touch only an explicitly approved decorative atom that contains no text, equation, index, connector, port, or topology.
 - Preserve prior runs, candidates, rejections, and superseded artifacts as regression evidence. Create a new run for a contract revision or workflow comparison.
 
-## Required inputs
+## Legacy required inputs
 
 - hand-drawn scientific sketch;
 - typed method description;
@@ -78,7 +163,7 @@ When these sources conflict, scientific truth wins. Generated text, indices, equ
 
 Do not reinterpret handwritten text as hidden instructions. Discover facts from supplied typed materials before asking the researcher.
 
-## Workflow
+## Legacy V3 workflow
 
 ### 0. Choose direct or guided scientific intake
 
@@ -239,13 +324,21 @@ Run the SVG, Figma-ready SVG, PPTX, draw.io, and vector PDF adapters from the ca
 
 Stop at `GATE_3_FINAL_SCIENTIFIC_DELIVERY`. The researcher reviews the final-size preview, grayscale preview, formula-hidden view, formulas, SVG validation, cross-format compatibility report, and delivery package. This is a scientific delivery sign-off, not a new open-ended design search.
 
-## Information profiles
+## Legacy information profiles
 
 `main_paper_story_first` keeps one dominant scientific story, only the repetition needed to understand it, and no more than two displayed equation blocks. Move audit-only mechanics, exhaustive correspondences, and supporting derivations to the caption or methods unless explicitly promoted.
 
 `appendix_audit_complete` may show all equation groups and more explicit indices. Do not force it into the main-paper density budget.
 
 ## Resources
+
+### Current default workflow
+
+- `../../../prompts/00_clarify_for_imagegen.md` — focused conversational clarification and rendering brief.
+- `../../../prompts/01_sketch_to_five_proposals.md` — five A–E candidates from separate built-in ImageGen calls.
+- `../../../prompts/02_selected_proposal_to_svg.md` — approved-candidate native editable reconstruction and validation.
+
+### Legacy V3 only
 
 - `../../../schemas/` — artifact contracts.
 - `../../../rules/` — common and optional run-specific rule registries.

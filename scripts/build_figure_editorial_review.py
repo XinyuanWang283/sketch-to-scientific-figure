@@ -75,6 +75,10 @@ def validate_visual_plan_binding(
             raise FileNotFoundError(path)
     visual_plan = load_json(visual_plan_path)
     require_valid(visual_plan, "visual_plan.schema.json")
+    if visual_plan.get("status") != "approved":
+        raise ValueError(
+            "visual plan status must be 'approved' before Gate 1 or image generation"
+        )
     if not visual_plan["approval_gate"].get("image_generation_authorized"):
         raise ValueError("visual plan has not been approved for image generation")
     svg_text = approved_wireframe_path.read_text(encoding="utf-8")
@@ -97,6 +101,7 @@ def validate_visual_plan_binding(
         raise ValueError("approved wireframe PNG hash does not match visual plan approval")
     return {
         "visual_mode": visual_plan["visual_mode"],
+        "visual_plan_status": visual_plan["status"],
         "visual_plan_sha256": sha256_file(visual_plan_path),
         "approved_wireframe_svg_sha256": sha256_file(approved_wireframe_path),
         "approved_wireframe_png_sha256": actual_preview_hash,

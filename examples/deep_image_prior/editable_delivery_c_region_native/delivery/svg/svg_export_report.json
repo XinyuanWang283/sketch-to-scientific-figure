@@ -1,0 +1,9 @@
+{
+  "status": "VERIFIED_NATIVE_VECTOR",
+  "path": "delivery/svg/master.svg",
+  "sha256": "1dc8cacb56047873b1dfd9c27f5ce62f84073bbe390d635c2c4ac17eee936bad",
+  "embedded_image_count": 0,
+  "explicit_arrowhead_count": 7,
+  "equation_count": 9,
+  "scientific_validation": false
+}

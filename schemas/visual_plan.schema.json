@@ -14,7 +14,7 @@
       "type": "string",
       "enum": ["faithful_redraw", "guided_redesign", "open_exploration"]
     },
-    "status": {"type": "string"},
+    "status": {"const": "approved"},
     "spatial_locks": {
       "type": "array",
       "minItems": 1,

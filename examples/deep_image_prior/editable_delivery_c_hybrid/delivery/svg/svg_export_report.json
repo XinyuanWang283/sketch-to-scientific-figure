@@ -1,0 +1,12 @@
+{
+  "status": "VERIFIED_HYBRID",
+  "path": "delivery/svg/master.svg",
+  "sha256": "7704096ce88a2a2ddcb890961e6f4e998076882b8d83f0d77481e2de19198f53",
+  "approved_raster_atom_count": 2,
+  "whole_canvas_raster": false,
+  "latex_vector_object_count": 9,
+  "native_network_layer_count": 11,
+  "native_connector_count": 7,
+  "semantic_editability": "major structure and modules",
+  "raster_editability": "two atoms are replaceable/croppable but their internal pixels are not vector-editable"
+}

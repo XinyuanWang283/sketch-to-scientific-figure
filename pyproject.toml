@@ -30,6 +30,8 @@ classifiers = [
 ]
 dependencies = [
   "Pillow>=10.0",
+  "pypdf>=5.0,<7",
+  "reportlab>=4.0,<5",
 ]
 
 [project.urls]

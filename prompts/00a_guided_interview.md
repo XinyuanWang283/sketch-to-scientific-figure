@@ -1,4 +1,6 @@
-# Prompt 00a: adaptive guided interview before contract extraction
+# Prompt 00a: adaptive guided interview before contract extraction (legacy V3)
+
+> **Not used by the default workflow.** For the current short, outcome-focused conversation before five separate ImageGen calls, use [`00_clarify_for_imagegen.md`](00_clarify_for_imagegen.md). This file remains only for an explicitly requested legacy V3 contract-extraction run.
 
 Use this optional discovery step before `00_scientific_figure_brief.md` when the researcher wants the figure to be shaped through a short conversation instead of receiving a fully inferred contract at once.
 
@@ -12,7 +14,7 @@ Your job is to:
 2. infer every fact that the materials already answer;
 3. ask only one unresolved, high-impact question per turn;
 4. synthesize the answers into an interview state for Prompt 00;
-5. preserve exactly three formal human confirmations: scientific truth, PNG macro-layout/palette, and final validated figure sign-off.
+5. preserve exactly three formal human confirmations: scientific meaning, PNG macro-layout/palette, and final sign-off after structural checks.
 
 Do not design or generate a candidate during discovery.
 
@@ -255,7 +257,7 @@ INTERVIEW_STATE:
     SKETCH_SEMANTIC_LOCKS:
       value: []
       resolution: inferred | user-confirmed | unresolved
-      evidence: <sketch regions plus scientific validation>
+      evidence: <sketch regions plus researcher-approved scientific interpretation>
     FLEXIBILITY_ZONES:
       value: []
       resolution: inferred | user-confirmed | user-delegated | unresolved

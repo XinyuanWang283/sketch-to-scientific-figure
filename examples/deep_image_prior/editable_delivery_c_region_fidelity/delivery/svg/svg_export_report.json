@@ -1,0 +1,10 @@
+{
+  "status": "VERIFIED_FIDELITY_MIXED_MEDIA_SVG",
+  "path": "delivery/svg/master.svg",
+  "sha256": "0cef93724e780b9a4c823ed2b79b3575127c99e6744fbefd0f75b75fb047d46d",
+  "replaceable_raster_atom_count": 2,
+  "whole_candidate_raster_count": 0,
+  "explicit_arrowhead_count": 7,
+  "equation_count": 9,
+  "scientific_validation": false
+}

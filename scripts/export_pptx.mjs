@@ -14,8 +14,47 @@ async function writeBlob(filePath, blob) {
   await fs.writeFile(filePath, new Uint8Array(await blob.arrayBuffer()));
 }
 
-function colorValue(value, fallback) {
-  return typeof value === "string" && value.length ? value : fallback;
+function normalizedHexPaint(value) {
+  const match = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.exec(value);
+  if (!match) return null;
+  const digits = match[1].length === 3
+    ? [...match[1]].map((digit) => `${digit}${digit}`).join("")
+    : match[1];
+  return `#${digits.toUpperCase()}`;
+}
+
+function resolvedPaintCandidate(value, colors, seenTokens = new Set()) {
+  if (typeof value !== "string") return null;
+  const raw = value.trim();
+  if (!raw) return null;
+  if (raw === "none") return "none";
+  const variable = /^var\(--([A-Za-z0-9_-]+)\)$/.exec(raw);
+  const token = variable?.[1] || (Object.prototype.hasOwnProperty.call(colors, raw) ? raw : null);
+  if (token) {
+    if (seenTokens.has(token)) return null;
+    const nextSeen = new Set(seenTokens);
+    nextSeen.add(token);
+    return resolvedPaintCandidate(colors[token], colors, nextSeen);
+  }
+  return normalizedHexPaint(raw);
+}
+
+function resolvePaint(value, colors, fallback) {
+  return resolvedPaintCandidate(value, colors)
+    || resolvedPaintCandidate(fallback, colors)
+    || "#000000";
+}
+
+// Keep this rule semantically equivalent to _pptx_text_box_width in
+// validate_delivery.py. Short labels retain the historical 180-unit box;
+// longer labels receive deterministic space before PowerPoint can wrap them.
+function textBoxWidth(item, canvasWidth) {
+  const fontSize = Number(item.font_size) || 18;
+  const value = item.text || (item.lines || []).join("\n");
+  const longestLine = Math.max(0, ...String(value).split("\n").map((line) => Array.from(line).length));
+  const estimatedWidth = Math.ceil(longestLine * fontSize * 0.62 + fontSize);
+  const availableWidth = Math.max(1, Number(canvasWidth) - 24);
+  return Math.min(Math.max(180, estimatedWidth), availableWidth);
 }
 
 function shapeBounds(shape) {
@@ -127,8 +166,9 @@ async function main() {
     slideSize: { width: semantic.canvas.width, height: semantic.canvas.height },
   });
   const slide = presentation.slides.add();
-  slide.background.fill = semantic.canvas.background || "#FFFFFF";
   const colors = semantic.style_tokens?.colors || {};
+  const roundedRects = semantic.platform_overrides?.pptx?.rounded_rects === true;
+  slide.background.fill = resolvePaint(semantic.canvas.background, colors, "#FFFFFF");
   const shapesById = new Map();
 
   for (const item of semantic.shapes || []) {
@@ -136,6 +176,7 @@ async function main() {
     let geometry = "rect";
     let config = {};
     if (item.type === "ellipse") geometry = "ellipse";
+    if (item.type === "rect" && roundedRects && Number(item.rx) > 0) geometry = "roundRect";
     if (item.type === "line") geometry = "line";
     if (item.type === "polygon") {
       geometry = "custom";
@@ -154,10 +195,10 @@ async function main() {
       geometry,
       name: item.id,
       position,
-      fill: item.type === "line" ? "none" : colorValue(item.fill, colors.surface || "#F2F4F6"),
+      fill: item.type === "line" ? "none" : resolvePaint(item.fill, colors, colors.surface || "#F2F4F6"),
       line: {
         style: item.dash ? "dashed" : "solid",
-        fill: colorValue(item.stroke, colors.ink || "#20252B"),
+        fill: resolvePaint(item.stroke, colors, colors.ink || "#20252B"),
         width: item.stroke_width || semantic.style_tokens?.stroke_width || 2.2,
       },
       ...config,
@@ -166,21 +207,22 @@ async function main() {
   }
 
   for (const item of semantic.text_objects || []) {
-    const textWidth = 180;
+    const fontSize = Number(item.font_size) || 18;
+    const textWidth = textBoxWidth(item, semantic.canvas.width);
     const textLeft = item.text_anchor === "middle" ? item.x - textWidth / 2 : item.x;
     const textShape = slide.shapes.add({
       geometry: "textbox",
       name: item.id,
-      position: { left: textLeft, top: item.y - item.font_size * 1.2, width: textWidth, height: item.font_size * 1.7 },
+      position: { left: textLeft, top: item.y - fontSize * 1.2, width: textWidth, height: fontSize * 1.7 },
       fill: "none",
       line: { style: "solid", fill: "none", width: 0 },
     });
     textShape.text = item.text || (item.lines || []).join("\n");
     textShape.text.style = {
-      fontSize: item.font_size || 18,
+      fontSize,
       bold: (item.font_weight || 400) >= 600,
       italic: item.font_style === "italic",
-      color: colors[item.fill_token || "ink"] || colors.ink || "#20252B",
+      color: resolvePaint(item.fill || item.fill_token || "ink", colors, colors.ink || "#20252B"),
       fontFamily: (item.font_family || "Arial").split(",")[0],
     };
     shapesById.set(item.id, textShape);
@@ -215,7 +257,7 @@ async function main() {
         fill: "none", line: { style: "solid", fill: "none", width: 0 },
       });
       fallback.text = equation.fallback_text || equation.equation_id;
-      fallback.text.style = { fontSize: equation.font_size || 18, color: colors.ink || "#20252B", fontFamily: "Cambria Math" };
+      fallback.text.style = { fontSize: equation.font_size || 18, color: resolvePaint("ink", colors, "#20252B"), fontFamily: "Cambria Math" };
     }
   }
 
@@ -227,7 +269,7 @@ async function main() {
     const target = shapesById.get(item.target_id);
     if (!source || !target) throw new Error(`Connector ${item.id} has unresolved endpoint`);
     const defaultToken = item.color_token || "ink";
-    const relationColor = colors[item.stroke_token || defaultToken] || colors.ink || "#20252B";
+    const relationColor = resolvePaint(item.stroke_token || defaultToken, colors, colors.ink || "#20252B");
     const sideOptions = connectorSides(item.points || []);
     const visiblePath = slide.shapes.add(connectorPathConfig(item, relationColor, semantic.style_tokens?.stroke_width || 2.2));
     visiblePath.bringToFront();
@@ -237,7 +279,7 @@ async function main() {
     visibleConnectorArrowheadCount += 1;
     const connector = slide.shapes.connect(source, target, {
       kind: item.points?.length > 2 ? "elbow" : "straight",
-      line: { style: "solid", fill: semantic.canvas.background || "#FFFFFF", width: 0.1 },
+      line: { style: "solid", fill: resolvePaint(semantic.canvas.background, colors, "#FFFFFF"), width: 0.1 },
       ...sideOptions,
     });
     try { connector.name = item.id; } catch (_) {}

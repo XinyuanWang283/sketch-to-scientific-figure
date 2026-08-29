@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0",
+  "case_id": "deep-image-prior-synthetic-v0.1",
+  "delivery_revision": "fidelity-v2",
+  "product_scope": "reusable Codex workflow with one verified case; not a universal sketch converter",
+  "input_sketch": {
+    "path": "sketch.png",
+    "sha256": "85680bb74824dba44ccff1497052bb6936418851e9c41a5fe9933c3648b7137b"
+  },
+  "clarification": {
+    "path": "clarification_brief.md",
+    "sha256": "0d1c59a01a09b54d14a43f16910bd4af5d8df7d08818f3321f45329486aadec3"
+  },
+  "candidate_manifest": {
+    "path": "candidate_manifest.json",
+    "sha256": "d29dc229447b38d0e3f0f6f3f8825a1114201b3e2c10d859cbbf1b31a3839056"
+  },
+  "candidates": [
+    {
+      "slot": "A",
+      "candidate_id": "A-faithful",
+      "path": "candidates/A-faithful.png",
+      "sha256": "d945d096817dae847e3c91800239a0e5084aa4102979c3d9ed6056a3cf54331e",
+      "generation_event_id": "dip-v0.1-initial-A",
+      "design_note": "Faithful cleanup of the clarified sketch.",
+      "registered_at": "2026-08-29T13:24:52Z",
+      "provenance_status": "repository_registered_operator_attested"
+    },
+    {
+      "slot": "B",
+      "candidate_id": "B-publication",
+      "path": "candidates/B-publication.png",
+      "sha256": "99d84ccb472e708dd39c6e26aca8c0da1fa75ffaa27148b1479c0fc21522fa1e",
+      "generation_event_id": "dip-v0.1-initial-B",
+      "design_note": "Compact publication-oriented composition.",
+      "registered_at": "2026-08-29T13:24:52Z",
+      "provenance_status": "repository_registered_operator_attested"
+    },
+    {
+      "slot": "C",
+      "candidate_id": "C-presentation",
+      "path": "candidates/C-presentation.png",
+      "sha256": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c",
+      "generation_event_id": "dip-v0.1-initial-C",
+      "design_note": "Presentation-oriented visual hierarchy.",
+      "registered_at": "2026-08-29T13:24:52Z",
+      "provenance_status": "repository_registered_operator_attested"
+    },
+    {
+      "slot": "D",
+      "candidate_id": "D-alternative-layout",
+      "path": "candidates/D-alternative-layout.png",
+      "sha256": "4f00c5e6591de1363eb270bd5cd087badb074b6291cc0ac45f9810dca04b0692",
+      "generation_event_id": "dip-v0.1-initial-D",
+      "design_note": "Alternative layout exploration.",
+      "registered_at": "2026-08-29T13:24:52Z",
+      "provenance_status": "repository_registered_operator_attested"
+    },
+    {
+      "slot": "E",
+      "candidate_id": "E-visual-variant",
+      "path": "candidates/E-visual-variant.png",
+      "sha256": "bbe66df64c494cd8304e0105132b7a01c0eb080efbf4ec7f51c0fb0b0151f631",
+      "generation_event_id": "dip-v0.1-initial-E",
+      "design_note": "Distinct visual-style exploration.",
+      "registered_at": "2026-08-29T13:24:52Z",
+      "provenance_status": "repository_registered_operator_attested"
+    }
+  ],
+  "selection": {
+    "record": {
+      "path": "candidate_selection_c_only.json",
+      "sha256": "c16b610d14ab4ef2a686b2b34fb9839cd50f2c1bad3049ff56f15f04ed76f831"
+    },
+    "slot": "C",
+    "candidate_id": "C-presentation",
+    "sha256": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c"
+  },
+  "approved_region_map": {
+    "path": "editable_delivery_c_fidelity_v2/source/selected_candidate_map.json",
+    "sha256": "42c9f4624c20d5b2861171af7b72e717dca6ec5811fc17096351c6301b3d494b",
+    "approval_record": {
+      "path": "approvals/fidelity_v2_region_map_approval.json",
+      "sha256": "5538138c030c6dc8ba00acb6d00402c8521e14ea2d597ca5cdf76bf0977b1696"
+    }
+  },
+  "reconstruction": {
+    "recipe_id": "deep-image-prior-c-fidelity-v2",
+    "builder_path": "scripts/build_deep_image_prior_c_fidelity_v2.py"
+  },
+  "approved_raster_atoms": {
+    "path": "editable_delivery_c_fidelity_v2/source/asset_manifest.json",
+    "sha256": "c123b25dd1bec9eeb4295bff208874fe595c60f2b8fb476e063f22fd1211b7aa"
+  },
+  "artifact_manifest": {
+    "path": "reference_case_v0_1_artifact_manifest.json",
+    "sha256": "60f93b919ac80c099d1635010d2aff97ef4e615ba859a19a9ff7764c8f829b5b"
+  },
+  "validation_evidence": {
+    "path": "reference_case_v0_1_validation_report.json",
+    "sha256": "b9ff3243abe02c8a4cd6ca6f18d09956556d337b781bde5a298b04281748e4b4"
+  },
+  "approvals": {
+    "visual": {
+      "status": "APPROVED",
+      "path": "approvals/fidelity_v2_visual_approval.json",
+      "sha256": "d00dea21cfe61d387afdfafbaa90868fb7193ac4495b3615b5460e7cb4bf1336"
+    },
+    "scientific": {
+      "status": "PENDING"
+    },
+    "science_day_use": {
+      "status": "PENDING"
+    },
+    "public_release": {
+      "status": "PENDING"
+    }
+  }
+}

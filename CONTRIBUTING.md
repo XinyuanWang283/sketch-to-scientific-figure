@@ -12,9 +12,9 @@ Thank you for helping improve Sketch to Scientific Figure.
 ## Local check
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -e .
+python3 -m venv /tmp/sketch-figure-contributor-venv
+source /tmp/sketch-figure-contributor-venv/bin/activate
+python -m pip install -r requirements.txt
 python -m unittest discover -s tests -v
 ```
 

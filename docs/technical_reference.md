@@ -1,22 +1,34 @@
-# sketch-to-scientific-figure
+# sketch-to-scientific-figure technical reference
 
-A repository-scoped Skill for this workflow:
+A repository-scoped Skill with this default user-visible workflow:
 
-> scientific truth → paper-aware editorial review → Gate 1 wireframe → bounded PNG direction → Gate 2 selection → canonical semantic source + LaTeX → SVG/Figma/PPTX/draw.io/PDF adapters → validation → Gate 3 sign-off
+> hand-drawn sketch → focused conversational clarification → five separate Codex built-in ImageGen calls → explicit researcher selection or revision → approved selected-candidate region map → editable SVG/PPTX reconstruction + experimental structural draw.io view → PDF export/preview → structural validation → separate researcher decisions
 
-It supports method diagrams for computational imaging, inverse problems, physics, machine learning, acquisition and reconstruction pipelines, multistage optimization, and model architectures. The generic workflow is not tied to a modality, paper, stage schedule, or notation system.
+Version 0.1 is a reusable Codex workflow plus one verified reference case, not a universal sketch converter. The live Codex path uses built-in ImageGen when the environment provides it and needs no repository-managed or user-supplied `OPENAI_API_KEY`. Repository Python does not call ImageGen. Each candidate has a mandatory repository-local `generation_event_id`; a native tool-call ID is optional and must never be invented.
 
-## V3 autopilot
+The stable offline path is [`scripts/replay_reference_case.py`](../scripts/replay_reference_case.py). It verifies the frozen A–E records, exact Candidate C selection, approved region map, raster-authorization records, validation report, output manifest, and visual approval before replaying the evidence into a new external run. It does not rerun ImageGen. [`scripts/imagegen_workflow.py`](../scripts/imagegen_workflow.py) provides an append-only local consistency ledger, binds transition details to state, preserves introduced evidence across later snapshots, and refuses delivery registration unless a passing machine-readable structural report and matching artifact manifest bind the approved inputs and exact outputs. The local ledger is consistency-checked, not cryptographically tamper-proof without an external signed anchor.
+
+The active case record is [`examples/deep_image_prior/reference_case_v0_1.json`](../examples/deep_image_prior/reference_case_v0_1.json), and the canonical delivery is [`editable_delivery_c_fidelity_v2/`](../examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md). Its draw.io artifact is only an experimental structural view because the official CLI currently renders major colored regions as black and displays equations as raw LaTeX. The PDF is a preview/export. Visual approval is hash-bound; scientific, Science Day-use, and public-release approvals remain pending.
+
+The remainder of this document describes the retained V3 adapter architecture:
+
+> scientific truth → paper-aware editorial review → Gate 1 wireframe → registered PNG direction → Gate 2 selection → canonical semantic source + LaTeX → SVG/Figma-ready SVG/PPTX/draw.io/PDF adapters → structural validation → Gate 3 sign-off
+
+V3 is a legacy regression/advanced path, not the default Quick Start. Its deterministic native-object adapters remain relevant after a candidate is approved.
+
+The retained V3 components were designed for several method-diagram families, but v0.1 does not claim cross-sketch or cross-domain performance from that design intent.
+
+## Legacy V3 autopilot
 
 V3 adds a resumable `run_state.json` state machine and stops only at three formal human decisions:
 
 1. **Gate 1 — Editorial story and wireframe:** paper-linked one-sentence message, add/keep/simplify/remove advice, redlined sketch, and recommended/conservative wireframes.
-2. **Gate 2 — PNG visual direction:** automatically reviewed safe candidates, sketch fidelity, macro-layout, palette, and the few material differences.
+2. **Gate 2 — Registered PNG visual direction:** the researcher/operator selects or rejects registered candidates after reviewing sketch fidelity, macro-layout, palette, and material differences.
 3. **Gate 3 — Final scientific delivery:** final-size and grayscale previews, formulas, SVG validation, cross-format compatibility, and the complete package.
 
 All deterministic work between gates runs automatically. Discovery, lint, adapter checks, and low-impact styling defaults do not create extra gates. A compact gate packet contains at most three high-impact questions, recommends one option, records delegated defaults, and supplies the exact resume action.
 
-The delivery source of truth is `source/semantic_figure.json` plus `source/equations.tex`. `master.svg` and every other format are generated views. The SVG, Figma-ready SVG, PPTX, draw.io, and PDF adapters read the semantic source independently. Complex equations retain stable IDs and authoritative LaTeX; no adapter uses PNG as the equation source.
+The delivery source of truth is `source/semantic_figure.json` plus `source/equations.tex`. `master.svg` and every other format are generated views. The SVG, Figma-ready SVG, PPTX, draw.io, and PDF adapters read the semantic source independently. Complex equations retain stable IDs and authoritative LaTeX; no adapter uses PNG as the equation source. PDF files are exports/previews with `semantic_editability=false`, and the Figma-ready SVG remains `IMPORT_READY_UNVERIFIED` until an actual import is checked.
 
 Entrypoints:
 
@@ -28,7 +40,9 @@ python3 scripts/render_equations.py
 python3 scripts/validate_delivery.py
 ```
 
-Despite its compatibility filename, `build_fixture_semantic_source.py` is the shared ID-rich SVG-to-canonical-source converter. Production runs can bind `--truth`, `--wireframe`, and `--candidate`; the PNG is recorded as art-direction provenance only and is never embedded or traced. Paper SVG/PDF outputs use a 180 mm physical width while Figma, PPTX, and draw.io retain the canonical pixel coordinate system.
+Despite its compatibility filename, `build_fixture_semantic_source.py` is the shared ID-rich SVG-to-canonical-source converter. Sketch-led runs can bind `--truth`, `--wireframe`, and `--candidate`; the PNG is recorded as art-direction provenance only and is never embedded or traced. Paper SVG/PDF outputs use a 180 mm physical width while Figma-ready SVG, PPTX, and draw.io retain the canonical pixel coordinate system.
+
+Current candidate registration verifies location inside the run, PNG readability, SHA-256, a mandatory operator-supplied repository-local generation event ID, and any applicable approval bindings. A native tool-call ID is recorded only when exposed. The record uses `provenance_assurance: operator_attested_not_independently_verified`; the repository does not call or independently prove the identity of a candidate generator.
 
 For a sketch-led run, bind the approved Visual Plan explicitly:
 
@@ -62,11 +76,15 @@ For example, an image-valued state such as `x_0` should normally contain a recog
 
 After scientific-truth confirmation, the Skill produces the approved number of deterministic blueprints: `focused-one` generates 1, `directed-three` generates 3, and `exploratory-five` generates 5. `directed-three` is the normal comparison default. Every multi-candidate set must pass fingerprint lint before image generation. Role names, palette changes, and box styling do not establish layout diversity.
 
-Each built-in image-generation call receives one topology skeleton as structural authority and, optionally, one style-only reference. The PNG is authoritative only for composition, hierarchy, palette, glyph appearance, whitespace, rhythm, and general art direction. Exact text, equations, indices, counts, ports, centroids, source/target, arrow direction, and routing are rebuilt from truth and blueprint data.
+When an operator uses an external image-generation capability, each candidate should receive one topology skeleton as structural authority and, optionally, one style-only reference. The registered PNG may influence only composition, hierarchy, palette, glyph appearance, whitespace, rhythm, and general art direction. Exact text, authoritative equation source, approved format-specific fallback text, indices, counts, ports, centroids, source/target, arrow direction, and routing are rebuilt from truth and blueprint data.
 
 Color exploration is separately selectable. The ordinary default remains neutral structure with a provisional palette when color roles are unapproved. `COLOR_MODE: per-candidate-exploration` and `PALETTE_STATUS: exploration-approved` are specialized `exploratory-five` rules: a `PALETTE_PROGRAM` assigns the five proposals five materially different, restrained fill systems from their first generation. They are not generated once and recolored later. At Gate 2, the researcher may choose the layout and palette sources independently; one exact `locked` token set is then applied through semantic SVG/Figma tokens without repainting a raster.
 
 After the researcher completes that selection, the Skill reconstructs the result as a vector-editable semantic SVG with any approved raster atoms independently replaceable. Labels, borders, arrows, and connectors remain native SVG objects even when one approved raster atom is used inside an image slot. Every external or generated asset is recorded in an asset manifest for later replacement or attribution.
+
+Before reconstruction, the current default path must materialize a hash-bound selected-candidate map. Its ordinary region boxes and glyph crops are `reference_only_not_embedded` inputs for object-by-object reconstruction and visual QA. Each mapped region records its conversion mode and output IDs, so hard-coded approximation cannot silently bypass the decomposition step. A candidate region may become a delivery atom only after an explicit region-reuse request is recorded in a separate review-draft decision bound to the exact candidate hash and pixel bbox. Such an atom must exclude baked-in labels, borders, arrows, equations, legends, and scale-bearing marks; remain independently replaceable; carry an asset-manifest entry; and keep final publication/scientific approval pending.
+
+The checked-in example at [`examples/deep_image_prior/editable_delivery_c_fidelity_v2/`](../examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md) demonstrates this boundary with eight approved mapped regions, exactly two unresampled replaceable raster atoms, nine LaTeX-sourced vector equations whose intrinsic aspect ratios are preserved, native arrows and topology, and a PDF that is only a preview/export. The reference-case record binds a separate visual approval; scientific, Science Day-use, and public-release approvals remain pending.
 
 ## Intake and proposal modes
 
@@ -102,7 +120,7 @@ For a main-paper method figure, put the one-sentence message in `HERO`, keep onl
 
 ## Subscription-only boundary
 
-This repository uses the image and coding capabilities already available inside a ChatGPT or Codex subscription.
+This repository can be used with the image and coding capabilities available inside a ChatGPT or Codex subscription, but its CLI does not invoke those services or verify their identity.
 
 - no OpenAI API calls;
 - no API key request;
@@ -122,12 +140,12 @@ The Skill is invoked from a Codex workspace with `$sketch-to-scientific-figure` 
 6. Review paper-grounded editorial advice, redline, and 1–2 wireframes at Gate 1.
 7. After approval, use `directed-three` by default; use 1 or 5 only under the stated policy.
 8. Compile and validate fingerprints, short briefs, and deterministic topology skeletons before generation.
-9. Generate one independent PNG per blueprint with the built-in image generator only.
-10. Select a macro-layout and palette at Gate 2 after image-level blocking review; stop repairing production details in raster.
+9. Optionally create one independent PNG per blueprint outside the repository CLI, place each file inside the run's `generation/candidates` directory, and register its exact hash and call ID. Treat generator provenance as operator-attested, not independently verified.
+10. Select or reject a registered macro-layout and palette at Gate 2 after image-level blocking review; stop repairing delivery details in raster.
 11. Build `semantic_figure.json` and `equations.tex`, then run the independent delivery adapters; never trace or wrap the PNG.
 12. Run cross-format validators plus final-size, grayscale, and formula-hidden checks, then obtain Gate 3 sign-off.
 
-The three V3 gates remain human decisions. Automated lint and validators are checkpoints, not approvals.
+The three V3 gates remain human decisions. Automated lint and validators are checkpoints, not approvals. A `VERIFIED` cross-format report covers programmable structure only; it is not scientific validation, visual-quality approval, or publication readiness.
 
 Example invocation:
 
@@ -150,8 +168,8 @@ VISUAL EMBODIMENT BRIEF. Keep the main story in HERO/MAIN-BODY and move
 safe verification detail to AUDIT-INSET or CAPTION.
 
 At Gate 1, ask me to approve the paper-aware editorial story and one shown
-wireframe. At Gate 2, ask me to select a scientifically safe PNG macro-layout
-and palette. Reconstruct every delivery format from the canonical semantic and
+wireframe. At Gate 2, ask me to select or reject a registered PNG macro-layout
+and palette after reviewing it against the approved constraints. Reconstruct every delivery format from the canonical semantic and
 LaTeX sources, then request Gate 3 sign-off only after executable validation.
 ```
 
@@ -211,7 +229,7 @@ independently, then combine them deterministically with SVG color tokens.
 - `VISIBLE_TEXT_BUDGET` limits total labels, repeated notation, equations, and prose; `VISIBLE_PROSE_BUDGET` remains the exact ordinary-language allowlist.
 - `VISIBLE_PROSE_BUDGET` is an exact allowlist. Any inferred heading, row caption, legend, or explanation absent from it is a pre-display rejection error.
 - Explanations that are not required to decode the diagram belong in the manuscript caption.
-- Do not use generative image editing merely to recolor a candidate that already passed scientific and sketch-fidelity review. Apply color deterministically during semantic SVG reconstruction, or regenerate from the approved blueprint and repeat review.
+- Do not use generative image editing merely to recolor a candidate that already passed image-level blocking and sketch-fidelity review. Apply color deterministically during semantic SVG reconstruction, or regenerate from the approved blueprint and repeat review.
 - At Gate 2, layout and palette selections may come from different candidates. Transfer only the selected palette's approved semantic token mapping onto the selected layout through SVG classes or equivalent Figma styles; do not composite or repaint raster candidates, and keep the canonical SVG token map synchronized.
 - The final SVG uses semantic color classes or design tokens and remains understandable when printed in grayscale. It may remain neutral when `COLOR_NECESSITY` is none.
 
@@ -257,7 +275,7 @@ Use these tokens for neutral structure studies when color has no necessary role 
 - `notes/github_workflow_inspiration.md`: audited GitHub inspiration and the practices deliberately not adopted.
 - `notes/project_method.md`: separation among the generic core, hard scientific contract, visual embodiment brief, and examples.
 - `notes/source_derived_principles.md`: design principles synthesized from the supplied readings.
-- `examples/`: non-confidential workflow examples and reusable templates. Examples are not default scientific authority and must not be loaded unless directly relevant.
+- `examples/`: workflow examples and reusable templates. The synthetic-restoration demo is fictional and publication-safe; every domain-specific case requires separate owner clearance before public release. Examples are not default scientific authority and must not be loaded unless directly relevant.
 - `references/`: source readings retained for provenance.
 
 ## Priority order

@@ -1,0 +1,64 @@
+{
+  "canonical_source": "source/semantic_figure.json",
+  "figure_id": "deep-image-prior-C-presentation",
+  "formats": [
+    {
+      "equation_source_editability": true,
+      "format": "svg",
+      "path": "delivery/svg/master.svg",
+      "semantic_editability": true,
+      "status": "VERIFIED",
+      "verification": "See validation/cross_format_report.json"
+    },
+    {
+      "equation_source_editability": true,
+      "format": "figma-ready-svg",
+      "path": "delivery/figma/figure_figma.svg",
+      "semantic_editability": true,
+      "status": "IMPORT_READY_UNVERIFIED",
+      "verification": "See validation/cross_format_report.json"
+    },
+    {
+      "equation_source_editability": true,
+      "format": "pptx",
+      "path": "delivery/pptx/figure.pptx",
+      "semantic_editability": true,
+      "status": "VERIFIED",
+      "verification": "See validation/cross_format_report.json"
+    },
+    {
+      "equation_source_editability": true,
+      "format": "drawio",
+      "path": "delivery/drawio/figure.drawio",
+      "semantic_editability": true,
+      "status": "VERIFIED",
+      "verification": "See validation/cross_format_report.json"
+    },
+    {
+      "equation_source_editability": false,
+      "format": "publication-pdf",
+      "path": "delivery/pdf/publication.pdf",
+      "semantic_editability": false,
+      "status": "VERIFIED",
+      "verification": "See validation/cross_format_report.json"
+    },
+    {
+      "equation_source_editability": false,
+      "format": "grayscale-pdf",
+      "path": "delivery/pdf/grayscale.pdf",
+      "semantic_editability": false,
+      "status": "VERIFIED",
+      "verification": "See validation/cross_format_report.json"
+    },
+    {
+      "equation_source_editability": false,
+      "format": "drawio-companion-pdf",
+      "path": "delivery/drawio/figure_drawio_preview.pdf",
+      "semantic_editability": false,
+      "status": "VERIFIED",
+      "verification": "See validation/cross_format_report.json"
+    }
+  ],
+  "schema_version": "1.0",
+  "validation_report": "validation/cross_format_report.json"
+}

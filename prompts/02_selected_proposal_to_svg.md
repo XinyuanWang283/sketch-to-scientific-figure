@@ -1,37 +1,44 @@
-# Prompt 02: selected layout to semantic SVG
+# Prompt 02: approved ImageGen candidate to native editable artifacts
 
-Use this only after Gate 2: the researcher approves or repairs the sole scientifically safe proposal, or selects one from a multi-proposal set, and approves the repair directive.
+Use this only after the researcher explicitly approves one of the five ImageGen candidates, an approved revision, or an exact combination such as `C layout with A color direction`. Clarification alone and an unapproved selection are not sufficient.
 
 ````text
-Reconstruct the selected layout as a newly constructed vector-editable semantic SVG from `scientific_truth`, the selected `candidate_blueprint`, `selected_candidate_map`, and `svg_reconstruction_spec`. Do not mechanically trace pixels, flatten the figure, or use the PNG as a scientific source. Treat Figma import as a downstream compatibility target that must be smoke-tested rather than assumed.
+Reconstruct the approved visual direction as newly constructed native editable objects. Create a canonical semantic SVG and equivalent native PPTX objects. A draw.io file may be an experimental structural view, but it is not visual-fidelity evidence unless its official render is checked. Create PDF only as an export or preview. Do not mechanically trace pixels, flatten the figure, wrap the selected PNG as a whole-canvas image, or use generated pixels as a scientific source. Treat Figma import as a downstream compatibility target that must be smoke-tested rather than assumed.
 
 Before drawing, reread in this order:
-1. the approved SCIENTIFIC CONTRACT;
-2. `scientific_truth.json` and its source hashes;
-3. the selected candidate blueprint and approved REPAIR DIRECTIVE;
-4. `selected_candidate_map.json` and `svg_reconstruction_spec.json`;
-5. the original hand sketch and authoritative equations/method text;
-6. every approved asset source and current asset manifest, if any.
+1. the current repository Skill, this prompt, and any applicable repository rules;
+2. the original hand-drawn sketch;
+3. the focused clarification conversation and the short rendering brief;
+4. the exact hash-bound selection record, revision history, and approved candidate or layout/palette combination;
+5. any authoritative typed labels, equations, method text, and explicit corrections supplied by the researcher;
+6. the required hash-bound `selected_candidate_map.json` created at this stage, including reference-only region crops and native output-ID mappings;
+7. the latest delivery source and validation report, when revising an existing reconstruction;
+8. every approved asset source and current asset manifest, if any.
 
-Confirm that the approved REPAIR DIRECTIVE names `selected_layout_candidate` and `selected_palette_candidate` independently. The latter may be `shared` only when per-candidate palette exploration was inactive. If the contract entered this step with `PALETTE_STATUS: provisional` or `exploration-approved`, the directive must resolve it to one exact `locked` token set before any SVG styling begins.
+Create `source/selected_candidate_map.json` before drawing. Record every major region box, palette sample, stroke character, corner language, whitespace rhythm, conversion mode, glyph reference crop, art-direction note, scientific override, and the native output IDs assigned to each region. Bind the map to the exact selected-candidate SHA-256. Reference crops are visual QA inputs only and must be marked `reference_only_not_embedded`; neither the whole selected candidate nor an unapproved reference crop may appear in delivery media. The only selected-candidate-crop exception is an explicit researcher request for region reuse under the review-draft decision and asset-manifest rules below.
+
+The selected-candidate map and any further semantic reconstruction metadata are implementation artifacts, not pre-generation user forms. They must mirror the sketch and clarification rather than inventing content. Before reconstruction continues, show the researcher the map's topology and any proposed raster exceptions, then record explicit hash-bound approval.
+
+Checked-in demonstration: `examples/deep_image_prior/editable_delivery_c_fidelity_v2/` applies this prompt with eight mapped regions, exactly two approved replaceable raster atoms, intrinsic-aspect LaTeX vector equations, and a PDF used only as preview/export. Its draw.io file is an experimental structural view with a known official-render defect. The v0.1 case records visual approval separately and binds it to the exact artifact-manifest hash; scientific, Science Day, and public-release approvals remain pending.
 
 Authority and scope:
-- The scientific contract and authoritative equations determine entities, notation, topology, grouping, arrows, invariants, variations, figure role, detail mode, hierarchy, complexity and text budgets, title, prose, and color policy.
-- The hand sketch remains binding visual authority for every approved SKETCH SEMANTIC LOCK whose scope includes the selected layout candidate unless the contract records an exact scientific correction. Every `all-candidates` lock applies.
-- The candidate blueprint controls semantic topology and geometry. The selected-candidate map transfers only composition, hierarchy, proportions, palette, glyph character, whitespace, and rhythm from the PNG inside FLEXIBILITY ZONES. The PNG cannot override SCIENTIFIC LOCKS, any in-scope SKETCH SEMANTIC LOCK, stable IDs, ports, source/target metadata, exact counts, or computed spatial rules.
-- The blueprint depiction policy controls visible repetition. For `representative_template`, reconstruct only the declared representative and preserve the complete semantic multiplicity in metadata and caption support. For `literal_instances`, validate each stage- and type-specific count independently rather than collapsing them into a global total.
+- Explicit typed corrections and exact equations or labels supplied during clarification have highest authority.
+- The hand sketch plus clarification determines entities, notation, topology, grouping, arrow direction, feedback, comparisons, repetition, and forbidden implications.
+- The approved ImageGen candidate determines visual direction: composition, hierarchy, proportions, palette, glyph character, whitespace, and rhythm. It does not determine scientific facts.
+- When layout and palette come from different approved candidates, use only the named layout source for geometry and only the named palette source for semantic color roles.
+- The selected-candidate map and internal reconstruction metadata may assign stable IDs, ports, source/target metadata, groups, and geometry, but may not override the sketch or clarification. Every mapped major region must resolve to at least one native output ID.
 - Correct invented pathways, incorrect text, decorative additions, color drift, or scientific ambiguity instead of reproducing them.
-- SCIENTIFIC LOCKS and every in-scope SKETCH SEMANTIC LOCK remain immutable. VISUAL EMBODIMENT BRIEF controls how approved entities are made recognizable; ASSET POLICY controls which non-native atoms may be used.
+- If a contradiction cannot be resolved from the sketch and clarification, stop and ask one focused question rather than guessing.
 
 Priority:
-1. scientific correctness;
-2. ONE-SENTENCE MESSAGE;
+1. fidelity to researcher-confirmed scientific content;
+2. the clarified one-sentence purpose;
 3. topology, grouping, arrow semantics, and authoritative notation;
-4. locked sketch glyphs, mathematical placement, stage-transition attachment, and salience;
-5. communication at intended paper size;
+4. recognizable sketch glyphs, mathematical placement, transition attachment, and salience;
+5. communication at the intended medium and size;
 6. economy of marks and editability.
 
-Preserve the approved `HIERARCHY_MAP`, `COMPLEXITY_BUDGET`, `ART_DIRECTION_BRIEF`, and `VISIBLE_TEXT_BUDGET`. Do not promote an audit inset into the hero, reintroduce caption-only content, or increase label/connector repetition merely because the SVG canvas has room.
+Preserve the hierarchy, information density, visible-text budget, and art direction expressed by the approved candidate, subject to the scientific authority above. Do not add explanatory prose, extra stages, or repeated labels merely because the vector canvas has room.
 
 Semantic construction:
 - use native SVG vector primitives for all reproducible structure and for every visual anchor that remains recognizable when built as vector geometry;
@@ -42,19 +49,19 @@ Semantic construction:
 - align equivalent semantic objects and use consistent line weights;
 - keep functional arrows, structural lines, braces, and leader lines as separate editable objects.
 - attach `data-source`, `data-target`, `data-relation-type`, and applicable `data-rule-ids` metadata to every scientific connector;
-- keep exact short symbols or labels adjacent to visual objects as separate editable text or math paths; place a full equation in separate whitespace only when its EQUATION ROLE is PRIMARY;
+- keep exact short symbols or labels adjacent to visual objects as separate editable text or math paths; place a full equation in separate whitespace only when it is central to the clarified story;
 - factor out repeated modules, operators, and definitions when scientifically safe.
-- reconstruct every in-scope locked sketch glyph as native vector geometry with its approved silhouette, orientation, meaningful ports, and repeated-instance identity. Smooth hand-drawn wobble without substituting another module type.
+- reconstruct each recognizable sketch glyph as native vector geometry with the confirmed silhouette, orientation, meaningful ports, and repeated-instance identity. Smooth hand-drawn wobble without substituting another module type.
 - place member anchors before any contracted mean, centroid, or temporal-center representative. Compute the representative from the final member-anchor coordinates, then store its member ids and placement rule on the semantic group, for example `data-members="z0 z1 z2 z3"` and `data-placement-rule="mean-of-member-centers"`. Do not derive the position from panel or card bounds.
-- keep in-scope locked clusters internally intact. Translate or uniformly scale a cluster only when FLEXIBILITY ZONES permits it.
-- construct every approved replaceable asset as the smallest possible atomic content object inside a semantic group with separate content, border, label, and connectors;
+- keep confirmed clusters internally intact unless the approved alternative layout deliberately reorganizes them without changing their membership or relationships.
+- construct every explicitly approved replaceable asset as the smallest possible atomic content object inside a semantic group with separate content, border, label, and connectors;
 - do not promise pixel-level editability for a raster atom. The atom must be independently selectable and replaceable; its internal pixels are not vector-editable.
 
 Required replaceable-slot structure:
 
 ```svg
 <g id="state-<entity-id>" data-role="state-image" data-asset-id="<asset-id>">
-  <image id="asset-<asset-id>" href="data:image/png;base64,..."
+  <image id="asset-<asset-id>" href="assets/<asset-id>.png"
          x="..." y="..." width="..." height="..."
          preserveAspectRatio="xMidYMid meet"/>
   <rect id="border-<asset-id>" .../>
@@ -62,40 +69,42 @@ Required replaceable-slot structure:
 </g>
 ```
 
-Use this structure only when the contract approves a raster asset. The image appears first, then its native SVG border and label above it. Connectors remain outside or as separately identified siblings. Pre-crop the image to its final semantic region; do not use a mask to hide unrelated content. Use stable ASCII ids even when visible notation contains Unicode or LaTeX.
+The selected ImageGen candidate itself is never a whole-canvas asset slot. Use this structure only when the researcher explicitly approves one raster atom or a small explicitly enumerated set of non-evidentiary atoms that cannot be represented credibly with native geometry. Every atom needs its own id, exact bbox/hash, review-draft decision entry, and manifest entry. The image appears first, then its native SVG border and label above it. Connectors remain outside or as separately identified siblings. Pre-crop the image to its final semantic region; do not use a mask to hide unrelated content. Use stable ASCII ids even when visible notation contains Unicode or LaTeX. If any raster atom remains, describe its pixel content honestly as replaceable rather than fully vector-editable.
 
 Arrow rules:
-- use arrows only for directed transformations, production, measurement, information flow, evolution, initialization, causality, or sequence explicitly present in the contract;
+- use arrows only for directed transformations, production, measurement, information flow, evolution, initialization, causality, or sequence confirmed by the sketch and clarification;
 - use proximity, alignment, braces, enclosure, shared form, or plain lines for membership, part-whole relations, correspondence, grouping, and annotation;
 - construct arrowheads as explicit filled polygons;
 - stop arrow shafts at the base of arrowhead polygons;
 - use stroke-linecap="butt";
 - do not use marker-start or marker-end.
-- for every locked transition, use a direct native SVG path between the contracted source and target ports. Do not route the relation through a heading, card, page-edge rail, or decorative progression line. Preserve its approved direction and salience without relying on color.
+- for every confirmed transition, use a direct native SVG path between the confirmed source and target ports. Do not route the relation through a heading, card, page-edge rail, or decorative progression line. Preserve its approved direction and salience without relying on color.
+
+Equation geometry rule:
+- render authoritative LaTeX as vector paths or vector equation objects;
+- derive every target box from the rendered SVG `viewBox` and preserve its intrinsic width-to-height ratio in SVG, PPTX, and PDF export;
+- never use anisotropic stretch to match a candidate's formula bbox.
 
 Title and prose:
 - default to no title group;
-- include a title only if TITLE_POLICY explicitly requests one;
-- use only phrases in VISIBLE_PROSE_BUDGET;
-- keep CAPTION_ONLY_CONTENT off the canvas;
-- do not add a subtitle, schedule title, explanatory footer, prose box, legend, or panel identifier unless the contract requires it.
+- include a title only when the clarification or approved candidate explicitly requires one;
+- use only visible prose confirmed by the sketch, clarification, or approved candidate;
+- keep caption-only explanation off the canvas;
+- do not add a subtitle, explanatory footer, prose box, legend, or panel identifier unless it is explicitly required.
 
 Color tokens and effects:
-- use the approved structure-first COLOR_MODE; topology, locked sketch geometry, grouping, alignment, whitespace, and scale remain the primary hierarchy;
-- obey COLOR_MODE, PALETTE_STATUS, COLOR_NECESSITY, PALETTE_RATIONALE, PALETTE_TOKENS, COLOR_ROLES, and COLOR_BUDGET;
-- do not begin SVG reconstruction while PALETTE_STATUS remains `provisional` or `exploration-approved`; resolve it inside the approved selection/repair directive without creating another workflow gate;
-- when layout and palette come from different candidates, preserve only the selected layout's approved geometry and apply only the selected palette's semantic tokens and fill strategy. Do not trace geometry from the palette source or copy colors pixel-by-pixel from a raster;
-- use the exact approved PALETTE_TOKENS rather than substituting a generic academic palette;
+- preserve structure, grouping, alignment, whitespace, and scale as the primary hierarchy;
+- extract a small semantic token set from the approved palette direction instead of sampling colors pixel-by-pixel;
+- when layout and palette come from different approved candidates, preserve only the named layout's geometry and apply only the named palette's semantic roles. Do not trace either raster;
 - keep neutral structure dominant, with at most one muted primary accent family and one optional secondary accent family;
-- apply the primary accent selectively to the approved signature_accent_use when COLOR_NECESSITY names one; a final locked palette selected from an explicit per-candidate exploration may instead use restrained fills for the approved editorial hierarchy, but color must not become the sole carrier of a scientific distinction;
+- apply the primary accent selectively to the focal relationship implied by the approved visual direction; color must not be the sole carrier of a scientific distinction;
 - use the secondary accent only for a second necessary semantic role that structure cannot communicate clearly alone;
 - keep most mathematical text in the approved ink or secondary-text color and do not color every variable, arrow, module, box, or outline;
-- if COLOR_NECESSITY is none, remain neutral unless the final locked token set came from an explicitly approved per-candidate exploration; in that case preserve its approved restrained fill strategy and grayscale-independent science rather than discarding the selected palette;
-- do not drift toward generic gray-blue, cream-and-terracotta, bright teal-plus-orange, saturated-navy, fashionable pastel, rainbow, colorful-card, or Canva-like styling without an explicit current-subject rationale;
-- no gradients, filters, shadows, glow, off-white background, decorative effects, or unnecessary 3D.
-- never use generative image editing to recolor the selected layout raster. Transfer only the approved semantic token mapping into native SVG fills, strokes, and text classes.
+- keep the result understandable in grayscale;
+- avoid gradients, filters, shadows, glow, decorative effects, and unnecessary 3D unless they are an explicit, meaningful part of the approved candidate;
+- never use generative image editing to recolor the selected raster. Transfer only semantic color roles into native SVG fills, strokes, and text classes.
 
-Store the approved semantic colors as reusable SVG style classes or design tokens. Populate every placeholder below with the exact approved hexadecimal value before saving; do not leave template variables in the SVG and do not replace the runtime palette with the emergency gray-blue fallback:
+Store the approved semantic colors as reusable SVG style classes or design tokens. Populate every placeholder below with one exact reviewed hexadecimal value before saving; do not leave template variables in the SVG:
 
 ```css
 .fill-background { fill: {{PALETTE_TOKENS.background}}; }
@@ -109,38 +118,40 @@ Store the approved semantic colors as reusable SVG style classes or design token
 .fill-primary { fill: {{PALETTE_TOKENS.primary_semantic_fill}}; stroke: {{PALETTE_TOKENS.primary_semantic}}; }
 ```
 
-Omit classes whose approved token is `none`. Create optional secondary classes only when `optional_secondary_role` is not `none`. Apply classes by semantic role, not variable name. Keep fills and strokes directly editable, and make global accent-family replacement possible by changing the primary accent definitions in one style block.
+Omit classes that are not needed. Apply classes by semantic role, not variable name. Keep fills and strokes directly editable, and make global accent-family replacement possible by changing the primary accent definitions in one style block.
 
 Hybrid asset and provenance rules:
 - default to native vector; a raster is a narrow exception for one approved semantic slot, not a general rendering technique;
+- when the researcher explicitly requests region reuse from the selected ImageGen candidate, write `source/raster_atom_review_decision.json` before assembly. Bind it to the exact candidate SHA-256 and exact source-pixel bbox; label the decision `review-draft-only`, keep final publication/scientific approval null, and reject any crop containing a baked-in label, border, connector, arrow, legend, scale-bearing mark, or equation;
+- a region reuse atom is distinct from a `reference_only_not_embedded` QA crop even if both share a bbox. Save it under a stable asset id, record its exact pixel checksum, and make it independently selectable and replaceable in SVG and PPTX; a draw.io representation must declare its actual support level;
 - licensed SVG assets must be sanitized and inlined as native vector groups. Do not embed them as `data:image/svg+xml`;
-- an approved raster atom must be embedded as `data:image/png;base64` or `data:image/jpeg;base64` so the canonical SVG is self-contained, and the identical decoded asset must also be written as a sidecar under `output/assets/`;
-- every `<image>` requires exactly one approved contract slot and exactly one entry in `output/assets/asset_manifest.json`; an unmanifested `<image>` is a hard failure;
+- an approved raster atom must use a portable repository-local relative reference such as `assets/<asset-id>.png`; the sidecar must remain under the case root, must not traverse a symlink or `..`, and must match its recorded hash. A deliberately self-contained derivative may use an embedded data URI only when its manifest declares that representation explicitly;
+- every `<image>` requires one explicitly approved slot and exactly one entry in the case asset manifest; an unmanifested `<image>` is a hard failure;
 - generated raster placeholders have `scientific_status: non-evidentiary-schematic` and default `release_policy: replace-before-publication`. Only explicit researcher approval may change the release policy to `approved-schematic`;
-- generated assets may fill only schematic context or state slots approved by the contract. A generated atom may denote the object class or role of a reconstructed state, including an approved \(\hat x_t\) output slot, but its pixels must never be presented as the method's actual reported reconstruction, measurement, ground truth, diagnostic example, quantitative comparison, scale-bearing evidence, or performance result;
+- generated assets may fill only explicitly approved schematic context or state slots. A generated atom may denote the object class or role of a reconstructed state, including an approved \(\hat x_t\) output slot, but its pixels must never be presented as an actual reported reconstruction, measurement, ground truth, diagnostic example, quantitative comparison, scale-bearing evidence, or performance result;
 - real medical or sensitive imagery requires user-confirmed de-identification and provenance. Do not store patient identifiers or absolute local source paths in the manifest;
 - do not invent a license for generated content or a user-owned asset. Record unknown or inapplicable fields honestly;
 - every raster atom has explicit x, y, width, height, aspect-fit behavior, pixel dimensions, byte length, and checksums in the manifest;
 - target at least 300 effective ppi at intended paper size, unless the publication specification requires more;
-- default size budget: at most 1 MB per raster atom and 5 MB for the complete SVG unless the approved contract records an exception.
+- default size budget: at most 1 MB per raster atom and 5 MB for the complete SVG unless the researcher explicitly approves an exception.
 
-Materialize approved assets before SVG assembly:
-1. Resolve every `approved_non_native_assets` entry to actual content before writing its SVG slot. Do not create a manifest entry for an asset that does not exist.
+Materialize any explicitly approved non-native assets before SVG assembly:
+1. Resolve every approved asset to actual content before writing its SVG slot. Do not create a manifest entry for an asset that does not exist.
 2. For each `generated-placeholder`, generate either one standalone asset or a coherent asset-only family. Generate only the image content: no variable label, time index, dashed or solid border, arrow, operator, legend, colorbar, scale bar, stage heading, or explanatory text may be baked into the pixels.
-3. Do not crop an asset from a rendered layout proposal. If a coherent family is generated together, isolate each approved member deliberately and save it under its exact stable id as `output/assets/<asset-id>.png` or `.jpg`.
-4. Preserve the approved family vocabulary and only the contracted state variation. For medical-imaging placeholders, prefer a phantom-like schematic over realistic patient imagery.
-5. Visually inspect every materialized asset against its recognition target, forbidden implications, privacy boundary, dimensions, and family consistency before embedding it. Regenerate an unsafe or misleading atom. Keep `human_reviewed: false` until the researcher has reviewed that exact asset; never infer review from approval of the general asset policy.
+3. Do not crop an asset from a rendered layout proposal unless the researcher explicitly requested selected-candidate region reuse and the exact crop satisfies the separate review-draft decision rules above. If a coherent family is generated together, isolate each approved member deliberately and save it under its exact stable id as `output/assets/<asset-id>.png` or `.jpg`.
+4. Preserve the approved family vocabulary and only the clarified state variation. For medical-imaging placeholders, prefer a fictional phantom-like schematic over realistic patient imagery.
+5. Visually inspect every materialized asset against its recognition target, forbidden implications, privacy boundary, dimensions, and family consistency before embedding it. Regenerate an unsafe or misleading atom. Keep `human_reviewed: false` until the researcher has reviewed that exact asset; never infer review from approval of the overall candidate.
 6. Record the actual generator and version, generation date, prompt SHA-256, seed when available, exact content checksum, and sidecar geometry. Do not invent missing provenance.
-7. If approved generation is unavailable or fails, use an approved native-vector fallback when the VISUAL EMBODIMENT BRIEF permits it. Otherwise stop and report the missing asset instead of embedding fabricated content or a phantom manifest record.
+7. If approved asset generation is unavailable or fails, prefer a faithful native-vector fallback. Otherwise stop and report the missing asset instead of embedding fabricated content or a phantom manifest record.
 
 Figma compatibility and file integrity:
-- no external images, fonts, styles, scripts, event handlers, `foreignObject`, animation, HTTP(S) references, `file:` references, or absolute local paths;
+- no external images, fonts, styles, scripts, event handlers, `foreignObject`, animation, HTTP(S) references, `file:` references, absolute local paths, path traversal, or symlink escapes; approved repository-local relative raster sidecars are allowed only when hash-bound in the case manifest;
 - no SVG markers, `data:image/svg+xml`, fragile filters, masks, shadows, glow, or decorative effects;
 - use simple supported primitives; use a `clipPath` only when pre-cropping cannot satisfy the asset slot and a Figma smoke test passes;
 - ordinary text remains editable and uses available fonts; do not convert ordinary labels to outlines;
 - major components and approved raster slots remain independently selectable and replaceable;
 - treat the source SVG as canonical and, whenever non-native assets exist, treat its manifest as part of that canonical source. Do not rely on Figma round-trip export to preserve ids, `data-*` attributes, metadata, or CSS classes;
-- the SVG remains understandable when printed in grayscale; it may remain neutral when COLOR_NECESSITY is none.
+- the SVG remains understandable when printed in grayscale.
 
 Create `output/assets/asset_manifest.json` with this minimum structure when any non-native asset exists:
 
@@ -218,9 +229,18 @@ Create `output/assets/asset_manifest.json` with this minimum structure when any 
 
 Replace nullable example values with real values only when applicable. Keep `human_reviewed` Boolean and change it to `true` only after the researcher reviews that exact materialized asset. For a raster asset, replace `sidecar: null` with an object containing `path` and `sha256`. For an inline licensed vector, `pixel_width`, `pixel_height`, and `effective_ppi` may be 0 and no raster sidecar is required, but source revision, author, license, attribution, and modification status remain required. If no non-native asset is used, omit the manifest rather than creating an empty one.
 
-Before completion, render the SVG at intended paper size and verify:
-1. the ONE-SENTENCE MESSAGE and reading direction are immediately visible;
-2. every entity and relationship matches the contract;
+Cross-format native reconstruction:
+- build PPTX with independent editable shapes, text boxes, connectors, and grouped modules; never place the selected candidate or rendered SVG as a full-slide screenshot;
+- build draw.io with an `mxGraphModel`, separate editable vertex cells, edge cells, labels, and source/target relationships; never store the figure as one embedded image;
+- preserve stable semantic ids or an explicit id mapping across SVG, PPTX, and draw.io whenever the format permits it;
+- derive each format from the same internal reconstruction metadata so required nodes, labels, and directed edges remain consistent;
+- create PDF from the reconstructed vector source and describe it only as an export or preview, not an editable source format.
+
+Automated validation may check XML/package parseability, native object counts, expected labels, required nodes and edges, edge direction, grouping, orphan nodes, disconnected components, and cross-format structural consistency. It must never claim scientific correctness, create final researcher approval, or replace the final visual check.
+
+Before completion, render the SVG at its intended size and verify:
+1. the clarified one-sentence purpose and reading direction are immediately visible;
+2. every entity and relationship matches the sketch plus clarification;
 3. every arrow has one supported verb-like meaning and correct direction;
 4. structural associations do not use arrowheads;
 5. invariant and varying components are distinguishable;
@@ -228,29 +248,29 @@ Before completion, render the SVG at intended paper size and verify:
 7. full equations do not dominate object interiors or repeat unnecessarily;
 8. transition arrows and annotations attach to clear anchors and do not float between regions;
 9. comparable regions have justified width and density, with intentional whitespace;
-10. a transcription of every visible ordinary-language phrase matches the exact VISIBLE_PROSE_BUDGET allowlist, with no inferred headings or explanations;
-11. TITLE_POLICY, COLOR_MODE, final `PALETTE_STATUS: locked`, COLOR_NECESSITY, PALETTE_RATIONALE, PALETTE_TOKENS, COLOR_ROLES, and COLOR_BUDGET are obeyed;
-12. the REPAIR DIRECTIVE's selected layout source and palette source are recorded, the signature accent use reinforces the primary scientific relationship, and no generic palette substitution or raster recoloring occurred;
+10. every visible ordinary-language phrase matches text confirmed by the sketch or clarification, with no invented headings or explanations;
+11. the approved candidate's hierarchy and semantic palette roles are preserved without making color the sole carrier of meaning;
+12. the selected layout source and palette source are recorded, and no raster tracing or pixel-by-pixel recoloring occurred; any selected-candidate region atom has an explicit review-draft decision and exact candidate-hash/bbox provenance;
 13. semantic color classes are reusable, globally replaceable, and directly editable;
-14. the design remains understandable in grayscale and remains neutral only when permitted by COLOR_MODE and COLOR_NECESSITY;
+14. the design remains understandable in grayscale;
 15. no unnecessary object can be removed without loss of meaning;
-16. hiding full equations still leaves the VISUAL MESSAGE, entity classes, required counts or stages, and principal directed relations recoverable;
-17. every visual anchor obeys VISUAL EMBODIMENT BRIEF and introduces no forbidden visual implication;
+16. hiding full equations still leaves the main visual message, required objects or stages, and principal directed relations recoverable;
+17. every visual anchor remains faithful to the sketch and clarification and introduces no forbidden visual implication;
 18. equivalent objects are aligned and line weights are consistent;
 19. all labels, equations, arrows, borders, legends, and scale-bearing marks are native editable objects rather than baked into a raster;
-20. each `<image>` has one approved slot, one manifest entry, one matching sidecar checksum, a valid scientific status, and separate content plus every contract-required border or label object;
+20. each `<image>` has one explicitly approved slot, one manifest entry, one matching sidecar checksum, a valid scientific status, and separate content plus every required border or label object;
 21. raster dimensions, decoded byte length, checksum, effective resolution, aspect fit, and file-size budget match the manifest;
-22. the SVG contains no unapproved raster or base64 content, external reference, `data:image/svg+xml`, marker, gradient, filter, mask, script, event handler, animation, `foreignObject`, shadow, glow, or decorative effect;
+22. the SVG contains no unapproved raster or base64 content, unapproved external reference, `data:image/svg+xml`, marker, gradient, filter, mask, script, event handler, animation, `foreignObject`, shadow, glow, or decorative effect;
 23. licensed assets have complete source, revision, author, license, attribution, and modification records; sensitive user assets have user-confirmed de-identification and provenance;
 24. generated placeholders remain non-evidentiary, contain no unsupported diagnostic or quantitative content, and have the required caption disclosure and release policy;
 25. major scientific components and every approved asset slot remain independently selectable and replaceable;
-26. every in-scope locked sketch glyph preserves its approved silhouette, orientation, ports, and repeated-instance identity;
+26. every confirmed sketch glyph preserves its recognizable silhouette, orientation, ports, and repeated-instance identity;
 27. every group mark covers its exact members, and every mean/centroid/temporal-center representative equals the computed mean of the final member-anchor coordinates;
-28. every in-scope locked transition connector directly attaches the contracted source and target in the correct direction and remains prominent in grayscale with text hidden;
-29. all movement or compression stays inside FLEXIBILITY ZONES and every approved deviation in the repair directive is accounted for;
-30. every SKETCH SEMANTIC LOCK whose scope includes the selected layout candidate passes, including every `all-candidates` lock.
+28. every confirmed transition connector directly attaches the confirmed source and target in the correct direction and remains prominent in grayscale with text hidden;
+29. every approved departure from the sketch is explained by the selected alternative layout or explicit clarification;
+30. the final artifact contains no whole-canvas raster copy of the selected ImageGen candidate.
 
-Also verify the presentation contract explicitly: every item remains in its approved HERO, MAIN-BODY, AUDIT-INSET, or CAPTION layer; total equations, labels, and repeated notation obey VISIBLE_TEXT_BUDGET; major objects, repetition strategy, connector factoring, elbow count, occupied area, and paper-size legibility obey COMPLEXITY_BUDGET; and the result realizes ART_DIRECTION_BRIEF without introducing a generic card-based or formula-first style.
+Also verify the presentation structure explicitly: equations, labels, repeated notation, major objects, connector density, occupied area, and legibility fit the intended medium and reproduce the approved art direction without introducing a generic card-based or formula-first style.
 
 Validate the source artifact structurally:
 - parse the SVG XML and, when present, the manifest JSON;
@@ -281,6 +301,12 @@ Set `figma_compatibility` to `verified` only after this smoke test passes. Other
 
 Create:
 - `output/figure_figma.svg` always;
+- `output/figure.pptx` with native editable shapes and text;
+- `output/figure.drawio` with editable graph cells and edges;
+- `output/figure.pdf` as a vector export or preview;
+- a structural validation report that clearly states what was and was not checked;
 - `output/assets/asset_manifest.json` when any non-native asset is used;
 - one sidecar PNG or JPEG per approved raster asset. An inline licensed vector needs complete manifest provenance but no raster sidecar.
+
+After automated checks pass, show the reconstructed outputs to the researcher for a final scientific and visual check. Do not write or infer final approval on the researcher's behalf.
 ````

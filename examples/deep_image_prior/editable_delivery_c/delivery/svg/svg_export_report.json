@@ -1,0 +1,17 @@
+{
+  "canonical_source": "source/semantic_figure.json",
+  "canonical_source_sha256": "f33cfa1d0f841721dc560991d0031ebf696b449660b5353ba09dd82b98691208",
+  "connector_count": 7,
+  "equation_group_count": 9,
+  "equation_source_editability": true,
+  "format": "svg",
+  "layer_manifest": "delivery/svg/svg_layer_manifest.json",
+  "live_text_count": 1,
+  "native_shape_count": 1340,
+  "output": "delivery/svg/master.svg",
+  "semantic_editability": true,
+  "sha256": "34f584a8b256e4058559470dfb1652c51c2c359ec067e349182c24b1ef4fc245",
+  "status": "VERIFIED",
+  "verification": "XML parsed; semantic IDs, layers, live text, connector metadata, and LaTeX metadata emitted from canonical source.",
+  "whole_canvas_raster": false
+}

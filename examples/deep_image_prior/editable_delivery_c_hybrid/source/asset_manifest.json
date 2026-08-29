@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "visual_reference_sha256": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c",
+  "whole_canvas_raster": false,
+  "approved_raster_atoms": [
+    {
+      "id": "noise",
+      "path": "assets/noise.png",
+      "source_crop_box": [
+        44,
+        219,
+        266,
+        441
+      ],
+      "width": 222,
+      "height": 222,
+      "sha256": "a9142af90a0dd2b375a4f9128a448f30462f4f08903a6bdbf136f2cca83a3006",
+      "target": {
+        "left": 45,
+        "top": 219,
+        "width": 219,
+        "height": 222
+      },
+      "description": "Synthetic dense noise texture; replaceable visual atom, not measured data.",
+      "scientific_data": false,
+      "replaceable": true
+    },
+    {
+      "id": "reconstruction",
+      "path": "assets/reconstruction.png",
+      "source_crop_box": [
+        834,
+        224,
+        1056,
+        451
+      ],
+      "width": 222,
+      "height": 227,
+      "sha256": "65e4b8ad974534d6266d8cb4b5ebadeebfaa895fbecce23adc7fca5e4f788fa3",
+      "target": {
+        "left": 833,
+        "top": 224,
+        "width": 223,
+        "height": 227
+      },
+      "description": "Synthetic mountain visual anchor; replaceable visual atom, not a research result.",
+      "scientific_data": false,
+      "replaceable": true
+    }
+  ]
+}

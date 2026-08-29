@@ -1,4 +1,6 @@
-# Architecture v2: truth-to-validated-figure
+# Architecture v2: truth-to-structurally-checked figure (legacy adapter)
+
+> **Legacy reference, not the default user journey.** The current workflow starts with focused conversational clarification and exactly five active candidates from separate Codex built-in ImageGen calls; see the [README](../README.md) and [repository skill](../.agents/skills/sketch-to-scientific-figure/SKILL.md). This document describes the retained V2 deterministic compiler and validation architecture used for regression evidence after candidate approval or when explicitly requested.
 
 ## Decision
 
@@ -9,14 +11,14 @@ authoritative sources
   -> scientific_truth.json
   -> candidate_blueprint.json + validation_rules.json
   -> deterministic skeleton SVG/PNG + fingerprint lint
-  -> one independent built-in image-generation call per blueprint
-  -> review_result.json + human macro-layout/palette choice
+  -> optional externally created PNG candidate per blueprint
+  -> exact-byte registration + review_result.json + human macro-layout/palette choice
   -> selected_candidate_map.json + svg_reconstruction_spec.json
   -> deterministic semantic SVG
   -> executable validation + human final sign-off
 ```
 
-Generated PNGs are disposable visual proposals. Scientific truth, blueprint topology, rules, reconstruction metadata, and semantic SVG remain canonical.
+Candidate PNGs are disposable visual proposals. Scientific truth, blueprint topology, rules, reconstruction metadata, and semantic SVG remain canonical. The repository registers candidate bytes, SHA-256 values, operator-supplied call IDs, and Gate 1 bindings; it records generator provenance as operator-attested and not independently verified.
 
 ## Authority by stage
 
@@ -49,8 +51,8 @@ The compiler rejects missing IDs, dangling truth/rule references, invalid propos
 
 ## Human decision boundary
 
-There are three confirmations: scientific truth, PNG macro-layout/palette, and final validated figure. Discovery answers and validator results are evidence, not approvals.
+There are three confirmations: scientific story/wireframe, registered PNG macro-layout/palette, and final scientific acceptability. Discovery answers and validator results are evidence, not approvals. Gate 2 confirms the selected visual direction only; it does not approve candidate text, equations, counts, topology, connectors, or generator provenance.
 
 ## P0 implementation boundary
 
-The repository implementation uses the Python standard library and local files. It does not add API providers, credentials, web services, databases, OCR, segmentation, tracing, or design-tool integration. PNG generation is invoked only through the built-in image-generation capability.
+The repository implementation uses local files and declared Python dependencies. It does not add API providers, credentials, web services, databases, OCR, segmentation, tracing, or direct design-tool integration. It does not invoke or independently verify a PNG generator. When an operator creates candidates in a ChatGPT/Codex workspace, the runner can register their exact bytes and provenance attestation, but that record is not proof of generator identity.

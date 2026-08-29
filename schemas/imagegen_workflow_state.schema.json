@@ -1,0 +1,501 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/XinyuanWang283/sketch-to-scientific-figure/schemas/imagegen_workflow_state.schema.json",
+  "title": "Codex ImageGen Artifact Ledger State",
+  "description": "Append-only local evidence state for five separately generated, operator-attested ImageGen candidates, explicit approvals, validation-gated delivery registration, and separate researcher decisions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workflow",
+    "run_id",
+    "revision",
+    "stage",
+    "created_at",
+    "updated_at",
+    "sketch",
+    "clarification",
+    "candidate_pool",
+    "selection_packet",
+    "selected_candidate",
+    "selected_combination",
+    "candidate_selection_approval",
+    "approved_region_map",
+    "delivery",
+    "visual_approval",
+    "final_delivery_approval",
+    "science_day_use_approval",
+    "public_release_approval",
+    "history"
+  ],
+  "definitions": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "relative_path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/|~|file:|[A-Za-z]:|\\\\\\\\)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\]+$"
+    },
+    "file_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"$ref": "#/definitions/relative_path"},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "slot",
+        "candidate_id",
+        "direction",
+        "path",
+        "sha256",
+        "generation_event_id",
+        "design_note",
+        "registered_at",
+        "provenance_operator",
+        "provenance_assurance",
+        "provenance_status",
+        "generator_context"
+      ],
+      "properties": {
+        "slot": {"enum": ["A", "B", "C", "D", "E"]},
+        "candidate_id": {
+          "enum": [
+            "A-faithful",
+            "B-publication",
+            "C-presentation",
+            "D-alternative-layout",
+            "E-visual-variant"
+          ]
+        },
+        "direction": {
+          "enum": [
+            "faithful",
+            "publication",
+            "presentation",
+            "alternative-layout",
+            "visual-variant"
+          ]
+        },
+        "path": {"$ref": "#/definitions/relative_path"},
+        "sha256": {"$ref": "#/definitions/sha256"},
+        "generation_event_id": {"type": "string", "minLength": 1},
+        "native_tool_call_id": {"type": "string", "minLength": 1},
+        "design_note": {"type": "string", "minLength": 1},
+        "registered_at": {"type": "string", "minLength": 1},
+        "provenance_operator": {"type": "string", "minLength": 1},
+        "provenance_assurance": {
+          "const": "operator_attested_not_independently_verified"
+        },
+        "provenance_status": {
+          "const": "repository_registered_operator_attested"
+        },
+        "generator_context": {
+          "const": "Codex built-in ImageGen artifact from a separate generation call; operator attested"
+        }
+      }
+    },
+    "exact_five_candidate_pool": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": {"$ref": "#/definitions/candidate"},
+      "allOf": [
+        {"contains": {"type": "object", "properties": {"slot": {"const": "A"}}, "required": ["slot"]}},
+        {"contains": {"type": "object", "properties": {"slot": {"const": "B"}}, "required": ["slot"]}},
+        {"contains": {"type": "object", "properties": {"slot": {"const": "C"}}, "required": ["slot"]}},
+        {"contains": {"type": "object", "properties": {"slot": {"const": "D"}}, "required": ["slot"]}},
+        {"contains": {"type": "object", "properties": {"slot": {"const": "E"}}, "required": ["slot"]}}
+      ]
+    },
+    "selection_packet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "instructions", "candidates"],
+      "properties": {
+        "status": {"enum": ["awaiting_operator_selection", "resolved"]},
+        "instructions": {"type": "string", "minLength": 1},
+        "candidates": {"$ref": "#/definitions/exact_five_candidate_pool"},
+        "selected_slot": {"enum": ["A", "B", "C", "D", "E"]},
+        "selected_slots": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["layout_source", "visual_style_source"],
+          "properties": {
+            "layout_source": {"enum": ["A", "B", "C", "D", "E"]},
+            "visual_style_source": {"enum": ["A", "B", "C", "D", "E"]}
+          }
+        }
+      }
+    },
+    "selected_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slot", "candidate_id", "sha256", "operator"],
+      "properties": {
+        "slot": {"enum": ["A", "B", "C", "D", "E"]},
+        "candidate_id": {
+          "enum": [
+            "A-faithful",
+            "B-publication",
+            "C-presentation",
+            "D-alternative-layout",
+            "E-visual-variant"
+          ]
+        },
+        "sha256": {"$ref": "#/definitions/sha256"},
+        "operator": {"type": "string", "minLength": 1}
+      }
+    },
+    "selection_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slot", "candidate_id", "sha256"],
+      "properties": {
+        "slot": {"enum": ["A", "B", "C", "D", "E"]},
+        "candidate_id": {
+          "enum": [
+            "A-faithful",
+            "B-publication",
+            "C-presentation",
+            "D-alternative-layout",
+            "E-visual-variant"
+          ]
+        },
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "selected_combination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["layout_source", "visual_style_source", "operator"],
+      "properties": {
+        "layout_source": {"$ref": "#/definitions/selection_source"},
+        "visual_style_source": {"$ref": "#/definitions/selection_source"},
+        "operator": {"type": "string", "minLength": 1}
+      }
+    },
+    "approved_region_map": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "delivery_revision",
+        "recipe_id",
+        "region_map",
+        "approval_record"
+      ],
+      "properties": {
+        "case_id": {"type": "string", "minLength": 1},
+        "delivery_revision": {"type": "string", "minLength": 1},
+        "recipe_id": {"type": "string", "minLength": 1},
+        "region_map": {"$ref": "#/definitions/file_record"},
+        "approval_record": {"$ref": "#/definitions/file_record"}
+      }
+    },
+    "delivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "registered_at",
+        "case_id",
+        "delivery_revision",
+        "validation_scope",
+        "scientific_correctness_checked",
+        "pdf_role",
+        "svg",
+        "pptx",
+        "drawio",
+        "pdf_preview",
+        "validation_report",
+        "artifact_manifest"
+      ],
+      "properties": {
+        "registered_at": {"type": "string", "minLength": 1},
+        "case_id": {"type": "string", "minLength": 1},
+        "delivery_revision": {"type": "string", "minLength": 1},
+        "validation_scope": {
+          "const": "passing_structural_report_and_artifact_manifest_hash_bound"
+        },
+        "scientific_correctness_checked": {"const": false},
+        "pdf_role": {"const": "preview_export_not_editable_source"},
+        "svg": {"$ref": "#/definitions/file_record"},
+        "pptx": {"$ref": "#/definitions/file_record"},
+        "drawio": {"$ref": "#/definitions/file_record"},
+        "pdf_preview": {"$ref": "#/definitions/file_record"},
+        "validation_report": {"$ref": "#/definitions/file_record"},
+        "artifact_manifest": {"$ref": "#/definitions/file_record"}
+      }
+    },
+    "history_entry": {
+      "type": "object",
+      "required": ["at", "event"],
+      "properties": {
+        "at": {"type": "string", "minLength": 1},
+        "event": {"type": "string", "minLength": 1}
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {"const": "1.1"},
+    "workflow": {"const": "codex_imagegen_artifact_ledger"},
+    "run_id": {"type": "string", "minLength": 1},
+    "revision": {"type": "integer", "minimum": 1},
+    "stage": {
+      "enum": [
+        "CLARIFICATION_COMPLETE",
+        "CANDIDATES_REGISTERED",
+        "CANDIDATE_APPROVED",
+        "REGION_MAP_APPROVED",
+        "DELIVERY_REGISTERED",
+        "VISUAL_APPROVED",
+        "FINAL_APPROVED"
+      ]
+    },
+    "created_at": {"type": "string", "minLength": 1},
+    "updated_at": {"type": "string", "minLength": 1},
+    "sketch": {"$ref": "#/definitions/file_record"},
+    "clarification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["brief", "purpose"],
+      "properties": {
+        "brief": {"type": "string", "minLength": 1},
+        "purpose": {
+          "const": "human-readable rendering brief after focused clarification"
+        }
+      }
+    },
+    "candidate_pool": {
+      "oneOf": [
+        {"type": "array", "maxItems": 0},
+        {"$ref": "#/definitions/exact_five_candidate_pool"}
+      ]
+    },
+    "selection_packet": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/definitions/selection_packet"}
+      ]
+    },
+    "selected_candidate": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/definitions/selected_candidate"}
+      ]
+    },
+    "selected_combination": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/definitions/selected_combination"}
+      ]
+    },
+    "candidate_selection_approval": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/definitions/file_record"}
+      ]
+    },
+    "approved_region_map": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/definitions/approved_region_map"}
+      ]
+    },
+    "delivery": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/definitions/delivery"}
+      ]
+    },
+    "visual_approval": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/definitions/file_record"}
+      ]
+    },
+    "final_delivery_approval": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/definitions/file_record"}
+      ]
+    },
+    "science_day_use_approval": {"type": "null"},
+    "public_release_approval": {"type": "null"},
+    "history": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/definitions/history_entry"}
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"stage": {"const": "CLARIFICATION_COMPLETE"}}},
+      "then": {
+        "properties": {
+          "candidate_pool": {"type": "array", "maxItems": 0},
+          "selection_packet": {"type": "null"},
+          "selected_candidate": {"type": "null"},
+          "selected_combination": {"type": "null"},
+          "candidate_selection_approval": {"type": "null"},
+          "approved_region_map": {"type": "null"},
+          "delivery": {"type": "null"},
+          "visual_approval": {"type": "null"},
+          "final_delivery_approval": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "stage": {
+            "enum": [
+              "CANDIDATES_REGISTERED",
+              "CANDIDATE_APPROVED",
+              "REGION_MAP_APPROVED",
+              "DELIVERY_REGISTERED",
+              "VISUAL_APPROVED",
+              "FINAL_APPROVED"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "candidate_pool": {"$ref": "#/definitions/exact_five_candidate_pool"},
+          "selection_packet": {"$ref": "#/definitions/selection_packet"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"stage": {"const": "CANDIDATES_REGISTERED"}}},
+      "then": {
+        "properties": {
+          "selection_packet": {
+            "type": "object",
+            "properties": {"status": {"const": "awaiting_operator_selection"}}
+          },
+          "selected_candidate": {"type": "null"},
+          "selected_combination": {"type": "null"},
+          "candidate_selection_approval": {"type": "null"},
+          "approved_region_map": {"type": "null"},
+          "delivery": {"type": "null"},
+          "visual_approval": {"type": "null"},
+          "final_delivery_approval": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "stage": {
+            "enum": [
+              "CANDIDATE_APPROVED",
+              "REGION_MAP_APPROVED",
+              "DELIVERY_REGISTERED",
+              "VISUAL_APPROVED",
+              "FINAL_APPROVED"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "selection_packet": {
+            "type": "object",
+            "properties": {"status": {"const": "resolved"}}
+          },
+          "candidate_selection_approval": {"$ref": "#/definitions/file_record"}
+        },
+        "anyOf": [
+          {
+            "properties": {
+              "selection_packet": {
+                "type": "object",
+                "required": ["selected_slot"],
+                "not": {"required": ["selected_slots"]}
+              },
+              "selected_candidate": {"$ref": "#/definitions/selected_candidate"},
+              "selected_combination": {"type": "null"}
+            }
+          },
+          {
+            "required": ["selected_combination"],
+            "properties": {
+              "selection_packet": {
+                "type": "object",
+                "required": ["selected_slots"],
+                "not": {"required": ["selected_slot"]}
+              },
+              "selected_candidate": {"type": "null"},
+              "selected_combination": {"$ref": "#/definitions/selected_combination"}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {"properties": {"stage": {"const": "CANDIDATE_APPROVED"}}},
+      "then": {
+        "properties": {
+          "approved_region_map": {"type": "null"},
+          "delivery": {"type": "null"},
+          "visual_approval": {"type": "null"},
+          "final_delivery_approval": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"stage": {"const": "REGION_MAP_APPROVED"}}},
+      "then": {
+        "properties": {
+          "approved_region_map": {"$ref": "#/definitions/approved_region_map"},
+          "delivery": {"type": "null"},
+          "visual_approval": {"type": "null"},
+          "final_delivery_approval": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"stage": {"const": "DELIVERY_REGISTERED"}}},
+      "then": {
+        "properties": {
+          "approved_region_map": {"$ref": "#/definitions/approved_region_map"},
+          "delivery": {"$ref": "#/definitions/delivery"},
+          "visual_approval": {"type": "null"},
+          "final_delivery_approval": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"stage": {"const": "VISUAL_APPROVED"}}},
+      "then": {
+        "properties": {
+          "approved_region_map": {"$ref": "#/definitions/approved_region_map"},
+          "delivery": {"$ref": "#/definitions/delivery"},
+          "visual_approval": {"$ref": "#/definitions/file_record"},
+          "final_delivery_approval": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"stage": {"const": "FINAL_APPROVED"}}},
+      "then": {
+        "properties": {
+          "approved_region_map": {"$ref": "#/definitions/approved_region_map"},
+          "delivery": {"$ref": "#/definitions/delivery"},
+          "visual_approval": {"$ref": "#/definitions/file_record"},
+          "final_delivery_approval": {"$ref": "#/definitions/file_record"}
+        }
+      }
+    }
+  ]
+}

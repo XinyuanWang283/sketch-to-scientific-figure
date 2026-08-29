@@ -1,0 +1,171 @@
+{
+  "schema_version": "1.0",
+  "status": "MEASURED_FOR_HUMAN_VISUAL_REVIEW",
+  "reference": "../../candidates/C-presentation.png",
+  "rendered": "../delivery/pptx/slide-01.png",
+  "reference_sha256": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c",
+  "rendered_sha256": "320b7222d42dd10554da60ea3ea449e2cff624626c4aa112406c73551d194dc8",
+  "canvas": [
+    1672,
+    941
+  ],
+  "regions": {
+    "noise_input": {
+      "source_bbox_xywh": [
+        38,
+        210,
+        232,
+        238
+      ],
+      "comparison": "region_comparisons/noise_input.png",
+      "comparison_sha256": "1ade6eebe3587f41d0386b5cf5b39c322219ac2bda396347f17bf7fad5ab0bad",
+      "mean_absolute_rgb_error": 9.1818,
+      "normalized_mean_absolute_rgb_error": 0.036007,
+      "edge_f1_with_one_pixel_tolerance": 0.991834,
+      "bbox_edge_error_px": 0.0,
+      "human_review_required": true
+    },
+    "generator_network": {
+      "source_bbox_xywh": [
+        362,
+        185,
+        396,
+        309
+      ],
+      "comparison": "region_comparisons/generator_network.png",
+      "comparison_sha256": "033fa8d819a759b88793a24bae500e897c2f4bea7f3eab7139943c59e18c056a",
+      "mean_absolute_rgb_error": 26.6338,
+      "normalized_mean_absolute_rgb_error": 0.104446,
+      "edge_f1_with_one_pixel_tolerance": 0.548027,
+      "bbox_edge_error_px": 0.0,
+      "human_review_required": true
+    },
+    "reconstruction_landscape": {
+      "source_bbox_xywh": [
+        824,
+        214,
+        241,
+        246
+      ],
+      "comparison": "region_comparisons/reconstruction_landscape.png",
+      "comparison_sha256": "49f5bd453edcb1f167444790f7c851ce8120640287d106306b1f7f8daf7799aa",
+      "mean_absolute_rgb_error": 11.5553,
+      "normalized_mean_absolute_rgb_error": 0.045315,
+      "edge_f1_with_one_pixel_tolerance": 0.894301,
+      "bbox_edge_error_px": 0.0,
+      "human_review_required": true
+    },
+    "forward_operator": {
+      "source_bbox_xywh": [
+        1132,
+        274,
+        128,
+        124
+      ],
+      "comparison": "region_comparisons/forward_operator.png",
+      "comparison_sha256": "5e19d58140be036d77ccd5bbd053901c6b438b3d756999d1c2e17eea3e1b91bb",
+      "mean_absolute_rgb_error": 21.157,
+      "normalized_mean_absolute_rgb_error": 0.082969,
+      "edge_f1_with_one_pixel_tolerance": 0.747997,
+      "bbox_edge_error_px": 0.0,
+      "human_review_required": true
+    },
+    "measurement_comparison": {
+      "source_bbox_xywh": [
+        1328,
+        94,
+        318,
+        636
+      ],
+      "comparison": "region_comparisons/measurement_comparison.png",
+      "comparison_sha256": "f0bbd734beb85c4c17af917f675e76796d922180e1d1759337e4fdc8c4a8e7f8",
+      "mean_absolute_rgb_error": 13.1912,
+      "normalized_mean_absolute_rgb_error": 0.05173,
+      "edge_f1_with_one_pixel_tolerance": 0.709815,
+      "bbox_edge_error_px": 0.0,
+      "human_review_required": true
+    },
+    "feedback_loop": {
+      "source_bbox_xywh": [
+        555,
+        452,
+        785,
+        274
+      ],
+      "comparison": "region_comparisons/feedback_loop.png",
+      "comparison_sha256": "cb0bf9b704f16c7e4163985b4e53b2178b5158fffb7df99a57813a9179bb91ef",
+      "mean_absolute_rgb_error": 5.2571,
+      "normalized_mean_absolute_rgb_error": 0.020616,
+      "edge_f1_with_one_pixel_tolerance": 0.724451,
+      "bbox_edge_error_px": 0.0,
+      "human_review_required": true
+    },
+    "optimization_objective": {
+      "source_bbox_xywh": [
+        320,
+        752,
+        710,
+        106
+      ],
+      "comparison": "region_comparisons/optimization_objective.png",
+      "comparison_sha256": "e2be4ed1558eb83b7fd825be2d7fbf02eeb52b8af737ff78e0de890e50d51141",
+      "mean_absolute_rgb_error": 20.3014,
+      "normalized_mean_absolute_rgb_error": 0.079613,
+      "edge_f1_with_one_pixel_tolerance": 0.703226,
+      "bbox_edge_error_px": 0.0,
+      "human_review_required": true
+    },
+    "reconstruction_equation": {
+      "source_bbox_xywh": [
+        1062,
+        758,
+        305,
+        94
+      ],
+      "comparison": "region_comparisons/reconstruction_equation.png",
+      "comparison_sha256": "7f23f107989cfffcc2c31fcd9cd06604988b92227281042c6f496896f898f7e0",
+      "mean_absolute_rgb_error": 13.5247,
+      "normalized_mean_absolute_rgb_error": 0.053038,
+      "edge_f1_with_one_pixel_tolerance": 0.781161,
+      "bbox_edge_error_px": 0.0,
+      "human_review_required": true
+    }
+  },
+  "formula_optical_bbox_checks": {
+    "optimization_objective": {
+      "reference_dark_bbox": [
+        328,
+        781,
+        927,
+        858
+      ],
+      "rendered_dark_bbox": [
+        328,
+        781,
+        928,
+        858
+      ],
+      "max_edge_error_px": 1,
+      "human_review_required": true
+    },
+    "reconstruction_equation": {
+      "reference_dark_bbox": [
+        1067,
+        785,
+        1300,
+        835
+      ],
+      "rendered_dark_bbox": [
+        1068,
+        788,
+        1300,
+        830
+      ],
+      "max_edge_error_px": 5,
+      "human_review_required": true
+    }
+  },
+  "interpretation": "These metrics and triptychs are diagnostic review aids. They do not establish visual, scientific, or publication approval.",
+  "final_visual_approval": null,
+  "final_scientific_approval": null
+}

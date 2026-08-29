@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "manifest_type": "editable_delivery_artifact_manifest",
+  "case_id": "deep-image-prior-synthetic-v0.1",
+  "delivery_revision": "fidelity-v2",
+  "canonical_root": "editable_delivery_c_fidelity_v2",
+  "validation_report": {
+    "path": "reference_case_v0_1_validation_report.json",
+    "sha256": "6f3c80a5bda78187ee2aba7ae98e989ac040b43a2286890b8af0ac689212ecd2"
+  },
+  "approved_raster_atoms": {
+    "path": "source/asset_manifest.json",
+    "sha256": "c123b25dd1bec9eeb4295bff208874fe595c60f2b8fb476e063f22fd1211b7aa"
+  },
+  "raster_atom_review_decision": {
+    "path": "source/raster_atom_review_decision.json",
+    "sha256": "ef078ed437b468ff5f42ec785552dbbda37f89c1c80c65e37b04efce81521ea6"
+  },
+  "artifacts": {
+    "svg": {
+      "path": "delivery/svg/master.svg",
+      "media_type": "image/svg+xml",
+      "sha256": "6ee412fd9043aa964490f593888fdd17bc40b1499cbcd6e4f7e2a271ecc40330",
+      "editability": "editable mixed vector composition with two approved replaceable raster atoms",
+      "structural_summary": "Native vector geometry, text, gradients, seven directed arrows, nine path-based equations, and two relative PNG sidecars.",
+      "approved_raster_sidecars": [
+        {
+          "path": "delivery/svg/assets/noise-content.png",
+          "sha256": "2b9e18b06a576b43ebd3135a5732293f8a98d8bb10b217799e86b4016a5d71c2"
+        },
+        {
+          "path": "delivery/svg/assets/reconstruction-content.png",
+          "sha256": "cedf344e8719184d921bb22a2f99dc57a70f38a71aa05c5f0c3e37d199d5d225"
+        }
+      ]
+    },
+    "pptx": {
+      "path": "delivery/pptx/figure.pptx",
+      "media_type": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "sha256": "b8f60b60cba04117c00b3e025e81d46a6b2d96c9c50b9a42b69e23b420e940d6",
+      "editability": "editable native shapes, text, gradients, vector equation objects, and two independent approved raster picture atoms",
+      "structural_summary": "One slide with 82 native shapes, nine vector equation objects, gradients, text, and two bounded picture shapes; equations are not Office Math and arrows are not attached connectors.",
+      "approved_raster_sidecars": [
+        {
+          "path": "source/raster_atoms/noise-content.png",
+          "sha256": "2b9e18b06a576b43ebd3135a5732293f8a98d8bb10b217799e86b4016a5d71c2"
+        },
+        {
+          "path": "source/raster_atoms/reconstruction-content.png",
+          "sha256": "cedf344e8719184d921bb22a2f99dc57a70f38a71aa05c5f0c3e37d199d5d225"
+        }
+      ]
+    },
+    "drawio": {
+      "path": "delivery/drawio/figure.drawio",
+      "media_type": "application/vnd.jgraph.mxfile",
+      "sha256": "52de421b7726842d69ee1a4b20e0e8df30307f0ecf2ee52199df232379f8b01e",
+      "editability": "experimental editable structural graph with known rendering limitations",
+      "structural_summary": "Editable mxGraph cells, labels, two embedded approved raster atoms, and seven directed topology edges; the frozen file is not claimed to be visually equivalent in the official draw.io CLI renderer.",
+      "approved_raster_sidecars": [
+        {
+          "path": "source/raster_atoms/noise-content.png",
+          "sha256": "2b9e18b06a576b43ebd3135a5732293f8a98d8bb10b217799e86b4016a5d71c2"
+        },
+        {
+          "path": "source/raster_atoms/reconstruction-content.png",
+          "sha256": "cedf344e8719184d921bb22a2f99dc57a70f38a71aa05c5f0c3e37d199d5d225"
+        }
+      ]
+    },
+    "pdf_preview": {
+      "path": "delivery/pdf/publication.pdf",
+      "media_type": "application/pdf",
+      "sha256": "2a834b055067eb2919739f5486bc9144ed71f8fa17eca58fc35db08fa4003733",
+      "editability": "preview/export only; not an editable source",
+      "structural_summary": "Valid one-page PDF preview/export; its embedded high-frequency raster region is lossy and is not the editable source of record.",
+      "approved_raster_sidecars": []
+    }
+  },
+  "known_limitations": [
+    "The draw.io file is a structurally editable experimental view; the official CLI currently renders major colored regions as black and displays equation labels as raw LaTeX.",
+    "PPTX equations are editable as independent vector objects but are not semantically editable Office Math.",
+    "The PDF is a preview/export and uses lossy encoding for its embedded raster regions."
+  ],
+  "scientific_correctness_checked": false
+}

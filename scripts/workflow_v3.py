@@ -23,6 +23,50 @@ REPO_ROOT = SCRIPT_DIR.parent
 SCHEMA_DIR = REPO_ROOT / "schemas"
 
 
+def resolve_hex_paint(value: Any, colors: Mapping[str, Any], fallback: str) -> str:
+    """Resolve a CSS variable or token name to a safe six-digit hex paint."""
+
+    def candidate(raw_value: Any, seen_tokens: set[str]) -> str | None:
+        if not isinstance(raw_value, str):
+            return None
+        raw = raw_value.strip()
+        if not raw:
+            return None
+        if raw == "none":
+            return "none"
+        variable = re.fullmatch(r"var\(--([A-Za-z0-9_-]+)\)", raw)
+        token = variable.group(1) if variable else (raw if raw in colors else None)
+        if token is not None:
+            if token in seen_tokens:
+                return None
+            return candidate(colors.get(token), {*seen_tokens, token})
+        match = re.fullmatch(r"#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})", raw)
+        if match is None:
+            return None
+        digits = match.group(1)
+        if len(digits) == 3:
+            digits = "".join(character * 2 for character in digits)
+        return "#" + digits.upper()
+
+    return candidate(value, set()) or candidate(fallback, set()) or "#000000"
+
+
+def _pillow_font_supports_text(font: Any, value: str) -> bool:
+    """Return false when a requested glyph maps to the font's replacement glyph."""
+    try:
+        missing = font.getmask("\N{REPLACEMENT CHARACTER}")
+        missing_signature = (missing.size, bytes(missing))
+        for character in set(value):
+            if character.isspace() or character == "\N{REPLACEMENT CHARACTER}":
+                continue
+            glyph = font.getmask(character)
+            if (glyph.size, bytes(glyph)) == missing_signature:
+                return False
+        return True
+    except Exception:
+        return False
+
+
 def utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
@@ -116,7 +160,7 @@ def render_svg_to_png(svg_path: Path, png_path: Path, width: int, height: int) -
             except ValueError:
                 return None
 
-        def font(size: float, bold: bool = False, italic: bool = False, family: str = ""):
+        def font(size: float, bold: bool = False, italic: bool = False, family: str = "", text: str = ""):
             serif = "serif" in family.lower() or "georgia" in family.lower() or "times" in family.lower()
             if serif:
                 if bold and italic:
@@ -132,10 +176,23 @@ def render_svg_to_png(svg_path: Path, png_path: Path, width: int, height: int) -
                     "/System/Library/Fonts/Supplemental/Arial Bold.ttf" if bold else "/System/Library/Fonts/Supplemental/Arial Unicode.ttf",
                     "/System/Library/Fonts/Supplemental/Arial.ttf",
                 ]
+            unicode_candidates = [
+                "/System/Library/Fonts/Supplemental/Arial Unicode.ttf",
+                "/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf" if italic else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+                "/usr/share/fonts/truetype/liberation2/LiberationSans-Italic.ttf" if italic else "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf",
+                "/usr/share/fonts/truetype/freefont/FreeSansOblique.ttf" if italic else "/usr/share/fonts/truetype/freefont/FreeSans.ttf",
+            ]
+            candidates.extend(path for path in unicode_candidates if path not in candidates)
+            pixel_size = max(8, int(size * (sx + sy) / 2))
             for candidate in candidates:
                 if Path(candidate).exists():
-                    return ImageFont.truetype(candidate, max(8, int(size * (sx + sy) / 2)))
-            return ImageFont.load_default()
+                    selected = ImageFont.truetype(candidate, pixel_size)
+                    if not text or _pillow_font_supports_text(selected, text):
+                        return selected
+            selected = ImageFont.load_default()
+            if text and not _pillow_font_supports_text(selected, text):
+                raise ValueError("no local Pillow font covers required text glyphs: %r" % text)
+            return selected
 
         def translate(node: ET.Element, dx: float, dy: float) -> tuple[float, float]:
             match = re.search(r"translate\(([-\d.]+)(?:[, ]+)([-\d.]+)\)", node.get("transform", ""))
@@ -197,14 +254,14 @@ def render_svg_to_png(svg_path: Path, png_path: Path, width: int, height: int) -
                 anchor = node.get("text-anchor", "start")
                 family = node.get("font-family", "")
                 italic = node.get("font-style") == "italic"
-                selected_font = font(size, is_bold, italic, family)
                 subspans = [child for child in list(node) if child.tag.rsplit("}", 1)[-1] == "tspan" and child.get("baseline-shift") == "sub"]
                 if subspans and (node.text or "").strip():
                     base_value = (node.text or "").strip()
                     sub_value = "".join(subspans[0].itertext()).strip()
+                    selected_font = font(size, is_bold, italic, family, base_value)
                     sub_size_text = subspans[0].get("font-size", "65%")
                     sub_scale = float(sub_size_text[:-1]) / 100 if sub_size_text.endswith("%") else float(sub_size_text) / size
-                    sub_font = font(size * sub_scale, is_bold, italic, family)
+                    sub_font = font(size * sub_scale, is_bold, italic, family, sub_value)
                     base_bbox = draw.textbbox((0, 0), base_value, font=selected_font)
                     sub_bbox = draw.textbbox((0, 0), sub_value, font=sub_font)
                     base_width = base_bbox[2] - base_bbox[0]; sub_width = sub_bbox[2] - sub_bbox[0]
@@ -215,6 +272,7 @@ def render_svg_to_png(svg_path: Path, png_path: Path, width: int, height: int) -
                     draw.text((x_value + base_width, y_value + size * 0.18 - (sub_bbox[3] - sub_bbox[1])), sub_value, font=sub_font, fill=fill or (31, 41, 55, 255))
                 else:
                     value = "".join(node.itertext()).strip()
+                    selected_font = font(size, is_bold, italic, family, value)
                     bbox = draw.textbbox((0, 0), value, font=selected_font)
                     if anchor == "middle": x_value -= (bbox[2] - bbox[0]) / 2
                     if anchor == "end": x_value -= bbox[2] - bbox[0]
@@ -267,6 +325,10 @@ def render_semantic_pdf(semantic: Mapping[str, Any], output_path: Path, grayscal
             "ArialBold": "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
             "STIXTwoText": "/System/Library/Fonts/Supplemental/STIXTwoText.ttf",
             "STIXTwoTextItalic": "/System/Library/Fonts/Supplemental/STIXTwoText-Italic.ttf",
+            "DejaVuSans": "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+            "DejaVuSansOblique": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf",
+            "LiberationSans": "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf",
+            "LiberationSansItalic": "/usr/share/fonts/truetype/liberation2/LiberationSans-Italic.ttf",
         }
         available_fonts = set(pdfmetrics.getRegisteredFontNames())
         for font_name, font_path in font_files.items():
@@ -278,12 +340,33 @@ def render_semantic_pdf(semantic: Mapping[str, Any], output_path: Path, grayscal
         tokens = semantic.get("style_tokens", {}).get("colors", {})
 
         def pdf_color(value: str | None, fallback: str = "#20252B"):
-            target = value or fallback
-            base = HexColor(target) if target.startswith("#") else HexColor(fallback)
+            target = resolve_hex_paint(value, tokens, fallback)
+            if target == "none":
+                target = resolve_hex_paint(fallback, tokens, "#20252B")
+            base = HexColor(target)
             if grayscale:
                 gray = 0.299 * base.red + 0.587 * base.green + 0.114 * base.blue
                 return Color(gray, gray, gray)
             return base
+
+        def pdf_font_supports_text(font_name: str, value: str) -> bool:
+            try:
+                face = pdfmetrics.getFont(font_name).face
+                glyphs = getattr(face, "charToGlyph", {})
+                return all(character.isspace() or ord(character) in glyphs for character in value)
+            except Exception:
+                return False
+
+        def unicode_pdf_font(value: str, italic: bool = False) -> str:
+            candidates = [
+                "ArialUnicode",
+                "DejaVuSansOblique" if italic else "DejaVuSans",
+                "LiberationSansItalic" if italic else "LiberationSans",
+            ]
+            for candidate in candidates:
+                if candidate in available_fonts and pdf_font_supports_text(candidate, value):
+                    return candidate
+            raise ValueError("no local PDF font covers required text glyphs: %r" % value)
 
         pdf.setFillColor(pdf_color(semantic["canvas"].get("background", "#FFFFFF"), "#FFFFFF"))
         pdf.rect(0, 0, width, height, fill=1, stroke=0)
@@ -305,6 +388,10 @@ def render_semantic_pdf(semantic: Mapping[str, Any], output_path: Path, grayscal
             color_token = connector.get("color_token", "ink")
             color_token = connector.get("stroke_token", color_token)
             pdf.setStrokeColor(pdf_color(tokens.get(color_token), "#20252B")); pdf.setFillColor(pdf_color(tokens.get(color_token), "#20252B")); pdf.setLineWidth(float(semantic.get("style_tokens", {}).get("stroke_width", 2.2)))
+            if connector.get("dash"):
+                pdf.setDash(7, 5)
+            else:
+                pdf.setDash()
             points = connector.get("points", [])
             path = pdf.beginPath(); path.moveTo(points[0][0], height-points[0][1])
             for x_value, y_value in points[1:]: path.lineTo(x_value, height-y_value)
@@ -324,10 +411,13 @@ def render_semantic_pdf(semantic: Mapping[str, Any], output_path: Path, grayscal
                 font_name = "STIXTwoTextItalic" if italic and "STIXTwoTextItalic" in available_fonts else ("STIXTwoText" if "STIXTwoText" in available_fonts else ("Times-Bold" if bold else "Times-Roman"))
             else:
                 font_name = "ArialBold" if bold and "ArialBold" in available_fonts else ("ArialUnicode" if "ArialUnicode" in available_fonts else ("Helvetica-Bold" if bold else "Helvetica"))
+            text_value = item.get("text", "")
+            if any(ord(character) > 127 for character in text_value):
+                font_name = unicode_pdf_font(text_value, italic)
             pdf.setFont(font_name, item.get("font_size", 18))
             anchor = item.get("text_anchor", "start")
             draw_text = pdf.drawCentredString if anchor == "middle" else (pdf.drawRightString if anchor == "end" else pdf.drawString)
-            draw_text(item["x"], height-item["y"], item.get("text", ""))
+            draw_text(item["x"], height-item["y"], text_value)
         for equation in semantic.get("equation_objects", []):
             pdf.setFillColor(pdf_color(tokens.get("ink"), "#20252B"))
             font_size = equation.get("font_size", 18)
@@ -343,9 +433,21 @@ def render_semantic_pdf(semantic: Mapping[str, Any], output_path: Path, grayscal
                 pdf.setFont(math_font, font_size); pdf.drawString(start_x, baseline, "G")
                 pdf.setFont(theta_font, theta_size); pdf.drawString(start_x + g_width, baseline - font_size * 0.18, "θ")
             else:
-                pdf.setFont("Helvetica", font_size)
+                equation_text = equation.get("fallback_text", equation["equation_id"])
+                italic = equation.get("font_style") == "italic"
+                preferred_math_font = "STIXTwoTextItalic" if italic else "STIXTwoText"
+                if (
+                    preferred_math_font in available_fonts
+                    and pdf_font_supports_text(preferred_math_font, equation_text)
+                ):
+                    font_name = preferred_math_font
+                elif any(ord(character) > 127 for character in equation_text):
+                    font_name = unicode_pdf_font(equation_text, italic)
+                else:
+                    font_name = "Times-Italic" if italic else "Times-Roman"
+                pdf.setFont(font_name, font_size)
                 draw_equation = pdf.drawCentredString if equation.get("text_anchor") == "middle" else pdf.drawString
-                draw_equation(equation["x"], height-equation["y"], equation.get("fallback_text", equation["equation_id"]))
+                draw_equation(equation["x"], height-equation["y"], equation_text)
         pdf.showPage(); pdf.save()
         return {"status": "VERIFIED", "path": str(output_path.resolve()), "sha256": sha256_file(output_path), "renderer": "reportlab-native-vector"}
     except Exception as error:
@@ -376,6 +478,22 @@ def esc(value: Any) -> str:
     return html.escape(str(value), quote=True)
 
 
+def _safe_svg_paint(value: Any, colors: Mapping[str, Any], fallback: str) -> str:
+    """Resolve a paint token without emitting executable CSS or external URLs."""
+    raw = str(value if value not in (None, "") else fallback).strip()
+    variable = re.fullmatch(r"var\(--([A-Za-z0-9_-]+)\)", raw)
+    if variable:
+        raw = str(colors.get(variable.group(1), fallback)).strip()
+    if re.search(r"(?:url\s*\(|@import|javascript:|data:|[{};<>\"'])", raw, re.IGNORECASE):
+        raise ValueError("unsafe SVG paint value")
+    if not re.fullmatch(
+        r"(?:none|#[0-9A-Fa-f]{3,8}|[A-Za-z]+|rgba?\([0-9.,%\s]+\)|hsla?\([0-9.,%\s]+\))",
+        raw,
+    ):
+        raise ValueError("unsupported SVG paint value")
+    return raw
+
+
 def polyline_points(points: Sequence[Sequence[float]]) -> str:
     return " ".join("%s,%s" % (point[0], point[1]) for point in points)
 
@@ -399,29 +517,71 @@ def render_semantic_svg(
         })
     stroke_width = float(tokens.get("stroke_width", 2.2))
     font_family = tokens.get("font_family", "Arial, Helvetica, sans-serif")
+    background = _safe_svg_paint(canvas.get("background"), colors, "#FFFFFF")
+    ink = _safe_svg_paint(colors.get("ink"), colors, "#1F2937")
+    warm = _safe_svg_paint(colors.get("warm"), colors, "#B45309")
+    muted = _safe_svg_paint(colors.get("muted"), colors, "#5F6B78")
+    css_tokens = {"background": background}
+    for name, value in colors.items():
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", str(name)):
+            raise ValueError("unsafe SVG style-token name")
+        css_tokens[str(name)] = _safe_svg_paint(value, colors, "#000000")
+    style = '<style>:root{%s}</style>' % "".join(
+        "--%s:%s;" % (name.replace("_", "-"), value)
+        for name, value in sorted(css_tokens.items())
+    )
     defs = (
-        '<defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" '
+        '%s<defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" '
         'orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,4 L0,8 z" fill="%s"/></marker>'
         '<marker id="arrow-warm" markerWidth="10" markerHeight="8" refX="9" refY="4" '
         'orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,4 L0,8 z" fill="%s"/></marker>'
         '<marker id="arrow-muted" markerWidth="10" markerHeight="8" refX="9" refY="4" '
         'orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,4 L0,8 z" fill="%s"/></marker></defs>'
-        % (colors.get("ink", "#1F2937"), colors.get("warm", "#B45309"), colors.get("muted", "#5F6B78"))
+        % (style, ink, warm, muted)
     )
-    layers: Dict[str, List[str]] = {"background": [], "shapes": [], "connectors": [], "text": [], "equations": []}
+    layers: Dict[str, List[str]] = {"background": [], "semantic": [], "shapes": [], "connectors": [], "text": [], "equations": []}
     layers["background"].append(
         '<rect id="canvas-background" x="0" y="0" width="%s" height="%s" fill="%s"/>'
-        % (canvas["width"], canvas["height"], esc(canvas.get("background", "#FFFFFF")))
+        % (canvas["width"], canvas["height"], esc(background))
     )
+    for group in semantic.get("groups", []):
+        layers["semantic"].append(
+            '<g id="%s" data-semantic-id="%s" data-role="%s" data-members="%s"/>' % (
+                esc(group["id"]), esc(group["id"]), esc(group.get("role", "group")),
+                esc(" ".join(str(value) for value in group.get("member_ids", []))),
+            )
+        )
+    for port in semantic.get("ports", []):
+        layers["semantic"].append(
+            '<g id="%s" data-semantic-id="%s" data-role="port" data-node-id="%s" '
+            'data-port-name="%s" data-position="%s"/>' % (
+                esc(port["id"]), esc(port["id"]), esc(port.get("node_id", "")),
+                esc(port.get("name", "")), esc(port.get("position", "")),
+            )
+        )
+    entity_stages = {
+        str(item["id"]): str(item.get("stage", "global"))
+        for item in semantic.get("entities", [])
+        if item.get("id")
+    }
     for shape in semantic.get("shapes", []):
         sid = esc(shape["id"])
         role = shape.get("style_role", "surface")
-        fill = colors.get(shape.get("fill_token", role), shape.get("fill", colors.get("surface", "#F5F5F5")))
-        stroke = colors.get(shape.get("stroke_token", "ink"), shape.get("stroke", colors.get("ink", "#1F2937")))
+        fill = _safe_svg_paint(
+            colors.get(shape.get("fill_token", role), shape.get("fill")),
+            colors,
+            str(colors.get("surface", "#F5F5F5")),
+        )
+        stroke = _safe_svg_paint(
+            colors.get(shape.get("stroke_token", "ink"), shape.get("stroke")),
+            colors,
+            str(colors.get("ink", "#1F2937")),
+        )
         dash = ' stroke-dasharray="%s"' % esc(shape["dash"]) if shape.get("dash") else ""
         shape_stroke_width = shape.get("stroke_width", stroke_width)
-        common = 'id="%s" data-semantic-id="%s" data-entity-type="%s" fill="%s" stroke="%s" stroke-width="%s"%s' % (
-            sid, sid, esc(shape.get("entity_type", "shape")), esc(fill), esc(stroke), shape_stroke_width, dash
+        common = 'id="%s" data-semantic-id="%s" data-entity-type="%s" data-stage="%s" data-group-id="%s" fill="%s" stroke="%s" stroke-width="%s"%s' % (
+            sid, sid, esc(shape.get("entity_type", "shape")), esc(entity_stages.get(str(shape["id"]), "global")),
+            esc(shape.get("group_id", "") or ""), esc(fill), esc(stroke), shape_stroke_width, dash
         )
         kind = shape.get("type", "rect")
         if kind == "rect":
@@ -444,16 +604,19 @@ def render_semantic_svg(
     for connector in semantic.get("connectors", []):
         color_token = connector.get("color_token", "ink")
         color_token = connector.get("stroke_token", color_token)
-        color = colors.get(color_token, "#1F2937")
+        color = _safe_svg_paint(colors.get(color_token), colors, "#1F2937")
         marker = "arrow-warm" if color_token == "warm" else ("arrow-muted" if color_token == "muted" else "arrow")
         dash = ' stroke-dasharray="7 5"' if connector.get("dash") else ""
         marker_end = ' marker-end="url(#%s)"' % marker if connector.get("arrow", "end") == "end" else ""
         layers["connectors"].append(
-            '<polyline id="%s" data-semantic-id="%s" data-relation-type="%s" '
-            'data-source-id="%s" data-target-id="%s" points="%s" fill="none" '
+            '<polyline id="%s" data-semantic-id="%s" data-role="connector" data-relation-type="%s" '
+            'data-source="%s" data-target="%s" data-source-id="%s" data-target-id="%s" '
+            'data-direction="%s" points="%s" fill="none" '
             'stroke="%s" stroke-width="%s" stroke-linejoin="round"%s%s/>' % (
                 esc(connector["id"]), esc(connector["id"]), esc(connector.get("relation_type", "relation")),
                 esc(connector.get("source_id", "")), esc(connector.get("target_id", "")),
+                esc(connector.get("source_id", "")), esc(connector.get("target_id", "")),
+                esc(connector.get("direction", connector.get("arrow", "end"))),
                 polyline_points(connector["points"]), esc(color), stroke_width, dash, marker_end
             )
         )
@@ -461,7 +624,7 @@ def render_semantic_svg(
         font_size = item.get("font_size", 22)
         weight = item.get("font_weight", 400)
         anchor = item.get("text_anchor", "middle")
-        fill = colors.get(item.get("fill_token", "ink"), "#1F2937")
+        fill = _safe_svg_paint(colors.get(item.get("fill_token", "ink")), colors, "#1F2937")
         item_font_family = item.get("font_family", font_family)
         font_style = item.get("font_style", "normal")
         lines = item.get("lines", [item.get("text", "")])
@@ -470,9 +633,9 @@ def render_semantic_svg(
             dy = "0" if index == 0 else str(item.get("line_height", font_size * 1.25))
             tspans.append('<tspan x="%s" dy="%s">%s</tspan>' % (item["x"], dy, esc(line)))
         layers["text"].append(
-            '<text id="%s" data-semantic-id="%s" x="%s" y="%s" text-anchor="%s" '
+            '<text id="%s" data-semantic-id="%s" data-group-id="%s" x="%s" y="%s" text-anchor="%s" '
             'font-family="%s" font-size="%s" font-weight="%s" font-style="%s" fill="%s">%s</text>' % (
-                esc(item["id"]), esc(item["id"]), item["x"], item["y"], anchor,
+                esc(item["id"]), esc(item["id"]), esc(item.get("group_id", "") or ""), item["x"], item["y"], anchor,
                 esc(item_font_family), font_size, weight, esc(font_style), esc(fill), "".join(tspans)
             )
         )
@@ -484,16 +647,17 @@ def render_semantic_svg(
         equation_font_family = equation.get("font_family", font_family)
         equation_font_style = equation.get("font_style", "normal")
         layers["equations"].append(
-            '<g id="%s" data-semantic-id="%s" data-equation-id="%s" data-latex="%s" '
+            '<g id="%s" data-semantic-id="%s" data-group-id="%s" data-equation-id="%s" data-latex="%s" '
             'transform="translate(%s,%s)"><text x="0" y="0" font-family="%s" font-size="%s" '
             'font-style="%s" text-anchor="%s" fill="%s">%s</text></g>' % (
-                esc(equation["id"]), esc(equation["id"]), esc(equation["equation_id"]), esc(latex),
+                esc(equation["id"]), esc(equation["id"]), esc(equation.get("group_id", "") or ""),
+                esc(equation["equation_id"]), esc(latex),
                 x, y, esc(equation_font_family), equation.get("font_size", 20), esc(equation_font_style),
-                esc(equation.get("text_anchor", "start")), colors.get("ink", "#1F2937"), label_markup
+                esc(equation.get("text_anchor", "start")), esc(ink), label_markup
             )
         )
     body = defs
-    order = ["background", "shapes", "connectors", "text", "equations"]
+    order = ["background", "semantic", "shapes", "connectors", "text", "equations"]
     for layer in order:
         body += '<g id="layer-%s" data-layer="%s">%s</g>' % (layer, layer, "".join(layers[layer]))
     metadata = None

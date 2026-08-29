@@ -16,13 +16,23 @@ jobs:
         python-version: ["3.11", "3.12"]
     steps:
       - name: Check out repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Set up Python
-        uses: actions/setup-python@v7
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
-      - name: Install project
-        run: python -m pip install -e .
+      - name: Install declared runtime dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Check declared dependencies
+        run: python -m pip check
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
+      - name: Run deterministic synthetic demo smoke test
+        run: python -B scripts/run_synthetic_demo.py --mode core --output-dir "${RUNNER_TEMP}/synthetic-demo-core"
+      - name: Validate frozen v0.1 reference case
+        run: python -B scripts/replay_reference_case.py validate
+      - name: Replay frozen v0.1 reference case
+        run: python -B scripts/replay_reference_case.py replay --output-dir "${RUNNER_TEMP}/reference-case-v0-1"
+      - name: Report separate human approval states
+        run: python -B scripts/replay_reference_case.py status

@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "figure_id": "deep-image-prior-c-fidelity-v2",
+  "status": "VERIFIED_FIDELITY_V2_REVIEW_DRAFT",
+  "canonical_source": "source/semantic_figure.json",
+  "selected_candidate_map": "source/selected_candidate_map.json",
+  "asset_manifest": "source/asset_manifest.json",
+  "validation_report": "validation/fidelity_v2_validation_report.json",
+  "visual_fidelity_report": "validation/visual_fidelity_report.json",
+  "formats": [
+    {
+      "format": "svg",
+      "path": "delivery/svg/master.svg",
+      "editability": "native vectors, gradients, equations, and two replaceable image atoms"
+    },
+    {
+      "format": "pptx",
+      "path": "delivery/pptx/figure.pptx",
+      "editability": "native shapes, gradients, text, curves, and vector equations"
+    },
+    {
+      "format": "drawio",
+      "path": "delivery/drawio/figure.drawio",
+      "editability": "native structural view; pixel equivalence not claimed"
+    },
+    {
+      "format": "pdf",
+      "path": "delivery/pdf/publication.pdf",
+      "editability": "none claimed; preview/export only"
+    }
+  ],
+  "final_visual_approval": null,
+  "final_scientific_approval": null
+}

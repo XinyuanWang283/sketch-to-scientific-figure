@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "status": "VERIFIED_FIDELITY_V2_REVIEW_DRAFT",
+  "figure_id": "deep-image-prior-c-fidelity-v2",
+  "validation_scope": "Programmable provenance, exact crop pixels, local synthetic curve-fit error, vector structure, equation aspect ratio, cross-format parse validity, and topology only; not scientific correctness, publication approval, or pixel editability of the two image atoms.",
+  "checks": {
+    "major_region_count": 8,
+    "approved_raster_atom_count": 2,
+    "whole_candidate_raster_count": 0,
+    "generator_layer_group_count": 11,
+    "generator_face_gradient_count": 11,
+    "native_plot_curve_count": 2,
+    "cosmetic_plot_sample_dot_count": 0,
+    "svg_explicit_arrowhead_count": 7,
+    "pptx_vector_equation_count": 9,
+    "pptx_substantive_raster_count": 2,
+    "pptx_native_shape_count": 82,
+    "pptx_native_gradient_present": true,
+    "pptx_alpha_present": true,
+    "drawio_generator_layer_cell_count": 11,
+    "drawio_plot_curve_cell_count": 2,
+    "drawio_directed_topology_edge_count": 7,
+    "pdf_page_count": 1,
+    "equation_aspect_ratio_preserved": true,
+    "visual_triptych_count": 8
+  },
+  "claims": {
+    "svg": "editable native vector composition with two relative replaceable image atoms",
+    "pptx": "editable native shapes, gradients, text, two independent picture shapes, and vector equations",
+    "drawio": "editable structural view; pixel equivalence to the SVG/PPTX is not claimed",
+    "pdf": "preview/export only",
+    "scientific_correctness": "not automated; explicit final researcher approval remains required"
+  },
+  "final_visual_approval": null,
+  "final_scientific_approval": null
+}

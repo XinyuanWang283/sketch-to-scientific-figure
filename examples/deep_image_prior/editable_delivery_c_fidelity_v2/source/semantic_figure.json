@@ -1,0 +1,2624 @@
+{
+  "schema_version": "1.0",
+  "figure_id": "deep-image-prior-c-fidelity-v2",
+  "status": "AWAITING_FINAL_RESEARCHER_REVIEW",
+  "canvas": {
+    "width": 1672,
+    "height": 941,
+    "background": "#FFFFFF"
+  },
+  "visual_reference": {
+    "path": "../../candidates/C-presentation.png",
+    "sha256": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c",
+    "role": "Hash-bound visual reference. Only the two approved exact-pixel atoms in asset_manifest.json enter deliveries."
+  },
+  "selection": {
+    "path": "../../candidate_selection_c_only.json",
+    "sha256": "c16b610d14ab4ef2a686b2b34fb9839cd50f2c1bad3049ff56f15f04ed76f831",
+    "final_scientific_approval": null
+  },
+  "selected_candidate_map": "selected_candidate_map.json",
+  "frames": [
+    {
+      "id": "measurement-panel",
+      "geometry": "roundRect",
+      "position": {
+        "left": 1334,
+        "top": 100,
+        "width": 306,
+        "height": 624
+      },
+      "fill": {
+        "type": "gradient",
+        "gradientKind": "linear",
+        "angleDeg": 0,
+        "stops": [
+          {
+            "offset": 0,
+            "color": "#EFF6FF"
+          },
+          {
+            "offset": 100000,
+            "color": "#E7F1FD"
+          }
+        ]
+      },
+      "stroke": "#5D8FC6",
+      "stroke_width": 3.2,
+      "radius": 26,
+      "dash": [
+        11,
+        10
+      ]
+    },
+    {
+      "id": "noise-frame",
+      "geometry": "roundRect",
+      "position": {
+        "left": 40,
+        "top": 214,
+        "width": 228,
+        "height": 230
+      },
+      "fill": "#F7F8FA",
+      "stroke": "#0D2F6E",
+      "stroke_width": 3.4,
+      "radius": 15,
+      "dash": []
+    },
+    {
+      "id": "generator-frame",
+      "geometry": "roundRect",
+      "position": {
+        "left": 366,
+        "top": 191,
+        "width": 386,
+        "height": 296
+      },
+      "fill": {
+        "type": "gradient",
+        "gradientKind": "linear",
+        "angleDeg": 0,
+        "stops": [
+          {
+            "offset": 0,
+            "color": "#F7F2FC"
+          },
+          {
+            "offset": 100000,
+            "color": "#F7F1FB"
+          }
+        ]
+      },
+      "stroke": "#5A258C",
+      "stroke_width": 3.4,
+      "radius": 20,
+      "dash": []
+    },
+    {
+      "id": "reconstruction-frame",
+      "geometry": "roundRect",
+      "position": {
+        "left": 829,
+        "top": 220,
+        "width": 231,
+        "height": 234
+      },
+      "fill": "#D9DEE2",
+      "stroke": "#0B6262",
+      "stroke_width": 3.4,
+      "radius": 14,
+      "dash": []
+    },
+    {
+      "id": "operator-frame",
+      "geometry": "roundRect",
+      "position": {
+        "left": 1137,
+        "top": 279,
+        "width": 117,
+        "height": 114
+      },
+      "fill": {
+        "type": "gradient",
+        "gradientKind": "linear",
+        "angleDeg": 0,
+        "stops": [
+          {
+            "offset": 0,
+            "color": "#FFF9EF"
+          },
+          {
+            "offset": 100000,
+            "color": "#FFF3E4"
+          }
+        ]
+      },
+      "stroke": "#C57300",
+      "stroke_width": 3.0,
+      "radius": 15,
+      "dash": []
+    },
+    {
+      "id": "predicted-frame",
+      "geometry": "roundRect",
+      "position": {
+        "left": 1365,
+        "top": 182,
+        "width": 245,
+        "height": 130
+      },
+      "fill": "#FFFFFF",
+      "stroke": "#0D2F6E",
+      "stroke_width": 3.0,
+      "radius": 12,
+      "dash": []
+    },
+    {
+      "id": "loss-node",
+      "geometry": "ellipse",
+      "position": {
+        "left": 1434,
+        "top": 363,
+        "width": 108,
+        "height": 107
+      },
+      "fill": "#FFFFFF",
+      "stroke": "#0D2F6E",
+      "stroke_width": 3.0,
+      "radius": 0,
+      "dash": []
+    },
+    {
+      "id": "observed-frame",
+      "geometry": "roundRect",
+      "position": {
+        "left": 1365,
+        "top": 518,
+        "width": 245,
+        "height": 128
+      },
+      "fill": "#FFFFFF",
+      "stroke": "#0D2F6E",
+      "stroke_width": 3.0,
+      "radius": 12,
+      "dash": []
+    }
+  ],
+  "regions": {
+    "generator-network": [
+      {
+        "id": "network-layer-01-top",
+        "type": "polygon",
+        "points": [
+          [
+            388.0,
+            228.0
+          ],
+          [
+            397.0,
+            222.0
+          ],
+          [
+            425.0,
+            227.0
+          ],
+          [
+            416.0,
+            233.0
+          ]
+        ],
+        "fill": "#E6E2F1",
+        "stroke": "#6C669A",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.78
+      },
+      {
+        "id": "network-layer-01-side",
+        "type": "polygon",
+        "points": [
+          [
+            416.0,
+            233.0
+          ],
+          [
+            425.0,
+            227.0
+          ],
+          [
+            425.0,
+            443.0
+          ],
+          [
+            416.0,
+            449.0
+          ]
+        ],
+        "fill": "#7771A7",
+        "stroke": "#4D477D",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.88
+      },
+      {
+        "id": "network-layer-01-face",
+        "type": "polygon",
+        "points": [
+          [
+            388.0,
+            228.0
+          ],
+          [
+            416.0,
+            233.0
+          ],
+          [
+            416.0,
+            449.0
+          ],
+          [
+            388.0,
+            454.0
+          ]
+        ],
+        "fill": {
+          "type": "gradient",
+          "gradientKind": "linear",
+          "angleDeg": 0,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#5E5A93"
+            },
+            {
+              "offset": 55000,
+              "color": "#736CAE"
+            },
+            {
+              "offset": 100000,
+              "color": "#958BC3"
+            }
+          ]
+        },
+        "stroke": "#423D75",
+        "stroke_width": 1.35
+      },
+      {
+        "id": "network-layer-02-top",
+        "type": "polygon",
+        "points": [
+          [
+            422.0,
+            244.0
+          ],
+          [
+            431.0,
+            238.0
+          ],
+          [
+            461.0,
+            243.0
+          ],
+          [
+            452.0,
+            249.0
+          ]
+        ],
+        "fill": "#E6E2F1",
+        "stroke": "#6C669A",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.78
+      },
+      {
+        "id": "network-layer-02-side",
+        "type": "polygon",
+        "points": [
+          [
+            452.0,
+            249.0
+          ],
+          [
+            461.0,
+            243.0
+          ],
+          [
+            461.0,
+            427.0
+          ],
+          [
+            452.0,
+            433.0
+          ]
+        ],
+        "fill": "#7771A7",
+        "stroke": "#4D477D",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.88
+      },
+      {
+        "id": "network-layer-02-face",
+        "type": "polygon",
+        "points": [
+          [
+            422.0,
+            244.0
+          ],
+          [
+            452.0,
+            249.0
+          ],
+          [
+            452.0,
+            433.0
+          ],
+          [
+            422.0,
+            438.0
+          ]
+        ],
+        "fill": {
+          "type": "gradient",
+          "gradientKind": "linear",
+          "angleDeg": 0,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#736CAE"
+            },
+            {
+              "offset": 55000,
+              "color": "#958BC3"
+            },
+            {
+              "offset": 100000,
+              "color": "#B3AAD4"
+            }
+          ]
+        },
+        "stroke": "#423D75",
+        "stroke_width": 1.35
+      },
+      {
+        "id": "network-layer-03-top",
+        "type": "polygon",
+        "points": [
+          [
+            459.0,
+            261.0
+          ],
+          [
+            468.0,
+            255.0
+          ],
+          [
+            499.0,
+            260.0
+          ],
+          [
+            490.0,
+            266.0
+          ]
+        ],
+        "fill": "#E6E2F1",
+        "stroke": "#6C669A",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.78
+      },
+      {
+        "id": "network-layer-03-side",
+        "type": "polygon",
+        "points": [
+          [
+            490.0,
+            266.0
+          ],
+          [
+            499.0,
+            260.0
+          ],
+          [
+            499.0,
+            410.0
+          ],
+          [
+            490.0,
+            416.0
+          ]
+        ],
+        "fill": "#7771A7",
+        "stroke": "#4D477D",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.88
+      },
+      {
+        "id": "network-layer-03-face",
+        "type": "polygon",
+        "points": [
+          [
+            459.0,
+            261.0
+          ],
+          [
+            490.0,
+            266.0
+          ],
+          [
+            490.0,
+            416.0
+          ],
+          [
+            459.0,
+            421.0
+          ]
+        ],
+        "fill": {
+          "type": "gradient",
+          "gradientKind": "linear",
+          "angleDeg": 0,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#958BC3"
+            },
+            {
+              "offset": 55000,
+              "color": "#B3AAD4"
+            },
+            {
+              "offset": 100000,
+              "color": "#C0B8DF"
+            }
+          ]
+        },
+        "stroke": "#423D75",
+        "stroke_width": 1.35
+      },
+      {
+        "id": "network-layer-04-top",
+        "type": "polygon",
+        "points": [
+          [
+            496.0,
+            278.0
+          ],
+          [
+            505.0,
+            272.0
+          ],
+          [
+            535.0,
+            277.0
+          ],
+          [
+            526.0,
+            283.0
+          ]
+        ],
+        "fill": "#E6E2F1",
+        "stroke": "#6C669A",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.78
+      },
+      {
+        "id": "network-layer-04-side",
+        "type": "polygon",
+        "points": [
+          [
+            526.0,
+            283.0
+          ],
+          [
+            535.0,
+            277.0
+          ],
+          [
+            535.0,
+            393.0
+          ],
+          [
+            526.0,
+            399.0
+          ]
+        ],
+        "fill": "#7771A7",
+        "stroke": "#4D477D",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.88
+      },
+      {
+        "id": "network-layer-04-face",
+        "type": "polygon",
+        "points": [
+          [
+            496.0,
+            278.0
+          ],
+          [
+            526.0,
+            283.0
+          ],
+          [
+            526.0,
+            399.0
+          ],
+          [
+            496.0,
+            404.0
+          ]
+        ],
+        "fill": {
+          "type": "gradient",
+          "gradientKind": "linear",
+          "angleDeg": 0,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#B3AAD4"
+            },
+            {
+              "offset": 55000,
+              "color": "#C0B8DF"
+            },
+            {
+              "offset": 100000,
+              "color": "#D8D1EB"
+            }
+          ]
+        },
+        "stroke": "#423D75",
+        "stroke_width": 1.35
+      },
+      {
+        "id": "network-layer-05-top",
+        "type": "polygon",
+        "points": [
+          [
+            532.0,
+            296.0
+          ],
+          [
+            541.0,
+            290.0
+          ],
+          [
+            565.0,
+            295.0
+          ],
+          [
+            556.0,
+            301.0
+          ]
+        ],
+        "fill": "#E6E2F1",
+        "stroke": "#6C669A",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.78
+      },
+      {
+        "id": "network-layer-05-side",
+        "type": "polygon",
+        "points": [
+          [
+            556.0,
+            301.0
+          ],
+          [
+            565.0,
+            295.0
+          ],
+          [
+            565.0,
+            375.0
+          ],
+          [
+            556.0,
+            381.0
+          ]
+        ],
+        "fill": "#7771A7",
+        "stroke": "#4D477D",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.88
+      },
+      {
+        "id": "network-layer-05-face",
+        "type": "polygon",
+        "points": [
+          [
+            532.0,
+            296.0
+          ],
+          [
+            556.0,
+            301.0
+          ],
+          [
+            556.0,
+            381.0
+          ],
+          [
+            532.0,
+            386.0
+          ]
+        ],
+        "fill": {
+          "type": "gradient",
+          "gradientKind": "linear",
+          "angleDeg": 0,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#C0B8DF"
+            },
+            {
+              "offset": 55000,
+              "color": "#D8D1EB"
+            },
+            {
+              "offset": 100000,
+              "color": "#EEEAF5"
+            }
+          ]
+        },
+        "stroke": "#423D75",
+        "stroke_width": 1.35
+      },
+      {
+        "id": "network-layer-06-top",
+        "type": "polygon",
+        "points": [
+          [
+            556.0,
+            314.0
+          ],
+          [
+            565.0,
+            308.0
+          ],
+          [
+            583.0,
+            313.0
+          ],
+          [
+            574.0,
+            319.0
+          ]
+        ],
+        "fill": "#E6E2F1",
+        "stroke": "#6C669A",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.78
+      },
+      {
+        "id": "network-layer-06-side",
+        "type": "polygon",
+        "points": [
+          [
+            574.0,
+            319.0
+          ],
+          [
+            583.0,
+            313.0
+          ],
+          [
+            583.0,
+            357.0
+          ],
+          [
+            574.0,
+            363.0
+          ]
+        ],
+        "fill": "#7771A7",
+        "stroke": "#4D477D",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.88
+      },
+      {
+        "id": "network-layer-06-face",
+        "type": "polygon",
+        "points": [
+          [
+            556.0,
+            314.0
+          ],
+          [
+            574.0,
+            319.0
+          ],
+          [
+            574.0,
+            363.0
+          ],
+          [
+            556.0,
+            368.0
+          ]
+        ],
+        "fill": {
+          "type": "gradient",
+          "gradientKind": "linear",
+          "angleDeg": 0,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#958BC3"
+            },
+            {
+              "offset": 55000,
+              "color": "#B3AAD4"
+            },
+            {
+              "offset": 100000,
+              "color": "#D8D1EB"
+            }
+          ]
+        },
+        "stroke": "#423D75",
+        "stroke_width": 1.35
+      },
+      {
+        "id": "network-layer-07-top",
+        "type": "polygon",
+        "points": [
+          [
+            578.0,
+            296.0
+          ],
+          [
+            602.0,
+            291.0
+          ],
+          [
+            611.0,
+            296.0
+          ],
+          [
+            587.0,
+            301.0
+          ]
+        ],
+        "fill": "#E6E2F1",
+        "stroke": "#6C669A",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.78
+      },
+      {
+        "id": "network-layer-07-side",
+        "type": "polygon",
+        "points": [
+          [
+            578.0,
+            296.0
+          ],
+          [
+            587.0,
+            301.0
+          ],
+          [
+            587.0,
+            381.0
+          ],
+          [
+            578.0,
+            376.0
+          ]
+        ],
+        "fill": "#7771A7",
+        "stroke": "#4D477D",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.88
+      },
+      {
+        "id": "network-layer-07-face",
+        "type": "polygon",
+        "points": [
+          [
+            587.0,
+            301.0
+          ],
+          [
+            611.0,
+            296.0
+          ],
+          [
+            611.0,
+            386.0
+          ],
+          [
+            587.0,
+            381.0
+          ]
+        ],
+        "fill": {
+          "type": "gradient",
+          "gradientKind": "linear",
+          "angleDeg": 180,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#C0B8DF"
+            },
+            {
+              "offset": 55000,
+              "color": "#D8D1EB"
+            },
+            {
+              "offset": 100000,
+              "color": "#EEEAF5"
+            }
+          ]
+        },
+        "stroke": "#423D75",
+        "stroke_width": 1.35
+      },
+      {
+        "id": "network-layer-08-top",
+        "type": "polygon",
+        "points": [
+          [
+            610.0,
+            278.0
+          ],
+          [
+            640.0,
+            273.0
+          ],
+          [
+            649.0,
+            278.0
+          ],
+          [
+            619.0,
+            283.0
+          ]
+        ],
+        "fill": "#E6E2F1",
+        "stroke": "#6C669A",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.78
+      },
+      {
+        "id": "network-layer-08-side",
+        "type": "polygon",
+        "points": [
+          [
+            610.0,
+            278.0
+          ],
+          [
+            619.0,
+            283.0
+          ],
+          [
+            619.0,
+            399.0
+          ],
+          [
+            610.0,
+            394.0
+          ]
+        ],
+        "fill": "#7771A7",
+        "stroke": "#4D477D",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.88
+      },
+      {
+        "id": "network-layer-08-face",
+        "type": "polygon",
+        "points": [
+          [
+            619.0,
+            283.0
+          ],
+          [
+            649.0,
+            278.0
+          ],
+          [
+            649.0,
+            404.0
+          ],
+          [
+            619.0,
+            399.0
+          ]
+        ],
+        "fill": {
+          "type": "gradient",
+          "gradientKind": "linear",
+          "angleDeg": 180,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#B3AAD4"
+            },
+            {
+              "offset": 55000,
+              "color": "#C0B8DF"
+            },
+            {
+              "offset": 100000,
+              "color": "#D8D1EB"
+            }
+          ]
+        },
+        "stroke": "#423D75",
+        "stroke_width": 1.35
+      },
+      {
+        "id": "network-layer-09-top",
+        "type": "polygon",
+        "points": [
+          [
+            643.0,
+            261.0
+          ],
+          [
+            674.0,
+            256.0
+          ],
+          [
+            683.0,
+            261.0
+          ],
+          [
+            652.0,
+            266.0
+          ]
+        ],
+        "fill": "#E6E2F1",
+        "stroke": "#6C669A",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.78
+      },
+      {
+        "id": "network-layer-09-side",
+        "type": "polygon",
+        "points": [
+          [
+            643.0,
+            261.0
+          ],
+          [
+            652.0,
+            266.0
+          ],
+          [
+            652.0,
+            416.0
+          ],
+          [
+            643.0,
+            411.0
+          ]
+        ],
+        "fill": "#7771A7",
+        "stroke": "#4D477D",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.88
+      },
+      {
+        "id": "network-layer-09-face",
+        "type": "polygon",
+        "points": [
+          [
+            652.0,
+            266.0
+          ],
+          [
+            683.0,
+            261.0
+          ],
+          [
+            683.0,
+            421.0
+          ],
+          [
+            652.0,
+            416.0
+          ]
+        ],
+        "fill": {
+          "type": "gradient",
+          "gradientKind": "linear",
+          "angleDeg": 180,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#958BC3"
+            },
+            {
+              "offset": 55000,
+              "color": "#B3AAD4"
+            },
+            {
+              "offset": 100000,
+              "color": "#C0B8DF"
+            }
+          ]
+        },
+        "stroke": "#423D75",
+        "stroke_width": 1.35
+      },
+      {
+        "id": "network-layer-10-top",
+        "type": "polygon",
+        "points": [
+          [
+            675.0,
+            244.0
+          ],
+          [
+            705.0,
+            239.0
+          ],
+          [
+            714.0,
+            244.0
+          ],
+          [
+            684.0,
+            249.0
+          ]
+        ],
+        "fill": "#E6E2F1",
+        "stroke": "#6C669A",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.78
+      },
+      {
+        "id": "network-layer-10-side",
+        "type": "polygon",
+        "points": [
+          [
+            675.0,
+            244.0
+          ],
+          [
+            684.0,
+            249.0
+          ],
+          [
+            684.0,
+            433.0
+          ],
+          [
+            675.0,
+            428.0
+          ]
+        ],
+        "fill": "#7771A7",
+        "stroke": "#4D477D",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.88
+      },
+      {
+        "id": "network-layer-10-face",
+        "type": "polygon",
+        "points": [
+          [
+            684.0,
+            249.0
+          ],
+          [
+            714.0,
+            244.0
+          ],
+          [
+            714.0,
+            438.0
+          ],
+          [
+            684.0,
+            433.0
+          ]
+        ],
+        "fill": {
+          "type": "gradient",
+          "gradientKind": "linear",
+          "angleDeg": 180,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#736CAE"
+            },
+            {
+              "offset": 55000,
+              "color": "#958BC3"
+            },
+            {
+              "offset": 100000,
+              "color": "#B3AAD4"
+            }
+          ]
+        },
+        "stroke": "#423D75",
+        "stroke_width": 1.35
+      },
+      {
+        "id": "network-layer-11-top",
+        "type": "polygon",
+        "points": [
+          [
+            704.0,
+            228.0
+          ],
+          [
+            732.0,
+            223.0
+          ],
+          [
+            741.0,
+            228.0
+          ],
+          [
+            713.0,
+            233.0
+          ]
+        ],
+        "fill": "#E6E2F1",
+        "stroke": "#6C669A",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.78
+      },
+      {
+        "id": "network-layer-11-side",
+        "type": "polygon",
+        "points": [
+          [
+            704.0,
+            228.0
+          ],
+          [
+            713.0,
+            233.0
+          ],
+          [
+            713.0,
+            449.0
+          ],
+          [
+            704.0,
+            444.0
+          ]
+        ],
+        "fill": "#7771A7",
+        "stroke": "#4D477D",
+        "stroke_width": 1.0,
+        "fill_opacity": 0.88
+      },
+      {
+        "id": "network-layer-11-face",
+        "type": "polygon",
+        "points": [
+          [
+            713.0,
+            233.0
+          ],
+          [
+            741.0,
+            228.0
+          ],
+          [
+            741.0,
+            454.0
+          ],
+          [
+            713.0,
+            449.0
+          ]
+        ],
+        "fill": {
+          "type": "gradient",
+          "gradientKind": "linear",
+          "angleDeg": 180,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#5E5A93"
+            },
+            {
+              "offset": 55000,
+              "color": "#736CAE"
+            },
+            {
+              "offset": 100000,
+              "color": "#958BC3"
+            }
+          ]
+        },
+        "stroke": "#423D75",
+        "stroke_width": 1.35
+      }
+    ],
+    "predicted-plot": [
+      {
+        "id": "predicted-plot-grid-v-1",
+        "type": "polyline",
+        "points": [
+          [
+            1379.0,
+            194.0
+          ],
+          [
+            1379.0,
+            300.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "predicted-plot-grid-v-2",
+        "type": "polyline",
+        "points": [
+          [
+            1420.0,
+            194.0
+          ],
+          [
+            1420.0,
+            300.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "predicted-plot-grid-v-3",
+        "type": "polyline",
+        "points": [
+          [
+            1461.0,
+            194.0
+          ],
+          [
+            1461.0,
+            300.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "predicted-plot-grid-v-4",
+        "type": "polyline",
+        "points": [
+          [
+            1502.0,
+            194.0
+          ],
+          [
+            1502.0,
+            300.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "predicted-plot-grid-v-5",
+        "type": "polyline",
+        "points": [
+          [
+            1543.0,
+            194.0
+          ],
+          [
+            1543.0,
+            300.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "predicted-plot-grid-v-6",
+        "type": "polyline",
+        "points": [
+          [
+            1585.0,
+            194.0
+          ],
+          [
+            1585.0,
+            300.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "predicted-plot-grid-h-1",
+        "type": "polyline",
+        "points": [
+          [
+            1377.0,
+            214.5
+          ],
+          [
+            1598.0,
+            214.5
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "predicted-plot-grid-h-2",
+        "type": "polyline",
+        "points": [
+          [
+            1377.0,
+            269.1
+          ],
+          [
+            1598.0,
+            269.1
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "predicted-plot-curve",
+        "type": "polyline",
+        "points": [
+          [
+            1379.0,
+            261.0
+          ],
+          [
+            1385.0,
+            259.0
+          ],
+          [
+            1386.0,
+            258.0
+          ],
+          [
+            1393.0,
+            258.0
+          ],
+          [
+            1411.0,
+            269.0
+          ],
+          [
+            1416.0,
+            270.0
+          ],
+          [
+            1420.0,
+            268.5
+          ],
+          [
+            1424.0,
+            265.0
+          ],
+          [
+            1429.0,
+            258.0
+          ],
+          [
+            1435.0,
+            246.5
+          ],
+          [
+            1447.0,
+            218.5
+          ],
+          [
+            1451.0,
+            211.0
+          ],
+          [
+            1454.0,
+            206.5
+          ],
+          [
+            1458.0,
+            202.5
+          ],
+          [
+            1462.0,
+            202.0
+          ],
+          [
+            1465.0,
+            204.0
+          ],
+          [
+            1469.0,
+            210.0
+          ],
+          [
+            1490.0,
+            263.5
+          ],
+          [
+            1494.0,
+            270.5
+          ],
+          [
+            1500.0,
+            276.5
+          ],
+          [
+            1504.0,
+            278.0
+          ],
+          [
+            1508.0,
+            278.0
+          ],
+          [
+            1513.0,
+            275.5
+          ],
+          [
+            1528.0,
+            262.0
+          ],
+          [
+            1533.0,
+            259.0
+          ],
+          [
+            1538.0,
+            259.0
+          ],
+          [
+            1541.0,
+            260.5
+          ],
+          [
+            1547.0,
+            266.5
+          ],
+          [
+            1551.0,
+            268.5
+          ],
+          [
+            1553.0,
+            268.5
+          ],
+          [
+            1558.0,
+            266.0
+          ],
+          [
+            1566.0,
+            257.0
+          ],
+          [
+            1569.0,
+            254.5
+          ],
+          [
+            1571.0,
+            254.0
+          ],
+          [
+            1575.0,
+            254.0
+          ],
+          [
+            1578.0,
+            255.5
+          ],
+          [
+            1589.0,
+            264.5
+          ],
+          [
+            1595.0,
+            265.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#0D2F6E",
+        "stroke_width": 3.2,
+        "linecap": "round",
+        "linejoin": "round",
+        "reference_fit": {
+          "origin": "mechanically_fitted_from_hash_bound_selected_candidate",
+          "candidate_sha256": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c",
+          "source_frame": [
+            1365,
+            182,
+            245,
+            130
+          ],
+          "scientific_status": "synthetic_visual_only",
+          "scientific_data": false,
+          "reference_fit": true,
+          "algorithm": "navy-pixel column median; five-column median filter; RDP epsilon 0.5 px",
+          "coverage": 1.0,
+          "source_column_count": 217,
+          "simplified_point_count": 38,
+          "median_vertical_error_px": 0.1,
+          "max_vertical_error_px": 1.2381,
+          "human_review_required": true
+        }
+      }
+    ],
+    "observed-plot": [
+      {
+        "id": "observed-plot-grid-v-1",
+        "type": "polyline",
+        "points": [
+          [
+            1379.0,
+            530.0
+          ],
+          [
+            1379.0,
+            634.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "observed-plot-grid-v-2",
+        "type": "polyline",
+        "points": [
+          [
+            1420.0,
+            530.0
+          ],
+          [
+            1420.0,
+            634.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "observed-plot-grid-v-3",
+        "type": "polyline",
+        "points": [
+          [
+            1461.0,
+            530.0
+          ],
+          [
+            1461.0,
+            634.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "observed-plot-grid-v-4",
+        "type": "polyline",
+        "points": [
+          [
+            1502.0,
+            530.0
+          ],
+          [
+            1502.0,
+            634.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "observed-plot-grid-v-5",
+        "type": "polyline",
+        "points": [
+          [
+            1543.0,
+            530.0
+          ],
+          [
+            1543.0,
+            634.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "observed-plot-grid-v-6",
+        "type": "polyline",
+        "points": [
+          [
+            1585.0,
+            530.0
+          ],
+          [
+            1585.0,
+            634.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "observed-plot-grid-h-1",
+        "type": "polyline",
+        "points": [
+          [
+            1377.0,
+            550.0
+          ],
+          [
+            1598.0,
+            550.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "observed-plot-grid-h-2",
+        "type": "polyline",
+        "points": [
+          [
+            1377.0,
+            603.76
+          ],
+          [
+            1598.0,
+            603.76
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#D7E0EC",
+        "stroke_width": 1.0,
+        "dash": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "observed-plot-curve",
+        "type": "polyline",
+        "points": [
+          [
+            1379.0,
+            595.5
+          ],
+          [
+            1385.0,
+            593.0
+          ],
+          [
+            1391.0,
+            593.0
+          ],
+          [
+            1396.0,
+            595.5
+          ],
+          [
+            1408.0,
+            605.5
+          ],
+          [
+            1411.0,
+            607.0
+          ],
+          [
+            1418.0,
+            606.5
+          ],
+          [
+            1425.0,
+            599.5
+          ],
+          [
+            1430.0,
+            590.5
+          ],
+          [
+            1443.0,
+            559.0
+          ],
+          [
+            1450.0,
+            544.0
+          ],
+          [
+            1456.0,
+            536.5
+          ],
+          [
+            1461.0,
+            536.0
+          ],
+          [
+            1465.0,
+            539.0
+          ],
+          [
+            1470.0,
+            548.0
+          ],
+          [
+            1475.0,
+            560.0
+          ],
+          [
+            1488.0,
+            597.0
+          ],
+          [
+            1493.0,
+            608.0
+          ],
+          [
+            1497.0,
+            614.5
+          ],
+          [
+            1502.0,
+            619.0
+          ],
+          [
+            1509.0,
+            618.5
+          ],
+          [
+            1516.0,
+            611.0
+          ],
+          [
+            1525.0,
+            599.0
+          ],
+          [
+            1528.0,
+            596.0
+          ],
+          [
+            1533.0,
+            593.0
+          ],
+          [
+            1537.0,
+            593.0
+          ],
+          [
+            1540.0,
+            594.5
+          ],
+          [
+            1547.0,
+            600.5
+          ],
+          [
+            1550.0,
+            602.0
+          ],
+          [
+            1553.0,
+            602.0
+          ],
+          [
+            1556.0,
+            600.5
+          ],
+          [
+            1567.0,
+            588.0
+          ],
+          [
+            1571.0,
+            585.5
+          ],
+          [
+            1574.0,
+            585.5
+          ],
+          [
+            1578.0,
+            587.5
+          ],
+          [
+            1588.0,
+            598.5
+          ],
+          [
+            1592.0,
+            600.0
+          ],
+          [
+            1595.0,
+            600.0
+          ]
+        ],
+        "fill": "none",
+        "stroke": "#0D2F6E",
+        "stroke_width": 3.2,
+        "linecap": "round",
+        "linejoin": "round",
+        "reference_fit": {
+          "origin": "mechanically_fitted_from_hash_bound_selected_candidate",
+          "candidate_sha256": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c",
+          "source_frame": [
+            1365,
+            518,
+            245,
+            128
+          ],
+          "scientific_status": "synthetic_visual_only",
+          "scientific_data": false,
+          "reference_fit": true,
+          "algorithm": "navy-pixel column median; five-column median filter; RDP epsilon 0.5 px",
+          "coverage": 1.0,
+          "source_column_count": 217,
+          "simplified_point_count": 38,
+          "median_vertical_error_px": 0.1429,
+          "max_vertical_error_px": 1.0385,
+          "human_review_required": true
+        }
+      }
+    ]
+  },
+  "connectors": [
+    {
+      "id": "flow-z-generator",
+      "source_id": "noise-frame",
+      "target_id": "generator-frame",
+      "relation_type": "generator-input",
+      "shaft_points": [
+        [
+          268.0,
+          330.0
+        ],
+        [
+          345.0,
+          330.0
+        ]
+      ],
+      "arrowhead_points": [
+        [
+          358.0,
+          330.0
+        ],
+        [
+          345.0,
+          336.5
+        ],
+        [
+          345.0,
+          323.5
+        ]
+      ],
+      "stroke": "#0D2F6E",
+      "stroke_width": 4.0,
+      "style": "solid",
+      "dash": [],
+      "linecap": "butt"
+    },
+    {
+      "id": "flow-generator-reconstruction",
+      "source_id": "generator-frame",
+      "target_id": "reconstruction-frame",
+      "relation_type": "reconstruction",
+      "shaft_points": [
+        [
+          752.0,
+          330.0
+        ],
+        [
+          808.0,
+          330.0
+        ]
+      ],
+      "arrowhead_points": [
+        [
+          821.0,
+          330.0
+        ],
+        [
+          808.0,
+          336.5
+        ],
+        [
+          808.0,
+          323.5
+        ]
+      ],
+      "stroke": "#0D2F6E",
+      "stroke_width": 4.0,
+      "style": "solid",
+      "dash": [],
+      "linecap": "butt"
+    },
+    {
+      "id": "flow-reconstruction-operator",
+      "source_id": "reconstruction-frame",
+      "target_id": "operator-frame",
+      "relation_type": "forward-model-input",
+      "shaft_points": [
+        [
+          1060.0,
+          330.0
+        ],
+        [
+          1116.0,
+          330.0
+        ]
+      ],
+      "arrowhead_points": [
+        [
+          1129.0,
+          330.0
+        ],
+        [
+          1116.0,
+          336.5
+        ],
+        [
+          1116.0,
+          323.5
+        ]
+      ],
+      "stroke": "#0D2F6E",
+      "stroke_width": 4.0,
+      "style": "solid",
+      "dash": [],
+      "linecap": "butt"
+    },
+    {
+      "id": "flow-operator-predicted",
+      "source_id": "operator-frame",
+      "target_id": "measurement-panel",
+      "relation_type": "predicted-measurement",
+      "shaft_points": [
+        [
+          1254.0,
+          330.0
+        ],
+        [
+          1314.0,
+          330.0
+        ]
+      ],
+      "arrowhead_points": [
+        [
+          1327.0,
+          330.0
+        ],
+        [
+          1314.0,
+          336.5
+        ],
+        [
+          1314.0,
+          323.5
+        ]
+      ],
+      "stroke": "#0D2F6E",
+      "stroke_width": 4.0,
+      "style": "solid",
+      "dash": [],
+      "linecap": "butt"
+    },
+    {
+      "id": "flow-predicted-loss",
+      "source_id": "predicted-frame",
+      "target_id": "loss-node",
+      "relation_type": "residual-input",
+      "shaft_points": [
+        [
+          1488.0,
+          312.0
+        ],
+        [
+          1488.0,
+          343.0
+        ]
+      ],
+      "arrowhead_points": [
+        [
+          1488.0,
+          355.0
+        ],
+        [
+          1482.0,
+          343.0
+        ],
+        [
+          1494.0,
+          343.0
+        ]
+      ],
+      "stroke": "#0D2F6E",
+      "stroke_width": 3.4,
+      "style": "solid",
+      "dash": [],
+      "linecap": "butt"
+    },
+    {
+      "id": "flow-observed-loss",
+      "source_id": "observed-frame",
+      "target_id": "loss-node",
+      "relation_type": "residual-input",
+      "shaft_points": [
+        [
+          1488.0,
+          518.0
+        ],
+        [
+          1488.0,
+          490.0
+        ]
+      ],
+      "arrowhead_points": [
+        [
+          1488.0,
+          478.0
+        ],
+        [
+          1494.0,
+          490.0
+        ],
+        [
+          1482.0,
+          490.0
+        ]
+      ],
+      "stroke": "#0D2F6E",
+      "stroke_width": 3.4,
+      "style": "solid",
+      "dash": [],
+      "linecap": "butt"
+    },
+    {
+      "id": "feedback-optimize-generator",
+      "source_id": "loss-node",
+      "target_id": "generator-frame",
+      "relation_type": "parameter-optimization",
+      "shaft_points": [
+        [
+          1334.0,
+          668.0
+        ],
+        [
+          568.0,
+          668.0
+        ],
+        [
+          568.0,
+          508.0
+        ]
+      ],
+      "arrowhead_points": [
+        [
+          568.0,
+          495.0
+        ],
+        [
+          574.5,
+          508.0
+        ],
+        [
+          561.5,
+          508.0
+        ]
+      ],
+      "stroke": "#5A258C",
+      "stroke_width": 4.0,
+      "style": "dashed",
+      "dash": [
+        18,
+        16
+      ],
+      "linecap": "butt"
+    }
+  ],
+  "labels": [
+    {
+      "id": "feedback-caption",
+      "text": "optimize θ",
+      "position": {
+        "left": 842,
+        "top": 681,
+        "width": 170,
+        "height": 32
+      },
+      "font_size": 21,
+      "font_family": "Arial",
+      "color": "#5A258C"
+    }
+  ],
+  "equation_objects": [
+    {
+      "id": "eq-z",
+      "equation_id": "eq_z",
+      "latex_source": "z",
+      "role": "input-label",
+      "render_latex_source": "{\\color[HTML]{0D2F6E}z}",
+      "asset": "math/eq_z.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        5.499377,
+        5.391781
+      ],
+      "target_position": {
+        "left": 135.051,
+        "top": 145.0,
+        "width": 45.898,
+        "height": 45.0
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "65ba259590ef2cf6d74644eaf900ee223674703966c13ec31b037afc5e8e7f96"
+    },
+    {
+      "id": "eq-generator",
+      "equation_id": "eq_generator",
+      "latex_source": "G_{\\theta}",
+      "role": "generator-label",
+      "render_latex_source": "{\\color[HTML]{5A258C}G_{\\theta}}",
+      "asset": "math/eq_generator.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        13.051307,
+        10.289403
+      ],
+      "target_position": {
+        "left": 536.0947,
+        "top": 211.0,
+        "width": 55.8106,
+        "height": 44.0
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "98e01b26270659b293c19a57ff964be2f3ea6979caca69bf948a2f12b297f2b1"
+    },
+    {
+      "id": "eq-xhat",
+      "equation_id": "eq_xhat",
+      "latex_source": "\\hat{x}",
+      "role": "reconstruction-label",
+      "render_latex_source": "{\\color[HTML]{0B6262}\\hat{x}}",
+      "asset": "math/eq_xhat.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        6.144956,
+        8.416438
+      ],
+      "target_position": {
+        "left": 925.2869,
+        "top": 145.0,
+        "width": 39.4261,
+        "height": 54.0
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "ce2ae646c9ecb4d043fed17d01eb52a78d1f751801dba5659857568e4bfdcc5b"
+    },
+    {
+      "id": "eq-operator",
+      "equation_id": "eq_operator",
+      "latex_source": "A",
+      "role": "operator-label",
+      "render_latex_source": "{\\color[HTML]{C46A00}A}",
+      "asset": "math/eq_operator.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        8.440349,
+        8.53599
+      ],
+      "target_position": {
+        "left": 1167.3249,
+        "top": 298.0,
+        "width": 57.3501,
+        "height": 58.0
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "4aa7aabeb8d3112d568a6d71539042133b5ed49c415addf970e61f512e88e122"
+    },
+    {
+      "id": "eq-yhat",
+      "equation_id": "eq_yhat",
+      "latex_source": "\\hat{y}",
+      "role": "predicted-measurement-label",
+      "render_latex_source": "{\\color[HTML]{0D2F6E}\\hat{y}}",
+      "asset": "math/eq_yhat.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        5.71457,
+        10.735741
+      ],
+      "target_position": {
+        "left": 1473.3619,
+        "top": 116.0,
+        "width": 29.2762,
+        "height": 55.0
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "3e0e037a92d688b2f82e20787b0f0fc3cb42961ecb3c3ebc717c9e813672fbfc"
+    },
+    {
+      "id": "eq-y",
+      "equation_id": "eq_y",
+      "latex_source": "y",
+      "role": "observed-measurement-label",
+      "render_latex_source": "{\\color[HTML]{0D2F6E}y}",
+      "asset": "math/eq_y.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        5.71457,
+        7.711083
+      ],
+      "target_position": {
+        "left": 1471.214,
+        "top": 652.0,
+        "width": 35.5721,
+        "height": 48.0
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "bc57930fef1ec2062eb22a62e20a36d1a7ee34ce170e6b9cbb828745be2ffccd"
+    },
+    {
+      "id": "eq-loss",
+      "equation_id": "eq_loss",
+      "latex_source": "\\lVert\\cdot\\rVert_{2}^{2}",
+      "role": "measurement-residual",
+      "render_latex_source": "{\\color[HTML]{0D2F6E}\\lVert\\cdot\\rVert_{2}^{2}}",
+      "asset": "math/eq_loss.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        19.077847,
+        13.225103
+      ],
+      "target_position": {
+        "left": 1457.7065,
+        "top": 394.0,
+        "width": 60.587,
+        "height": 42.0
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "cd707e1d3e6e7df81af45b7880699b5cc76d8509f7b22a222f0f3b55d8231b1a"
+    },
+    {
+      "id": "eq-objective",
+      "equation_id": "eq_objective",
+      "latex_source": "\\theta^{\\ast}\\;=\\;\\operatorname*{arg\\,min}_{\\theta}\\left\\lVert A\\,G_{\\theta}(z)-y\\right\\rVert_{2}^{2}",
+      "role": "optimization-objective",
+      "expected_optical_bbox": [
+        328,
+        769,
+        599,
+        89
+      ],
+      "render_latex_source": "{\\color[HTML]{000000}{\\color[HTML]{5A258C}\\theta^{\\ast}}\\;=\\;\\operatorname*{arg\\,min}_{{\\color[HTML]{5A258C}\\theta}}\\left\\lVert A\\,{\\color[HTML]{5A258C}G_{\\theta}}({\\color[HTML]{0D2F6E}z})-{\\color[HTML]{5A258C}y}\\right\\rVert_{2}^{2}}",
+      "asset": "math/eq_objective.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        149.082457,
+        21.043286
+      ],
+      "target_position": {
+        "left": 326.0,
+        "top": 770.3373,
+        "width": 647.0,
+        "height": 91.3253
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "ba6db6517d348b07793249f091f536121cef8400ba9caf7fa76fb045fd9a856a"
+    },
+    {
+      "id": "eq-reconstruction",
+      "equation_id": "eq_reconstruction",
+      "latex_source": "\\hat{x}\\;=\\;G_{\\theta^{\\ast}}(z)",
+      "role": "reconstruction-equation",
+      "expected_optical_bbox": [
+        1067,
+        785,
+        251,
+        50
+      ],
+      "render_latex_source": "{\\color[HTML]{000000}{\\color[HTML]{0B6262}\\hat{x}}\\;=\\;{\\color[HTML]{5A258C}G_{\\theta^{\\ast}}}({\\color[HTML]{0D2F6E}z})}",
+      "asset": "math/eq_reconstruction.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        61.16896,
+        11.967123
+      ],
+      "target_position": {
+        "left": 1067.0,
+        "top": 785.4471,
+        "width": 251.0,
+        "height": 49.1058
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "b234df9adcd554654079fa89847c9c7e6663f101e9aaa1e456f5da85c65d79e5"
+    }
+  ],
+  "object_ids": [
+    "eq-generator",
+    "eq-loss",
+    "eq-objective",
+    "eq-operator",
+    "eq-reconstruction",
+    "eq-xhat",
+    "eq-y",
+    "eq-yhat",
+    "eq-z",
+    "feedback-caption",
+    "feedback-optimize-generator",
+    "feedback-optimize-generator-arrowhead",
+    "feedback-optimize-generator-shaft",
+    "flow-generator-reconstruction",
+    "flow-generator-reconstruction-arrowhead",
+    "flow-generator-reconstruction-shaft",
+    "flow-observed-loss",
+    "flow-observed-loss-arrowhead",
+    "flow-observed-loss-shaft",
+    "flow-operator-predicted",
+    "flow-operator-predicted-arrowhead",
+    "flow-operator-predicted-shaft",
+    "flow-predicted-loss",
+    "flow-predicted-loss-arrowhead",
+    "flow-predicted-loss-shaft",
+    "flow-reconstruction-operator",
+    "flow-reconstruction-operator-arrowhead",
+    "flow-reconstruction-operator-shaft",
+    "flow-z-generator",
+    "flow-z-generator-arrowhead",
+    "flow-z-generator-shaft",
+    "generator-frame",
+    "generator-network",
+    "loss-node",
+    "measurement-panel",
+    "network-layer-01-face",
+    "network-layer-01-side",
+    "network-layer-01-top",
+    "network-layer-02-face",
+    "network-layer-02-side",
+    "network-layer-02-top",
+    "network-layer-03-face",
+    "network-layer-03-side",
+    "network-layer-03-top",
+    "network-layer-04-face",
+    "network-layer-04-side",
+    "network-layer-04-top",
+    "network-layer-05-face",
+    "network-layer-05-side",
+    "network-layer-05-top",
+    "network-layer-06-face",
+    "network-layer-06-side",
+    "network-layer-06-top",
+    "network-layer-07-face",
+    "network-layer-07-side",
+    "network-layer-07-top",
+    "network-layer-08-face",
+    "network-layer-08-side",
+    "network-layer-08-top",
+    "network-layer-09-face",
+    "network-layer-09-side",
+    "network-layer-09-top",
+    "network-layer-10-face",
+    "network-layer-10-side",
+    "network-layer-10-top",
+    "network-layer-11-face",
+    "network-layer-11-side",
+    "network-layer-11-top",
+    "noise-frame",
+    "noise-raster-atom",
+    "observed-frame",
+    "observed-plot",
+    "observed-plot-curve",
+    "observed-plot-grid-h-1",
+    "observed-plot-grid-h-2",
+    "observed-plot-grid-v-1",
+    "observed-plot-grid-v-2",
+    "observed-plot-grid-v-3",
+    "observed-plot-grid-v-4",
+    "observed-plot-grid-v-5",
+    "observed-plot-grid-v-6",
+    "operator-frame",
+    "predicted-frame",
+    "predicted-plot",
+    "predicted-plot-curve",
+    "predicted-plot-grid-h-1",
+    "predicted-plot-grid-h-2",
+    "predicted-plot-grid-v-1",
+    "predicted-plot-grid-v-2",
+    "predicted-plot-grid-v-3",
+    "predicted-plot-grid-v-4",
+    "predicted-plot-grid-v-5",
+    "predicted-plot-grid-v-6",
+    "reconstruction-frame",
+    "reconstruction-raster-atom"
+  ],
+  "editability_contract": {
+    "whole_canvas_raster": false,
+    "approved_replaceable_raster_atom_count": 2,
+    "reference_or_overlay_raster_count": 0,
+    "svg": "native vector composition plus two relative, replaceable raster atom hrefs and inlined vector equations",
+    "pptx": "native shapes/text plus two independent picture shapes and nine vector equation SVG objects",
+    "drawio": "native structural editing view with 11 layer cells, two curve cells, and two replaceable image cells",
+    "pdf": "preview/export only",
+    "native_region_shape_minimum": 40,
+    "generator_gradients": "11 editable native two/three-stop gradient faces",
+    "plot_curves": "two editable native reference-fitted polylines; no cosmetic sample-dot objects"
+  },
+  "validation_scope": "Programmable provenance, exact crop pixels, local synthetic curve-fit error, vector structure, equation aspect ratio, cross-format parse validity, and topology only; not scientific correctness, publication approval, or pixel editability of the two image atoms.",
+  "image_modules": [
+    {
+      "id": "noise-raster-atom",
+      "region_id": "noise_input",
+      "asset": "raster_atoms/noise-content.png",
+      "sha256": "2b9e18b06a576b43ebd3135a5732293f8a98d8bb10b217799e86b4016a5d71c2",
+      "position": {
+        "left": 44,
+        "top": 219,
+        "width": 222,
+        "height": 222
+      },
+      "svg_href": "assets/noise-content.png",
+      "replaceable": true,
+      "pixel_editable": false,
+      "scientific_status": "synthetic_visual_only"
+    },
+    {
+      "id": "reconstruction-raster-atom",
+      "region_id": "reconstruction_landscape",
+      "asset": "raster_atoms/reconstruction-content.png",
+      "sha256": "cedf344e8719184d921bb22a2f99dc57a70f38a71aa05c5f0c3e37d199d5d225",
+      "position": {
+        "left": 834,
+        "top": 224,
+        "width": 222,
+        "height": 227
+      },
+      "svg_href": "assets/reconstruction-content.png",
+      "replaceable": true,
+      "pixel_editable": false,
+      "scientific_status": "synthetic_visual_only"
+    }
+  ],
+  "network_layer_groups": [
+    "network-layer-01",
+    "network-layer-02",
+    "network-layer-03",
+    "network-layer-04",
+    "network-layer-05",
+    "network-layer-06",
+    "network-layer-07",
+    "network-layer-08",
+    "network-layer-09",
+    "network-layer-10",
+    "network-layer-11"
+  ],
+  "package_label": "Candidate C fidelity v2 review package",
+  "plot_reference_fits": {
+    "predicted-plot": {
+      "origin": "mechanically_fitted_from_hash_bound_selected_candidate",
+      "candidate_sha256": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c",
+      "source_frame": [
+        1365,
+        182,
+        245,
+        130
+      ],
+      "scientific_status": "synthetic_visual_only",
+      "scientific_data": false,
+      "reference_fit": true,
+      "algorithm": "navy-pixel column median; five-column median filter; RDP epsilon 0.5 px",
+      "coverage": 1.0,
+      "source_column_count": 217,
+      "simplified_point_count": 38,
+      "median_vertical_error_px": 0.1,
+      "max_vertical_error_px": 1.2381,
+      "human_review_required": true
+    },
+    "observed-plot": {
+      "origin": "mechanically_fitted_from_hash_bound_selected_candidate",
+      "candidate_sha256": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c",
+      "source_frame": [
+        1365,
+        518,
+        245,
+        128
+      ],
+      "scientific_status": "synthetic_visual_only",
+      "scientific_data": false,
+      "reference_fit": true,
+      "algorithm": "navy-pixel column median; five-column median filter; RDP epsilon 0.5 px",
+      "coverage": 1.0,
+      "source_column_count": 217,
+      "simplified_point_count": 38,
+      "median_vertical_error_px": 0.1429,
+      "max_vertical_error_px": 1.0385,
+      "human_review_required": true
+    }
+  }
+}

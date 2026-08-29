@@ -1,0 +1,60 @@
+{
+  "case_id": "deep-image-prior-synthetic-v0.1",
+  "checks": {
+    "artifact_manifest_integrity": {
+      "passed": true
+    },
+    "fidelity_v2_package": {
+      "passed": true,
+      "status": "VERIFIED_FIDELITY_V2_REVIEW_DRAFT",
+      "validator_checks": {
+        "approved_raster_atom_count": 2,
+        "cosmetic_plot_sample_dot_count": 0,
+        "drawio_directed_topology_edge_count": 7,
+        "drawio_generator_layer_cell_count": 11,
+        "drawio_plot_curve_cell_count": 2,
+        "equation_aspect_ratio_preserved": true,
+        "generator_face_gradient_count": 11,
+        "generator_layer_group_count": 11,
+        "major_region_count": 8,
+        "native_plot_curve_count": 2,
+        "pdf_page_count": 1,
+        "pptx_alpha_present": true,
+        "pptx_native_gradient_present": true,
+        "pptx_native_shape_count": 82,
+        "pptx_substantive_raster_count": 2,
+        "pptx_vector_equation_count": 9,
+        "svg_explicit_arrowhead_count": 7,
+        "visual_triptych_count": 8,
+        "whole_candidate_raster_count": 0
+      }
+    },
+    "reference_case_integrity": {
+      "passed": true
+    }
+  },
+  "delivery_revision": "fidelity-v2",
+  "input_hashes": {
+    "approved_raster_manifest_sha256": "c123b25dd1bec9eeb4295bff208874fe595c60f2b8fb476e063f22fd1211b7aa",
+    "candidate_selection_sha256": "c16b610d14ab4ef2a686b2b34fb9839cd50f2c1bad3049ff56f15f04ed76f831",
+    "candidate_sha256": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c",
+    "raster_atom_review_decision_sha256": "ef078ed437b468ff5f42ec785552dbbda37f89c1c80c65e37b04efce81521ea6",
+    "region_map_sha256": "42c9f4624c20d5b2861171af7b72e717dca6ec5811fc17096351c6301b3d494b"
+  },
+  "output_hashes": {
+    "drawio": "52de421b7726842d69ee1a4b20e0e8df30307f0ecf2ee52199df232379f8b01e",
+    "pdf_preview": "2a834b055067eb2919739f5486bc9144ed71f8fa17eca58fc35db08fa4003733",
+    "pptx": "b8f60b60cba04117c00b3e025e81d46a6b2d96c9c50b9a42b69e23b420e940d6",
+    "svg": "6ee412fd9043aa964490f593888fdd17bc40b1499cbcd6e4f7e2a271ecc40330"
+  },
+  "overall_pass": true,
+  "report_type": "structural_delivery_validation",
+  "schema_version": "1.0",
+  "scientific_correctness_checked": false,
+  "status": "PASSED",
+  "validator": {
+    "code_sha256": "27386dc0fb9df651699d981497f558260994bfa94a3cba07539187bc87ed71e6",
+    "name": "build_deep_image_prior_c_fidelity_v2.validate_package",
+    "version": "1.1"
+  }
+}

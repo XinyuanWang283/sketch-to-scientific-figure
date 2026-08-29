@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.1",
+  "example_id": "deep-image-prior-synthetic",
+  "status": "approved_for_editable_reconstruction",
+  "decision": "APPROVE_IMAGEGEN_COMBINATION",
+  "selection_type": "layout_style_combination",
+  "exact_instruction": "Use D's layout with C's visual style",
+  "approved_on": "2026-08-27",
+  "layout_source": {
+    "slot": "D",
+    "candidate_id": "D-alternative-layout",
+    "path": "candidates/D-alternative-layout.png",
+    "sha256": "4f00c5e6591de1363eb270bd5cd087badb074b6291cc0ac45f9810dca04b0692"
+  },
+  "visual_style_source": {
+    "slot": "C",
+    "candidate_id": "C-presentation",
+    "path": "candidates/C-presentation.png",
+    "sha256": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c"
+  },
+  "editable_reconstruction_authorized": true,
+  "scientific_scope": "Deep Image Prior explanatory schematic described by the public clarification brief",
+  "final_scientific_approval": null,
+  "final_status": "awaiting_final_researcher_review"
+}

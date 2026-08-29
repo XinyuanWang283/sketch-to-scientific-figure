@@ -1,0 +1,218 @@
+{
+  "schema_version": "1.1",
+  "authoritative_tex": "equations.tex",
+  "aspect_ratio_policy": "target boxes contain each SVG viewBox without stretching",
+  "color_policy": "xcolor token roles are retained in each raster-free SVG equation object",
+  "equations": [
+    {
+      "id": "eq-z",
+      "equation_id": "eq_z",
+      "latex_source": "z",
+      "role": "input-label",
+      "render_latex_source": "{\\color[HTML]{0D2F6E}z}",
+      "asset": "math/eq_z.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        5.499377,
+        5.391781
+      ],
+      "target_position": {
+        "left": 135.051,
+        "top": 145.0,
+        "width": 45.898,
+        "height": 45.0
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "65ba259590ef2cf6d74644eaf900ee223674703966c13ec31b037afc5e8e7f96"
+    },
+    {
+      "id": "eq-generator",
+      "equation_id": "eq_generator",
+      "latex_source": "G_{\\theta}",
+      "role": "generator-label",
+      "render_latex_source": "{\\color[HTML]{5A258C}G_{\\theta}}",
+      "asset": "math/eq_generator.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        13.051307,
+        10.289403
+      ],
+      "target_position": {
+        "left": 536.0947,
+        "top": 211.0,
+        "width": 55.8106,
+        "height": 44.0
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "98e01b26270659b293c19a57ff964be2f3ea6979caca69bf948a2f12b297f2b1"
+    },
+    {
+      "id": "eq-xhat",
+      "equation_id": "eq_xhat",
+      "latex_source": "\\hat{x}",
+      "role": "reconstruction-label",
+      "render_latex_source": "{\\color[HTML]{0B6262}\\hat{x}}",
+      "asset": "math/eq_xhat.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        6.144956,
+        8.416438
+      ],
+      "target_position": {
+        "left": 925.2869,
+        "top": 145.0,
+        "width": 39.4261,
+        "height": 54.0
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "ce2ae646c9ecb4d043fed17d01eb52a78d1f751801dba5659857568e4bfdcc5b"
+    },
+    {
+      "id": "eq-operator",
+      "equation_id": "eq_operator",
+      "latex_source": "A",
+      "role": "operator-label",
+      "render_latex_source": "{\\color[HTML]{C46A00}A}",
+      "asset": "math/eq_operator.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        8.440349,
+        8.53599
+      ],
+      "target_position": {
+        "left": 1167.3249,
+        "top": 298.0,
+        "width": 57.3501,
+        "height": 58.0
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "4aa7aabeb8d3112d568a6d71539042133b5ed49c415addf970e61f512e88e122"
+    },
+    {
+      "id": "eq-yhat",
+      "equation_id": "eq_yhat",
+      "latex_source": "\\hat{y}",
+      "role": "predicted-measurement-label",
+      "render_latex_source": "{\\color[HTML]{0D2F6E}\\hat{y}}",
+      "asset": "math/eq_yhat.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        5.71457,
+        10.735741
+      ],
+      "target_position": {
+        "left": 1473.3619,
+        "top": 116.0,
+        "width": 29.2762,
+        "height": 55.0
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "3e0e037a92d688b2f82e20787b0f0fc3cb42961ecb3c3ebc717c9e813672fbfc"
+    },
+    {
+      "id": "eq-y",
+      "equation_id": "eq_y",
+      "latex_source": "y",
+      "role": "observed-measurement-label",
+      "render_latex_source": "{\\color[HTML]{0D2F6E}y}",
+      "asset": "math/eq_y.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        5.71457,
+        7.711083
+      ],
+      "target_position": {
+        "left": 1471.214,
+        "top": 652.0,
+        "width": 35.5721,
+        "height": 48.0
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "bc57930fef1ec2062eb22a62e20a36d1a7ee34ce170e6b9cbb828745be2ffccd"
+    },
+    {
+      "id": "eq-loss",
+      "equation_id": "eq_loss",
+      "latex_source": "\\lVert\\cdot\\rVert_{2}^{2}",
+      "role": "measurement-residual",
+      "render_latex_source": "{\\color[HTML]{0D2F6E}\\lVert\\cdot\\rVert_{2}^{2}}",
+      "asset": "math/eq_loss.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        19.077847,
+        13.225103
+      ],
+      "target_position": {
+        "left": 1457.7065,
+        "top": 394.0,
+        "width": 60.587,
+        "height": 42.0
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "cd707e1d3e6e7df81af45b7880699b5cc76d8509f7b22a222f0f3b55d8231b1a"
+    },
+    {
+      "id": "eq-objective",
+      "equation_id": "eq_objective",
+      "latex_source": "\\theta^{\\ast}\\;=\\;\\operatorname*{arg\\,min}_{\\theta}\\left\\lVert A\\,G_{\\theta}(z)-y\\right\\rVert_{2}^{2}",
+      "role": "optimization-objective",
+      "expected_optical_bbox": [
+        328,
+        769,
+        599,
+        89
+      ],
+      "render_latex_source": "{\\color[HTML]{000000}{\\color[HTML]{5A258C}\\theta^{\\ast}}\\;=\\;\\operatorname*{arg\\,min}_{{\\color[HTML]{5A258C}\\theta}}\\left\\lVert A\\,{\\color[HTML]{5A258C}G_{\\theta}}({\\color[HTML]{0D2F6E}z})-{\\color[HTML]{5A258C}y}\\right\\rVert_{2}^{2}}",
+      "asset": "math/eq_objective.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        149.082457,
+        21.043286
+      ],
+      "target_position": {
+        "left": 326.0,
+        "top": 770.3373,
+        "width": 647.0,
+        "height": 91.3253
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "ba6db6517d348b07793249f091f536121cef8400ba9caf7fa76fb045fd9a856a"
+    },
+    {
+      "id": "eq-reconstruction",
+      "equation_id": "eq_reconstruction",
+      "latex_source": "\\hat{x}\\;=\\;G_{\\theta^{\\ast}}(z)",
+      "role": "reconstruction-equation",
+      "expected_optical_bbox": [
+        1067,
+        785,
+        251,
+        50
+      ],
+      "render_latex_source": "{\\color[HTML]{000000}{\\color[HTML]{0B6262}\\hat{x}}\\;=\\;{\\color[HTML]{5A258C}G_{\\theta^{\\ast}}}({\\color[HTML]{0D2F6E}z})}",
+      "asset": "math/eq_reconstruction.svg",
+      "intrinsic_viewbox": [
+        0.0,
+        0.0,
+        61.16896,
+        11.967123
+      ],
+      "target_position": {
+        "left": 1067.0,
+        "top": 785.4471,
+        "width": 251.0,
+        "height": 49.1058
+      },
+      "render_engine": "latex+xcolor+dvisvgm",
+      "sha256": "b234df9adcd554654079fa89847c9c7e6663f101e9aaa1e456f5da85c65d79e5"
+    }
+  ]
+}

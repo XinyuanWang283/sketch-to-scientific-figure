@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "figure_id": "deep-image-prior-c-high-fidelity-hybrid",
+  "status": "VERIFIED_HYBRID_REVIEW_DRAFT",
+  "canonical_source": "source/hybrid_figure.json",
+  "validation_report": "validation/hybrid_validation_report.json",
+  "formats": [
+    {
+      "format": "svg",
+      "path": "delivery/svg/master.svg",
+      "status": "VERIFIED_HYBRID",
+      "editability": "major structure plus replaceable raster atoms"
+    },
+    {
+      "format": "pptx",
+      "path": "delivery/pptx/figure.pptx",
+      "status": "VERIFIED_HYBRID",
+      "editability": "native modules plus vector equations and two replaceable raster atoms"
+    },
+    {
+      "format": "drawio",
+      "path": "delivery/drawio/figure.drawio",
+      "status": "STRUCTURAL_EDITING_VIEW",
+      "editability": "topology and module placeholders"
+    },
+    {
+      "format": "pdf",
+      "path": "delivery/pdf/publication.pdf",
+      "status": "VERIFIED_HYBRID_PREVIEW",
+      "editability": "no semantic-editability claim"
+    }
+  ],
+  "final_scientific_approval": null
+}

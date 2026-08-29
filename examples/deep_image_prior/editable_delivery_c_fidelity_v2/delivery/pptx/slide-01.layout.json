@@ -1,0 +1,1771 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/b7rx9l",
+    "id": "b7rx9l",
+    "slide": 1,
+    "layoutId": "4b52931c-b37f-419c-a9cc-92d0bb825dc1",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "eaaeb5e2-529f-4e62-bd8f-45b61220a461",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1672,
+      "height": 941
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "4b52931c-b37f-419c-a9cc-92d0bb825dc1",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "eaaeb5e2-529f-4e62-bd8f-45b61220a461",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "eaaeb5e2-529f-4e62-bd8f-45b61220a461",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/iho3ut0j",
+      "id": "1",
+      "name": "measurement-panel-fill",
+      "bbox": [
+        1334,
+        100,
+        306,
+        624
+      ],
+      "geometry": "roundRect",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5kfm5oja",
+      "id": "2",
+      "name": "noise-frame-fill",
+      "bbox": [
+        40,
+        214,
+        228,
+        230
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F7F8FA",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4j6lw3ip",
+      "id": "3",
+      "name": "generator-frame-fill",
+      "bbox": [
+        366,
+        191,
+        386,
+        296
+      ],
+      "geometry": "roundRect",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vudkze1s",
+      "id": "4",
+      "name": "reconstruction-frame-fill",
+      "bbox": [
+        829,
+        220,
+        231,
+        234
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#D9DEE2",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ut43q90n",
+      "id": "5",
+      "name": "operator-frame-fill",
+      "bbox": [
+        1137,
+        279,
+        117,
+        114
+      ],
+      "geometry": "roundRect",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hgv21ojy",
+      "id": "6",
+      "name": "predicted-frame-fill",
+      "bbox": [
+        1365,
+        182,
+        245,
+        130
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gfmlsjid",
+      "id": "7",
+      "name": "loss-node-fill",
+      "bbox": [
+        1434,
+        363,
+        108,
+        107
+      ],
+      "geometry": "ellipse",
+      "fillColor": "#FFFFFF",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7qdkve1w",
+      "id": "8",
+      "name": "observed-frame-fill",
+      "bbox": [
+        1365,
+        518,
+        245,
+        128
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6pk3m9kb",
+      "id": "9",
+      "name": "flow-z-generator-shaft",
+      "bbox": [
+        268,
+        330,
+        77,
+        1
+      ],
+      "geometry": "custom",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 4
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kjidszut",
+      "id": "10",
+      "name": "flow-z-generator-arrowhead",
+      "bbox": [
+        345,
+        323.5,
+        13,
+        13
+      ],
+      "geometry": "custom",
+      "fillColor": "#0D2F6E",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lkrul4vy",
+      "id": "11",
+      "name": "flow-generator-reconstruction-shaft",
+      "bbox": [
+        752,
+        330,
+        56,
+        1
+      ],
+      "geometry": "custom",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 4
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/yh0bqpcn",
+      "id": "12",
+      "name": "flow-generator-reconstruction-arrowhead",
+      "bbox": [
+        808,
+        323.5,
+        13,
+        13
+      ],
+      "geometry": "custom",
+      "fillColor": "#0D2F6E",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ji9cjud8",
+      "id": "13",
+      "name": "flow-reconstruction-operator-shaft",
+      "bbox": [
+        1060,
+        330,
+        56,
+        1
+      ],
+      "geometry": "custom",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 4
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wvytofuh",
+      "id": "14",
+      "name": "flow-reconstruction-operator-arrowhead",
+      "bbox": [
+        1116,
+        323.5,
+        13,
+        13
+      ],
+      "geometry": "custom",
+      "fillColor": "#0D2F6E",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xgruhkv2",
+      "id": "15",
+      "name": "flow-operator-predicted-shaft",
+      "bbox": [
+        1254,
+        330,
+        60,
+        1
+      ],
+      "geometry": "custom",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 4
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/atgbm5cb",
+      "id": "16",
+      "name": "flow-operator-predicted-arrowhead",
+      "bbox": [
+        1314,
+        323.5,
+        13,
+        13
+      ],
+      "geometry": "custom",
+      "fillColor": "#0D2F6E",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/bupcfadw",
+      "id": "17",
+      "name": "flow-predicted-loss-shaft",
+      "bbox": [
+        1488,
+        312,
+        1,
+        31
+      ],
+      "geometry": "custom",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 3.4
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gr2d0jul",
+      "id": "18",
+      "name": "flow-predicted-loss-arrowhead",
+      "bbox": [
+        1482,
+        343,
+        12,
+        12
+      ],
+      "geometry": "custom",
+      "fillColor": "#0D2F6E",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hcbutob6",
+      "id": "19",
+      "name": "flow-observed-loss-shaft",
+      "bbox": [
+        1488,
+        490,
+        1,
+        28
+      ],
+      "geometry": "custom",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 3.4
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/p87ud43a",
+      "id": "20",
+      "name": "flow-observed-loss-arrowhead",
+      "bbox": [
+        1482,
+        478,
+        12,
+        12
+      ],
+      "geometry": "custom",
+      "fillColor": "#0D2F6E",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 21,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/o7ytkjm5",
+      "id": "21",
+      "name": "feedback-optimize-generator-shaft",
+      "bbox": [
+        568,
+        508,
+        766,
+        160
+      ],
+      "geometry": "custom",
+      "lineColor": "#5A258C",
+      "lineWidth": 4
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/36pcbelk",
+      "id": "22",
+      "name": "feedback-optimize-generator-arrowhead",
+      "bbox": [
+        561.5,
+        495,
+        13,
+        13
+      ],
+      "geometry": "custom",
+      "fillColor": "#5A258C",
+      "lineColor": "#5A258C",
+      "lineWidth": 0.1
+    },
+    {
+      "order": 23,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/dgzq9cne",
+      "id": "23",
+      "name": "noise-raster-atom",
+      "bbox": [
+        44,
+        219,
+        222,
+        222
+      ],
+      "alt": "[noise-raster-atom] exact replaceable synthetic visual atom; not scientific evidence and not pixel-editable",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "4383b3a7-072e-4df8-b0ab-890982ff282f",
+        "contentType": "image/png",
+        "byteLength": 141324
+      }
+    },
+    {
+      "order": 24,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/eh8rih4z",
+      "id": "24",
+      "name": "reconstruction-raster-atom",
+      "bbox": [
+        834,
+        224,
+        222,
+        227
+      ],
+      "alt": "[reconstruction-raster-atom] exact replaceable synthetic visual atom; not scientific evidence and not pixel-editable",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "4b2825ec-d319-4108-a0f0-487f77455496",
+        "contentType": "image/png",
+        "byteLength": 82073
+      }
+    },
+    {
+      "order": 25,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/g3ytgzmt",
+      "id": "25",
+      "name": "network-layer-01-top",
+      "bbox": [
+        388,
+        222,
+        37,
+        11
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(230, 226, 241, 0.78)",
+      "lineColor": "#6C669A",
+      "lineWidth": 1
+    },
+    {
+      "order": 26,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/f2pc7ul8",
+      "id": "26",
+      "name": "network-layer-01-side",
+      "bbox": [
+        416,
+        227,
+        9,
+        222
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(119, 113, 167, 0.88)",
+      "lineColor": "#4D477D",
+      "lineWidth": 1
+    },
+    {
+      "order": 27,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/e1wbep4n",
+      "id": "27",
+      "name": "network-layer-01-face",
+      "bbox": [
+        388,
+        228,
+        28,
+        226
+      ],
+      "geometry": "custom",
+      "lineColor": "#423D75",
+      "lineWidth": 1.35
+    },
+    {
+      "order": 28,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/tgnu5k3i",
+      "id": "28",
+      "name": "network-layer-02-top",
+      "bbox": [
+        422,
+        238,
+        39,
+        11
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(230, 226, 241, 0.78)",
+      "lineColor": "#6C669A",
+      "lineWidth": 1
+    },
+    {
+      "order": 29,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sfetczmx",
+      "id": "29",
+      "name": "network-layer-02-side",
+      "bbox": [
+        452,
+        243,
+        9,
+        190
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(119, 113, 167, 0.88)",
+      "lineColor": "#4D477D",
+      "lineWidth": 1
+    },
+    {
+      "order": 30,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ilcr6lkf",
+      "id": "30",
+      "name": "network-layer-02-face",
+      "bbox": [
+        422,
+        244,
+        30,
+        194
+      ],
+      "geometry": "custom",
+      "lineColor": "#423D75",
+      "lineWidth": 1.35
+    },
+    {
+      "order": 31,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/jmlsfq10",
+      "id": "31",
+      "name": "network-layer-03-top",
+      "bbox": [
+        459,
+        255,
+        40,
+        11
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(230, 226, 241, 0.78)",
+      "lineColor": "#6C669A",
+      "lineWidth": 1
+    },
+    {
+      "order": 32,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/k7u98v2l",
+      "id": "32",
+      "name": "network-layer-03-side",
+      "bbox": [
+        490,
+        260,
+        9,
+        156
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(119, 113, 167, 0.88)",
+      "lineColor": "#4D477D",
+      "lineWidth": 1
+    },
+    {
+      "order": 33,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/583ah0j6",
+      "id": "33",
+      "name": "network-layer-03-face",
+      "bbox": [
+        459,
+        261,
+        31,
+        160
+      ],
+      "geometry": "custom",
+      "lineColor": "#423D75",
+      "lineWidth": 1.35
+    },
+    {
+      "order": 34,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ahsr2lkj",
+      "id": "34",
+      "name": "network-layer-04-top",
+      "bbox": [
+        496,
+        272,
+        39,
+        11
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(230, 226, 241, 0.78)",
+      "lineColor": "#6C669A",
+      "lineWidth": 1
+    },
+    {
+      "order": 35,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vi18bq14",
+      "id": "35",
+      "name": "network-layer-04-side",
+      "bbox": [
+        526,
+        277,
+        9,
+        122
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(119, 113, 167, 0.88)",
+      "lineColor": "#4D477D",
+      "lineWidth": 1
+    },
+    {
+      "order": 36,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wju94v2p",
+      "id": "36",
+      "name": "network-layer-04-face",
+      "bbox": [
+        496,
+        278,
+        30,
+        126
+      ],
+      "geometry": "custom",
+      "lineColor": "#423D75",
+      "lineWidth": 1.35
+    },
+    {
+      "order": 37,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xk3qd0ja",
+      "id": "37",
+      "name": "network-layer-05-top",
+      "bbox": [
+        532,
+        290,
+        33,
+        11
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(230, 226, 241, 0.78)",
+      "lineColor": "#6C669A",
+      "lineWidth": 1
+    },
+    {
+      "order": 38,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mdsry1kn",
+      "id": "38",
+      "name": "network-layer-05-side",
+      "bbox": [
+        556,
+        295,
+        9,
+        86
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(119, 113, 167, 0.88)",
+      "lineColor": "#4D477D",
+      "lineWidth": 1
+    },
+    {
+      "order": 39,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ne1876ls",
+      "id": "39",
+      "name": "network-layer-05-face",
+      "bbox": [
+        532,
+        296,
+        24,
+        90
+      ],
+      "geometry": "custom",
+      "lineColor": "#423D75",
+      "lineWidth": 1.35
+    },
+    {
+      "order": 40,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/z6lojm5o",
+      "id": "40",
+      "name": "network-layer-06-top",
+      "bbox": [
+        556,
+        308,
+        27,
+        11
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(230, 226, 241, 0.78)",
+      "lineColor": "#6C669A",
+      "lineWidth": 1
+    },
+    {
+      "order": 41,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/e5cnaho3",
+      "id": "41",
+      "name": "network-layer-06-side",
+      "bbox": [
+        574,
+        313,
+        9,
+        50
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(119, 113, 167, 0.88)",
+      "lineColor": "#4D477D",
+      "lineWidth": 1
+    },
+    {
+      "order": 42,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1836lcnu",
+      "id": "42",
+      "name": "network-layer-06-face",
+      "bbox": [
+        556,
+        314,
+        18,
+        54
+      ],
+      "geometry": "custom",
+      "lineColor": "#423D75",
+      "lineWidth": 1.35
+    },
+    {
+      "order": 43,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/07u5cr69",
+      "id": "43",
+      "name": "network-layer-07-top",
+      "bbox": [
+        578,
+        291,
+        33,
+        10
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(230, 226, 241, 0.78)",
+      "lineColor": "#6C669A",
+      "lineWidth": 1
+    },
+    {
+      "order": 44,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/r21of25s",
+      "id": "44",
+      "name": "network-layer-07-side",
+      "bbox": [
+        578,
+        296,
+        9,
+        85
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(119, 113, 167, 0.88)",
+      "lineColor": "#4D477D",
+      "lineWidth": 1
+    },
+    {
+      "order": 45,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/q1sn6xo7",
+      "id": "45",
+      "name": "network-layer-07-face",
+      "bbox": [
+        587,
+        296,
+        24,
+        90
+      ],
+      "geometry": "custom",
+      "lineColor": "#423D75",
+      "lineWidth": 1.35
+    },
+    {
+      "order": 46,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/d4j6hcni",
+      "id": "46",
+      "name": "network-layer-08-top",
+      "bbox": [
+        610,
+        273,
+        39,
+        10
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(230, 226, 241, 0.78)",
+      "lineColor": "#6C669A",
+      "lineWidth": 1
+    },
+    {
+      "order": 47,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/c3a5876x",
+      "id": "47",
+      "name": "network-layer-08-side",
+      "bbox": [
+        610,
+        278,
+        9,
+        121
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(119, 113, 167, 0.88)",
+      "lineColor": "#4D477D",
+      "lineWidth": 1
+    },
+    {
+      "order": 48,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3e14b25g",
+      "id": "48",
+      "name": "network-layer-08-face",
+      "bbox": [
+        619,
+        278,
+        30,
+        126
+      ],
+      "geometry": "custom",
+      "lineColor": "#423D75",
+      "lineWidth": 1.35
+    },
+    {
+      "order": 49,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2dsn2xov",
+      "id": "49",
+      "name": "network-layer-09-top",
+      "bbox": [
+        643,
+        256,
+        40,
+        10
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(230, 226, 241, 0.78)",
+      "lineColor": "#6C669A",
+      "lineWidth": 1
+    },
+    {
+      "order": 50,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/87mtwzih",
+      "id": "50",
+      "name": "network-layer-09-side",
+      "bbox": [
+        643,
+        261,
+        9,
+        155
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(119, 113, 167, 0.88)",
+      "lineColor": "#4D477D",
+      "lineWidth": 1
+    },
+    {
+      "order": 51,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/98fup4z2",
+      "id": "51",
+      "name": "network-layer-09-face",
+      "bbox": [
+        652,
+        261,
+        31,
+        160
+      ],
+      "geometry": "custom",
+      "lineColor": "#423D75",
+      "lineWidth": 1.35
+    },
+    {
+      "order": 52,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/m54bup0r",
+      "id": "52",
+      "name": "network-layer-10-top",
+      "bbox": [
+        675,
+        239,
+        39,
+        10
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(230, 226, 241, 0.78)",
+      "lineColor": "#6C669A",
+      "lineWidth": 1
+    },
+    {
+      "order": 53,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/76dcnuhw",
+      "id": "53",
+      "name": "network-layer-10-side",
+      "bbox": [
+        675,
+        244,
+        9,
+        189
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(119, 113, 167, 0.88)",
+      "lineColor": "#4D477D",
+      "lineWidth": 1
+    },
+    {
+      "order": 54,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gv6t0jit",
+      "id": "54",
+      "name": "network-layer-10-face",
+      "bbox": [
+        684,
+        244,
+        30,
+        194
+      ],
+      "geometry": "custom",
+      "lineColor": "#423D75",
+      "lineWidth": 1.35
+    },
+    {
+      "order": 55,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hwfutoze",
+      "id": "55",
+      "name": "network-layer-11-top",
+      "bbox": [
+        704,
+        223,
+        37,
+        10
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(230, 226, 241, 0.78)",
+      "lineColor": "#6C669A",
+      "lineWidth": 1
+    },
+    {
+      "order": 56,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/utoby90n",
+      "id": "56",
+      "name": "network-layer-11-side",
+      "bbox": [
+        704,
+        228,
+        9,
+        221
+      ],
+      "geometry": "custom",
+      "fillColor": "rgba(119, 113, 167, 0.88)",
+      "lineColor": "#4D477D",
+      "lineWidth": 1
+    },
+    {
+      "order": 57,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vuxcreh8",
+      "id": "57",
+      "name": "network-layer-11-face",
+      "bbox": [
+        713,
+        228,
+        28,
+        226
+      ],
+      "geometry": "custom",
+      "lineColor": "#423D75",
+      "lineWidth": 1.35
+    },
+    {
+      "order": 58,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/cz2tofi9",
+      "id": "58",
+      "name": "predicted-plot-grid-v-1",
+      "bbox": [
+        1379,
+        194,
+        1,
+        106
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 59,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/x0bahkzu",
+      "id": "59",
+      "name": "predicted-plot-grid-v-2",
+      "bbox": [
+        1420,
+        194,
+        1,
+        106
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 60,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/dw3algby",
+      "id": "60",
+      "name": "predicted-plot-grid-v-3",
+      "bbox": [
+        1461,
+        194,
+        1,
+        106
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 61,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/cvu9sbad",
+      "id": "61",
+      "name": "predicted-plot-grid-v-4",
+      "bbox": [
+        1502,
+        194,
+        1,
+        106
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 62,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/rul8j6ts",
+      "id": "62",
+      "name": "predicted-plot-grid-v-5",
+      "bbox": [
+        1543,
+        194,
+        1,
+        106
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 63,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/qtcrq1s7",
+      "id": "63",
+      "name": "predicted-plot-grid-v-6",
+      "bbox": [
+        1585,
+        194,
+        1,
+        106
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 64,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/10napgbu",
+      "id": "64",
+      "name": "predicted-plot-grid-h-1",
+      "bbox": [
+        1377,
+        214.5,
+        221,
+        1
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 65,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0ze9wba9",
+      "id": "65",
+      "name": "predicted-plot-grid-h-2",
+      "bbox": [
+        1377,
+        269.1,
+        221,
+        1
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 66,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zy5sn6to",
+      "id": "66",
+      "name": "predicted-plot-curve",
+      "bbox": [
+        1379,
+        202,
+        216,
+        76
+      ],
+      "geometry": "custom",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 3.2
+    },
+    {
+      "order": 67,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/exwruls3",
+      "id": "67",
+      "name": "observed-plot-grid-v-1",
+      "bbox": [
+        1379,
+        530,
+        1,
+        104
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 68,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9o7at0bq",
+      "id": "68",
+      "name": "observed-plot-grid-v-2",
+      "bbox": [
+        1420,
+        530,
+        1,
+        104
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 69,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/one90val",
+      "id": "69",
+      "name": "observed-plot-grid-v-3",
+      "bbox": [
+        1461,
+        530,
+        1,
+        104
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 70,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6987ex83",
+      "id": "70",
+      "name": "observed-plot-grid-v-4",
+      "bbox": [
+        1502,
+        530,
+        1,
+        104
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 71,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7ahon298",
+      "id": "71",
+      "name": "observed-plot-grid-v-5",
+      "bbox": [
+        1543,
+        530,
+        1,
+        104
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 72,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sbqpgnqt",
+      "id": "72",
+      "name": "observed-plot-grid-v-6",
+      "bbox": [
+        1585,
+        530,
+        1,
+        104
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 73,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/tcz6psre",
+      "id": "73",
+      "name": "observed-plot-grid-h-1",
+      "bbox": [
+        1377,
+        550,
+        221,
+        1
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 74,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ux87ix8z",
+      "id": "74",
+      "name": "observed-plot-grid-h-2",
+      "bbox": [
+        1377,
+        603.76,
+        221,
+        1
+      ],
+      "geometry": "custom",
+      "lineColor": "#D7E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 75,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fy1or29k",
+      "id": "75",
+      "name": "observed-plot-curve",
+      "bbox": [
+        1379,
+        536,
+        216,
+        83
+      ],
+      "geometry": "custom",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 3.2
+    },
+    {
+      "order": 76,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gzapk7q5",
+      "id": "76",
+      "name": "measurement-panel",
+      "bbox": [
+        1334,
+        100,
+        306,
+        624
+      ],
+      "geometry": "roundRect",
+      "lineColor": "#5D8FC6",
+      "lineWidth": 3.2
+    },
+    {
+      "order": 77,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/h0j6tcrq",
+      "id": "77",
+      "name": "noise-frame",
+      "bbox": [
+        40,
+        214,
+        228,
+        230
+      ],
+      "geometry": "roundRect",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 3.4
+    },
+    {
+      "order": 78,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/21s7mh8v",
+      "id": "78",
+      "name": "generator-frame",
+      "bbox": [
+        366,
+        191,
+        386,
+        296
+      ],
+      "geometry": "roundRect",
+      "lineColor": "#5A258C",
+      "lineWidth": 3.4
+    },
+    {
+      "order": 79,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/321ovm9g",
+      "id": "79",
+      "name": "reconstruction-frame",
+      "bbox": [
+        829,
+        220,
+        231,
+        234
+      ],
+      "geometry": "roundRect",
+      "lineColor": "#0B6262",
+      "lineWidth": 3.4
+    },
+    {
+      "order": 80,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/nuhkredw",
+      "id": "80",
+      "name": "operator-frame",
+      "bbox": [
+        1137,
+        279,
+        117,
+        114
+      ],
+      "geometry": "roundRect",
+      "lineColor": "#C57300",
+      "lineWidth": 3
+    },
+    {
+      "order": 81,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2t83i9cb",
+      "id": "81",
+      "name": "predicted-frame",
+      "bbox": [
+        1365,
+        182,
+        245,
+        130
+      ],
+      "geometry": "roundRect",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 3
+    },
+    {
+      "order": 82,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/pwz2tov2",
+      "id": "82",
+      "name": "loss-node",
+      "bbox": [
+        1434,
+        363,
+        108,
+        107
+      ],
+      "geometry": "ellipse",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 3
+    },
+    {
+      "order": 83,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ovqlkjuh",
+      "id": "83",
+      "name": "observed-frame",
+      "bbox": [
+        1365,
+        518,
+        245,
+        128
+      ],
+      "geometry": "roundRect",
+      "lineColor": "#0D2F6E",
+      "lineWidth": 3
+    },
+    {
+      "order": 84,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/byhkvet8",
+      "id": "84",
+      "name": "feedback-caption",
+      "bbox": [
+        842,
+        681,
+        170,
+        32
+      ],
+      "geometry": "rect",
+      "text": "optimize θ",
+      "textPreview": "optimize θ",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "+mn-lt",
+        "color": "#5A258C",
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "optimize θ"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "optimize θ",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "color": "#5A258C",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "optimize θ",
+              "fontSize": 21,
+              "color": "#5A258C",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0.1
+    },
+    {
+      "order": 85,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/doz2lkbm",
+      "id": "85",
+      "name": "eq-z",
+      "bbox": [
+        135.05,
+        145,
+        45.9,
+        45
+      ],
+      "alt": "[eq-z] vector equation. LaTeX: z",
+      "contentType": "image/svg+xml",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "48746c66-a08f-4177-9d13-7ba298b56568",
+        "contentType": "image/svg+xml",
+        "byteLength": 3706
+      }
+    },
+    {
+      "order": 86,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/q18jq5cv",
+      "id": "86",
+      "name": "eq-generator",
+      "bbox": [
+        536.09,
+        211,
+        55.81,
+        44
+      ],
+      "alt": "[eq-generator] vector equation. LaTeX: G_{\\theta}",
+      "contentType": "image/svg+xml",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "74550cf3-7140-4eab-bd0a-b309b9d1a6bf",
+        "contentType": "image/svg+xml",
+        "byteLength": 5109
+      }
+    },
+    {
+      "order": 87,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/b2hkjatg",
+      "id": "87",
+      "name": "eq-xhat",
+      "bbox": [
+        925.29,
+        145,
+        39.43,
+        54
+      ],
+      "alt": "[eq-xhat] vector equation. LaTeX: \\hat{x}",
+      "contentType": "image/svg+xml",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "26903e04-d763-4231-a26c-d127a749db51",
+        "contentType": "image/svg+xml",
+        "byteLength": 4073
+      }
+    },
+    {
+      "order": 88,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/0rq1wzud",
+      "id": "88",
+      "name": "eq-operator",
+      "bbox": [
+        1167.32,
+        298,
+        57.35,
+        58
+      ],
+      "alt": "[eq-operator] vector equation. LaTeX: A",
+      "contentType": "image/svg+xml",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "eca767a7-2aed-4968-83d3-11cf6397b035",
+        "contentType": "image/svg+xml",
+        "byteLength": 2872
+      }
+    },
+    {
+      "order": 89,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/lsj2p4bi",
+      "id": "89",
+      "name": "eq-yhat",
+      "bbox": [
+        1473.36,
+        116,
+        29.28,
+        55
+      ],
+      "alt": "[eq-yhat] vector equation. LaTeX: \\hat{y}",
+      "contentType": "image/svg+xml",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "04e18c01-96a9-4ac0-ba0d-eb47714e0a57",
+        "contentType": "image/svg+xml",
+        "byteLength": 3980
+      }
+    },
+    {
+      "order": 90,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/vml4fyd0",
+      "id": "90",
+      "name": "eq-y",
+      "bbox": [
+        1471.21,
+        652,
+        35.57,
+        48
+      ],
+      "alt": "[eq-y] vector equation. LaTeX: y",
+      "contentType": "image/svg+xml",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "7096d925-612b-4426-936a-d1427b7c6743",
+        "contentType": "image/svg+xml",
+        "byteLength": 3588
+      }
+    },
+    {
+      "order": 91,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/alc3mtwf",
+      "id": "91",
+      "name": "eq-loss",
+      "bbox": [
+        1457.71,
+        394,
+        60.59,
+        42
+      ],
+      "alt": "[eq-loss] vector equation. LaTeX: \\lVert\\cdot\\rVert_{2}^{2}",
+      "contentType": "image/svg+xml",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "5473f332-a905-4d48-b10a-a7ad1641398e",
+        "contentType": "image/svg+xml",
+        "byteLength": 5068
+      }
+    },
+    {
+      "order": 92,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/xo3mhovq",
+      "id": "92",
+      "name": "eq-objective",
+      "bbox": [
+        326,
+        770.34,
+        647,
+        91.33
+      ],
+      "alt": "[eq-objective] vector equation. LaTeX: \\theta^{\\ast}\\;=\\;\\operatorname*{arg\\,min}_{\\theta}\\left\\lVert A\\,G_{\\theta}(z)-y\\right\\rVert_{2}^{2}",
+      "contentType": "image/svg+xml",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "03e27b98-f0fa-4fe2-a6b9-76c96fdaafd9",
+        "contentType": "image/svg+xml",
+        "byteLength": 39586
+      }
+    },
+    {
+      "order": 93,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/wnu5o3el",
+      "id": "93",
+      "name": "eq-reconstruction",
+      "bbox": [
+        1067,
+        785.45,
+        251,
+        49.11
+      ],
+      "alt": "[eq-reconstruction] vector equation. LaTeX: \\hat{x}\\;=\\;G_{\\theta^{\\ast}}(z)",
+      "contentType": "image/svg+xml",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "f0155082-0888-46d4-91bb-cfa80a91839c",
+        "contentType": "image/svg+xml",
+        "byteLength": 18491
+      }
+    }
+  ],
+  "composeRuns": []
+}

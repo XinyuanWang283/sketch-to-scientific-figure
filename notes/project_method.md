@@ -1,10 +1,12 @@
 # Project method and boundaries
 
+> **Historical V2/V3 design note.** The current default front door no longer requires pre-generation truth contracts, deterministic skeletons, or a 1/3/5 proposal mode. See the repository [README](../README.md) for the active five-independent-candidate workflow. The material below is retained for the offline adapter and contract-driven regression path.
+
 ## Positioning
 
 This repository provides one durable job:
 
-> Turn authoritative scientific sources and a hand-drawn sketch into machine-readable truth, deterministic topology skeletons, controlled PNG visual proposals, and one validated semantic SVG.
+> Turn authoritative scientific sources and a hand-drawn sketch into machine-readable truth, deterministic topology skeletons, controlled PNG visual proposals, and one structurally checked semantic SVG.
 
 The workflow supports technical method diagrams across domains. It does not contain a default modality, method, variable set, stage schedule, panel structure, or visual template.
 

@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "gate_id": "GATE_1",
+  "record_type": "deterministic fixture pre-approval",
+  "decision": "PREAPPROVE_REVIEWED_FIXTURE",
+  "labels": [
+    "synthetic",
+    "publication-safe",
+    "deterministic fixture pre-approval"
+  ],
+  "input_name": "synthetic demo sketch",
+  "input_sha256": "e27da09c611240e8334477cd9a07e1cf96671aa568dae124e167bcd4adea9ec8",
+  "interpretation_name": "reviewed deterministic fixture",
+  "interpretation_sha256": "512ec2b406aa10405a53d95d6239511dc792423dd1836d7605b8822db76231f5",
+  "authority": "checked-in publication-safe fixture record",
+  "scope": "Permit deterministic topology rendering from this exact reviewed interpretation; no live AI interpretation is claimed.",
+  "in_run_human_action": false,
+  "scientific_validation": false
+}

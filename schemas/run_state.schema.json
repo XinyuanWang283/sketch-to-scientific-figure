@@ -1,16 +1,43 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Scientific Figure Workflow V3 Run State",
+  "title": "Scientific Figure Workflow V3.1 Run State",
   "type": "object",
   "required": [
     "schema_version", "run_id", "workflow_version", "execution_count",
     "interaction_mode", "state", "gate_status", "completed_artifacts",
     "delegated_defaults", "decision_packet", "provenance", "history"
   ],
+  "definitions": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "file_record": {
+      "type": "object", "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string"},
+        "sha256": {"$ref": "#/definitions/sha256"}
+      }
+    },
+    "candidate_record": {
+      "type": "object",
+      "required": [
+        "candidate_id", "path", "sha256", "generator", "generation_call_id",
+        "provenance_assurance", "gate_1_visual_plan_sha256", "gate_1_interpretation_sha256"
+      ],
+      "properties": {
+        "candidate_id": {"type": "string", "pattern": "^[A-Za-z0-9._-]+$"},
+        "path": {"type": "string"},
+        "sha256": {"$ref": "#/definitions/sha256"},
+        "generator": {"const": "operator_attested_candidate"},
+        "generation_call_id": {"type": "string", "pattern": "^[A-Za-z0-9._-]+$"},
+        "provenance_assurance": {"const": "operator_attested_not_independently_verified"},
+        "gate_1_visual_plan_sha256": {"$ref": "#/definitions/sha256"},
+        "gate_1_interpretation_sha256": {"$ref": "#/definitions/sha256"}
+      }
+    }
+  },
   "properties": {
-    "schema_version": {"const": "1.0"},
+    "schema_version": {"const": "1.1"},
     "run_id": {"type": "string", "pattern": "^[A-Za-z0-9._-]+$"},
-    "workflow_version": {"const": "3.0"},
+    "workflow_version": {"const": "3.1"},
     "execution_count": {"type": "integer", "minimum": 1, "maximum": 1},
     "interaction_mode": {"const": "autopilot_with_gates"},
     "state": {
@@ -60,9 +87,145 @@
         "updated_at": {"type": "string"},
         "repository_root": {"type": "string"},
         "input_hashes": {"type": "object"},
-        "image_generation_calls": {"type": "integer", "minimum": 0}
+        "image_generation_calls": {"type": "integer", "minimum": 0},
+        "visual_plan_binding": {
+          "type": "object",
+          "required": [
+            "visual_plan_status", "visual_plan_path", "visual_plan_sha256",
+            "approved_wireframe_svg_path", "approved_wireframe_svg_sha256",
+            "approved_wireframe_png_path", "approved_wireframe_png_sha256"
+          ],
+          "properties": {
+            "visual_plan_status": {"const": "approved"},
+            "visual_plan_path": {"type": "string"},
+            "visual_plan_sha256": {"$ref": "#/definitions/sha256"},
+            "approved_wireframe_svg_path": {"type": "string"},
+            "approved_wireframe_svg_sha256": {"$ref": "#/definitions/sha256"},
+            "approved_wireframe_png_path": {"type": "string"},
+            "approved_wireframe_png_sha256": {"$ref": "#/definitions/sha256"}
+          }
+        },
+        "gate_1_approval": {
+          "type": "object",
+          "required": ["decision", "visual_plan_sha256", "scientific_interpretation", "interpretation", "preview"],
+          "properties": {
+            "decision": {"enum": ["APPROVE_RECOMMENDED", "APPROVE_CONSERVATIVE"]},
+            "visual_plan_sha256": {"$ref": "#/definitions/sha256"},
+            "scientific_interpretation": {"$ref": "#/definitions/file_record"},
+            "interpretation": {"$ref": "#/definitions/file_record"},
+            "preview": {"$ref": "#/definitions/file_record"}
+          }
+        },
+        "registered_candidates": {
+          "type": "array", "items": {"$ref": "#/definitions/candidate_record"}
+        },
+        "gate_2_selection_pool": {
+          "type": "array", "minItems": 1, "maxItems": 2,
+          "items": {"type": "string", "pattern": "^[A-Za-z0-9._-]+$"},
+          "uniqueItems": true
+        },
+        "selected_candidate": {"$ref": "#/definitions/candidate_record"},
+        "delivery_validation": {
+          "type": "object",
+          "required": [
+            "canonical_source", "equations_source", "manifest",
+            "validation_report", "preview", "format_artifacts",
+            "gate_1_scientific_interpretation_sha256", "gate_1_visual_interpretation_sha256",
+            "gate_2_candidate_id", "gate_2_candidate_sha256"
+          ],
+          "properties": {
+            "canonical_source": {"$ref": "#/definitions/file_record"},
+            "equations_source": {"$ref": "#/definitions/file_record"},
+            "manifest": {"$ref": "#/definitions/file_record"},
+            "validation_report": {"$ref": "#/definitions/file_record"},
+            "preview": {"$ref": "#/definitions/file_record"},
+            "gate_1_scientific_interpretation_sha256": {"$ref": "#/definitions/sha256"},
+            "gate_1_visual_interpretation_sha256": {"$ref": "#/definitions/sha256"},
+            "gate_2_candidate_id": {"type": "string", "pattern": "^[A-Za-z0-9._-]+$"},
+            "gate_2_candidate_sha256": {"$ref": "#/definitions/sha256"},
+            "format_artifacts": {
+              "type": "array", "minItems": 7, "maxItems": 7,
+              "items": {
+                "type": "object", "required": ["format", "path", "sha256"],
+                "properties": {
+                  "format": {"enum": ["svg", "figma-ready-svg", "pptx", "drawio", "publication-pdf", "grayscale-pdf", "drawio-companion-pdf"]},
+                  "path": {"type": "string"},
+                  "sha256": {"$ref": "#/definitions/sha256"}
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "history": {"type": "array", "items": {"type": "object"}}
-  }
+    "history": {"type": "array", "minItems": 1, "items": {"type": "object"}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"state": {"const": "GATE_1_EDITORIAL_STORY_WIREFRAME"}}},
+      "then": {
+        "properties": {
+          "gate_status": {"properties": {"gate_1": {"const": "awaiting_human"}, "gate_2": {"const": "not_reached"}, "gate_3": {"const": "not_reached"}}},
+          "provenance": {"required": ["visual_plan_binding"]}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"state": {"const": "PNG_DIRECTION"}}},
+      "then": {
+        "properties": {
+          "gate_status": {"properties": {"gate_1": {"const": "approved"}, "gate_2": {"const": "not_reached"}, "gate_3": {"const": "not_reached"}}},
+          "provenance": {"required": ["visual_plan_binding", "gate_1_approval"]}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"state": {"const": "GATE_2_PNG_VISUAL_DIRECTION"}}},
+      "then": {
+        "properties": {
+          "gate_status": {"properties": {"gate_1": {"const": "approved"}, "gate_2": {"const": "awaiting_human"}, "gate_3": {"const": "not_reached"}}},
+          "provenance": {"required": ["visual_plan_binding", "gate_1_approval", "registered_candidates", "gate_2_selection_pool"]}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"state": {"enum": ["SEMANTIC_BUILD", "DELIVERY_BUILD"]}}},
+      "then": {
+        "anyOf": [
+          {
+            "properties": {
+              "gate_status": {"properties": {"gate_1": {"const": "not_applicable_fixture"}, "gate_2": {"const": "not_applicable_fixture"}, "gate_3": {"const": "not_applicable_fixture"}}},
+              "provenance": {"properties": {"image_generation_calls": {"const": 0}}}
+            }
+          },
+          {
+            "properties": {
+              "gate_status": {"properties": {"gate_1": {"const": "approved"}, "gate_2": {"const": "approved"}, "gate_3": {"const": "not_reached"}}},
+              "provenance": {"required": ["visual_plan_binding", "gate_1_approval", "registered_candidates", "selected_candidate"]}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {"properties": {"state": {"enum": ["GATE_3_FINAL_SCIENTIFIC_DELIVERY", "COMPLETE"]}}},
+      "then": {
+        "properties": {
+          "provenance": {"required": ["visual_plan_binding", "gate_1_approval", "registered_candidates", "selected_candidate", "delivery_validation"]}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"state": {"const": "GATE_3_FINAL_SCIENTIFIC_DELIVERY"}}},
+      "then": {"properties": {"gate_status": {"properties": {"gate_1": {"const": "approved"}, "gate_2": {"const": "approved"}, "gate_3": {"const": "awaiting_human"}}}}}
+    },
+    {
+      "if": {"properties": {"state": {"const": "COMPLETE"}}},
+      "then": {"properties": {"gate_status": {"properties": {"gate_1": {"const": "approved"}, "gate_2": {"const": "approved"}, "gate_3": {"const": "approved"}}}}}
+    },
+    {
+      "if": {"properties": {"state": {"const": "FIXTURE_COMPLETE"}}},
+      "then": {"properties": {"gate_status": {"properties": {"gate_1": {"const": "not_applicable_fixture"}, "gate_2": {"const": "not_applicable_fixture"}, "gate_3": {"const": "not_applicable_fixture"}}}}}
+    }
+  ]
 }

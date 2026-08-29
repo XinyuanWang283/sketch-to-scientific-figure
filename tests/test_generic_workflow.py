@@ -123,9 +123,16 @@ class GenericWorkflowTests(unittest.TestCase):
             self.assertEqual(semantic["figure_id"], "generic-builder-test")
             self.assertEqual(len(semantic["equation_objects"]), 2)
             self.assertEqual(semantic["canvas"]["physical_width_mm"], 180.0)
+            self.assertEqual(semantic["style_tokens"]["colors"]["muted"], "#64748B")
             rendered = render_semantic_svg(semantic, profile="svg")
             self.assertIn('width="180.0mm"', rendered)
             self.assertIn('data-latex="f_\\theta"', rendered)
+            rendered_path = run_dir / "rendered.svg"
+            rendered_path.write_text(rendered, encoding="utf-8")
+            self.assertEqual(
+                validate_svg(rendered_path, fixture_dir / "generic_svg_fixture_spec.json")["summary"]["overall"],
+                "pass",
+            )
 
     def test_fixture_runs_all_adapters_without_image_generation(self) -> None:
         if not os.environ.get("RUNTIME_NODE_MODULES"):

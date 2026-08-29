@@ -1,0 +1,137 @@
+{
+  "schema_version": "1.1",
+  "example_id": "deep-image-prior-synthetic",
+  "status": "visual_approved_scientific_and_release_decisions_pending",
+  "input": {
+    "path": "sketch.png",
+    "sha256": "85680bb74824dba44ccff1497052bb6936418851e9c41a5fe9933c3648b7137b",
+    "source": "original hand-drawn synthetic demo sketch",
+    "copied_from_published_figure": false
+  },
+  "generation": {
+    "mode": "codex_builtin_imagegen",
+    "user_api_key_required": false,
+    "separate_generation_calls": 5,
+    "provenance_assurance": "session_observed_but_not_independently_verified_by_repository_code",
+    "generation_event_ids_are_repository_local": true,
+    "native_tool_call_ids_recorded": false,
+    "embedded_content_credentials_observed": "OpenAI gpt-image",
+    "content_credentials_cryptographically_validated_by_repository": false,
+    "backend_model_identity_independently_verified": false,
+    "comparison_sheet_generated_by_imagegen": false
+  },
+  "candidates": [
+    {
+      "slot": "A",
+      "candidate_id": "A-faithful",
+      "direction": "faithful",
+      "path": "candidates/A-faithful.png",
+      "sha256": "d945d096817dae847e3c91800239a0e5084aa4102979c3d9ed6056a3cf54331e",
+      "generation_event_id": "dip-v0.1-initial-A",
+      "design_note": "Faithful cleanup of the clarified sketch.",
+      "registered_at": "2026-08-29T13:24:52Z",
+      "provenance_status": "repository_registered_operator_attested",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "slot": "B",
+      "candidate_id": "B-publication",
+      "direction": "publication",
+      "path": "candidates/B-publication.png",
+      "sha256": "99d84ccb472e708dd39c6e26aca8c0da1fa75ffaa27148b1479c0fc21522fa1e",
+      "generation_event_id": "dip-v0.1-initial-B",
+      "design_note": "Compact publication-oriented composition.",
+      "registered_at": "2026-08-29T13:24:52Z",
+      "provenance_status": "repository_registered_operator_attested",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "slot": "C",
+      "candidate_id": "C-presentation",
+      "direction": "presentation",
+      "path": "candidates/C-presentation.png",
+      "sha256": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c",
+      "generation_event_id": "dip-v0.1-initial-C",
+      "design_note": "Presentation-oriented visual hierarchy.",
+      "registered_at": "2026-08-29T13:24:52Z",
+      "provenance_status": "repository_registered_operator_attested",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "slot": "D",
+      "candidate_id": "D-alternative-layout",
+      "direction": "alternative-layout",
+      "path": "candidates/D-alternative-layout.png",
+      "sha256": "4f00c5e6591de1363eb270bd5cd087badb074b6291cc0ac45f9810dca04b0692",
+      "generation_event_id": "dip-v0.1-initial-D",
+      "design_note": "Alternative layout exploration.",
+      "registered_at": "2026-08-29T13:24:52Z",
+      "provenance_status": "repository_registered_operator_attested",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "slot": "E",
+      "candidate_id": "E-visual-variant",
+      "direction": "visual-variant",
+      "path": "candidates/E-visual-variant.png",
+      "sha256": "bbe66df64c494cd8304e0105132b7a01c0eb080efbf4ec7f51c0fb0b0151f631",
+      "generation_event_id": "dip-v0.1-initial-E",
+      "design_note": "Distinct visual-style exploration.",
+      "registered_at": "2026-08-29T13:24:52Z",
+      "provenance_status": "repository_registered_operator_attested",
+      "width": 1672,
+      "height": 941
+    }
+  ],
+  "selection": {
+    "status": "approved_for_editable_reconstruction",
+    "selection_type": "single_candidate",
+    "instruction_summary": "Choose candidate C only for the new editable review draft.",
+    "selected_candidate": {
+      "slot": "C",
+      "candidate_id": "C-presentation",
+      "path": "candidates/C-presentation.png",
+      "sha256": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c"
+    },
+    "approval_record": "candidate_selection_c_only.json",
+    "editable_delivery": "editable_delivery_c_fidelity_v2/",
+    "selection_history": "selection_history.json",
+    "supersedes": {
+      "approval_record": "candidate_selection.json",
+      "editable_delivery": "editable_delivery/",
+      "review_outcome": "REJECTED_FOR_VISUAL_REVISION"
+    },
+    "delivery_revision": {
+      "previous_editable_delivery": "editable_delivery_c_region_fidelity/",
+      "review_outcome": "SUPERSEDED_BY_VERIFIED_FIDELITY_V2_REFERENCE",
+      "current_editable_delivery": "editable_delivery_c_fidelity_v2/",
+      "strategy": "case_specific_region_aware_fidelity_v2_with_two_approved_raster_atoms"
+    },
+    "visual_approval": "APPROVED_HASH_BOUND_REFERENCE_CASE",
+    "final_scientific_approval": null,
+    "science_day_use_approval": null,
+    "public_release_approval": null,
+    "final_status": "visual_approved_scientific_and_release_decisions_pending"
+  },
+  "comparison_sheet": {
+    "path": "candidate-comparison.png",
+    "sha256": "f8df3c40536e8995ac16c2c85361f6911cf1daef8e3ee733004f079dd3356f54",
+    "created_after_five_separate_generation_events": true,
+    "generated_by_imagegen": false
+  },
+  "limitations": [
+    "ImageGen candidates are flattened visual proposals, not editable scientific source files.",
+    "Generated labels, equations, and arrows require researcher review and post-selection reconstruction.",
+    "The repository records five separate operator-attested generation events but cannot independently prove backend call isolation or model identity.",
+    "Generation event IDs are repository-local. Native tool-call IDs are absent because no native IDs were exposed for this frozen evidence.",
+    "Embedded Content Credentials were observed but were not cryptographically validated by repository code.",
+    "The earlier D-layout/C-style reconstruction was rejected for visual revision and is retained only as decision history.",
+    "The native-only candidate C reconstruction was rejected because it did not preserve enough of candidate C's visual fidelity and remains in the repository as revision history.",
+    "The frozen fidelity-v2 package is the active reference case; its draw.io file is an experimental structural view with a known official-render defect.",
+    "Visual approval is bound to the exact fidelity-v2 artifact manifest. Scientific, Science Day-use, and public-release approvals remain pending."
+  ]
+}

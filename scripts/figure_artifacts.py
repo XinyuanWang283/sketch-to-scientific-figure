@@ -116,8 +116,8 @@ def load_json(path: Path) -> Any:
 def json_schema_errors(instance: Any, schema: Mapping[str, Any]) -> List[str]:
     """Validate the JSON Schema subset used by this repository.
 
-    Supported keywords are local ``$ref``, ``allOf``, ``type``, ``required``,
-    ``properties``, ``items``, ``enum``, ``const``, ``pattern``,
+    Supported keywords are local ``$ref``, ``allOf``, ``anyOf``, ``if``/``then``/``else``,
+    ``type``, ``required``, ``properties``, ``items``, ``enum``, ``const``, ``pattern``,
     ``minItems``, ``maxItems``, ``uniqueItems``, ``minimum``, and ``maximum``.
     The public schemas deliberately stay inside this subset so P0 needs no
     third-party dependency.
@@ -162,6 +162,22 @@ def json_schema_errors(instance: Any, schema: Mapping[str, Any]) -> List[str]:
             return
         for part in rule.get("allOf", []):
             visit(value, part, path)
+
+        def matches(candidate_rule: Mapping[str, Any]) -> bool:
+            start = len(errors)
+            visit(value, candidate_rule, path)
+            matched = len(errors) == start
+            del errors[start:]
+            return matched
+
+        if "if" in rule and isinstance(rule["if"], Mapping):
+            branch = rule.get("then") if matches(rule["if"]) else rule.get("else")
+            if isinstance(branch, Mapping):
+                visit(value, branch, path)
+        if "anyOf" in rule:
+            alternatives = [item for item in rule["anyOf"] if isinstance(item, Mapping)]
+            if alternatives and not any(matches(item) for item in alternatives):
+                errors.append("%s: value does not satisfy anyOf" % path)
 
         expected_type = rule.get("type")
         if expected_type is not None:

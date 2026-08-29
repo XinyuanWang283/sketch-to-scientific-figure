@@ -1,0 +1,16 @@
+{
+  "canonical_source": "source/semantic_figure.json",
+  "equation_metadata_in_notes": true,
+  "equation_svg_group_count": 0,
+  "inspection": "delivery/pptx/artifact_tool_inspect.ndjson",
+  "layout": "delivery/pptx/slide-01.layout.json",
+  "live_text_count": 1,
+  "native_connector_count": 7,
+  "native_shape_count": 1340,
+  "output": "delivery/pptx/figure.pptx",
+  "preview": "delivery/pptx/slide-01.png",
+  "status": "VERIFIED",
+  "visible_connector_arrowhead_count": 7,
+  "visible_connector_path_count": 7,
+  "whole_canvas_raster": false
+}

@@ -1,4 +1,6 @@
-# Compiled image-generation brief template
+# Compiled image-generation brief template (legacy V2/V3)
+
+> **Not used by the default ImageGen-first path.** The current workflow uses the original sketch plus the short prose brief from [`../00_clarify_for_imagegen.md`](../00_clarify_for_imagegen.md), then applies the fixed A–E directions from [`../01_sketch_to_five_proposals.md`](../01_sketch_to_five_proposals.md). This skeleton-bound template remains for the legacy deterministic compiler only.
 
 This file is a compiler input pattern, not a place to paste the complete scientific contract. The compiled brief must contain 350–500 words.
 
@@ -27,7 +29,7 @@ ART DIRECTION
 TEXT POLICY
 Allowed ordinary prose: {{ordinary_prose_allowlist}}.
 Allowed short notation: {{notation_allowlist}}.
-Do not render production equations, exact indices, legends, explanatory prose, or invented headings. These will be rebuilt as live SVG text.
+Do not render production equations, exact indices, legends, explanatory prose, or invented headings. These will be rebuilt as semantic SVG objects with authoritative LaTeX source and approved fallback text.
 
 OUTPUT
 Produce one clean, flat, publication-style PNG candidate. Preserve the skeleton's macro-topology. No contact sheet, photorealism, shadows, gradients, decorative UI chrome, or whole-canvas title.

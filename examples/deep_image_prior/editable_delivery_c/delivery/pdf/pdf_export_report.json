@@ -1,0 +1,27 @@
+{
+  "canonical_source": "source/semantic_figure.json",
+  "canonical_source_sha256": "f33cfa1d0f841721dc560991d0031ebf696b449660b5353ba09dd82b98691208",
+  "equation_source_editability": false,
+  "outputs": [
+    {
+      "bytes": 146100,
+      "grayscale": false,
+      "path": "delivery/pdf/publication.pdf",
+      "renderer": "reportlab-native-vector",
+      "sha256": "aa74e7e22e6e0a07c71696d1ca8c7bca2dde8f21422686bda4df4d4e1fa95aab",
+      "status": "VERIFIED"
+    },
+    {
+      "bytes": 146019,
+      "grayscale": true,
+      "path": "delivery/pdf/grayscale.pdf",
+      "renderer": "reportlab-native-vector",
+      "sha256": "9cb09e95a3db6bff655c071ed348bc7d12b3d8fc4584954e4284c4d7dbf2ba4b",
+      "status": "VERIFIED"
+    }
+  ],
+  "semantic_editability": false,
+  "status": "VERIFIED",
+  "vector_policy": "PDF is a vector publication-format export/preview; canonical semantic JSON and equations.tex remain the editable sources.",
+  "whole_canvas_raster": false
+}

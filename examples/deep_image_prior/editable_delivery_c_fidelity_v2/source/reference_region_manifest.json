@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "candidate_sha256": "c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c",
+  "policy": "reference_only_not_embedded",
+  "regions": [
+    {
+      "id": "noise_input",
+      "path": "reference_regions/noise_input.png",
+      "sha256": "bfa5a718a445b840b940ebc03de66c59cf4702e085e0db952e6c06cbb6d35b16",
+      "use": "reference_only_not_embedded"
+    },
+    {
+      "id": "generator_network",
+      "path": "reference_regions/generator_network.png",
+      "sha256": "39fe20569f316b0d8c4e935eb86b58973b0934db912bd46e15a2b31bdc5f9411",
+      "use": "reference_only_not_embedded"
+    },
+    {
+      "id": "reconstruction_landscape",
+      "path": "reference_regions/reconstruction_landscape.png",
+      "sha256": "6e860f0608ea5f0851ec579d681c648bf1b3df8c2e11dd6b289708376217b18b",
+      "use": "reference_only_not_embedded"
+    },
+    {
+      "id": "forward_operator",
+      "path": "reference_regions/forward_operator.png",
+      "sha256": "4f3478e2cf511d61c336754bdea8b6fc5bbf14532777a244b0e618c33cd603a8",
+      "use": "reference_only_not_embedded"
+    },
+    {
+      "id": "measurement_comparison",
+      "path": "reference_regions/measurement_comparison.png",
+      "sha256": "d6d2ed4615e485d4df5dec406ea9a8d537aed5d74aa638df34f85c4667f67893",
+      "use": "reference_only_not_embedded"
+    },
+    {
+      "id": "feedback_loop",
+      "path": "reference_regions/feedback_loop.png",
+      "sha256": "66ed743ec3a9361cb0dc22fdd2bb83dd85e2913e45acc0e108745bd753148239",
+      "use": "reference_only_not_embedded"
+    },
+    {
+      "id": "optimization_objective",
+      "path": "reference_regions/optimization_objective.png",
+      "sha256": "06de2bb8e8e5925aaa15622d548776a198c1780da6c5caba692f35f5275b47bf",
+      "use": "reference_only_not_embedded"
+    },
+    {
+      "id": "reconstruction_equation",
+      "path": "reference_regions/reconstruction_equation.png",
+      "sha256": "85910e596a852f45068612a68831b004dee06b1a396981816aa1c0ad0ef96345",
+      "use": "reference_only_not_embedded"
+    }
+  ],
+  "region_overlay": {
+    "path": "region_overlay.png",
+    "sha256": "472201e8d26e6a729be541af8e621874670aa484f7488cb9fa1db414a407da3c",
+    "use": "reference_only_not_embedded",
+    "bbox_format": "xywh_source_pixels",
+    "region_count": 8
+  }
+}

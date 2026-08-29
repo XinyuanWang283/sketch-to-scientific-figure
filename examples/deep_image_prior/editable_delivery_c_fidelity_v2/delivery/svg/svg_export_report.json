@@ -1,0 +1,12 @@
+{
+  "status": "VERIFIED_FIDELITY_V2_MIXED_MEDIA_SVG",
+  "path": "delivery/svg/master.svg",
+  "sha256": "6ee412fd9043aa964490f593888fdd17bc40b1499cbcd6e4f7e2a271ecc40330",
+  "replaceable_raster_atom_count": 2,
+  "whole_candidate_raster_count": 0,
+  "gradient_count": 14,
+  "generator_face_gradient_count": 11,
+  "explicit_arrowhead_count": 7,
+  "equation_count": 9,
+  "scientific_validation": false
+}

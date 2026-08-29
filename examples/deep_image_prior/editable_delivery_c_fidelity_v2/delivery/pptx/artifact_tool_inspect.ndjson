@@ -1,0 +1,95 @@
+{"kind":"slide","id":"sl/b7rx9l","slide":1,"title":"optimize θ","textShapes":1}
+{"kind":"shape","id":"sh/iho3ut0j","slide":1,"name":"measurement-panel-fill","bbox":[1334,100,306,624]}
+{"kind":"shape","id":"sh/5kfm5oja","slide":1,"name":"noise-frame-fill","bbox":[40,214,228,230]}
+{"kind":"shape","id":"sh/4j6lw3ip","slide":1,"name":"generator-frame-fill","bbox":[366,191,386,296]}
+{"kind":"shape","id":"sh/vudkze1s","slide":1,"name":"reconstruction-frame-fill","bbox":[829,220,231,234]}
+{"kind":"shape","id":"sh/ut43q90n","slide":1,"name":"operator-frame-fill","bbox":[1137,279,117,114]}
+{"kind":"shape","id":"sh/hgv21ojy","slide":1,"name":"predicted-frame-fill","bbox":[1365,182,245,130]}
+{"kind":"shape","id":"sh/gfmlsjid","slide":1,"name":"loss-node-fill","bbox":[1434,363,108,107]}
+{"kind":"shape","id":"sh/7qdkve1w","slide":1,"name":"observed-frame-fill","bbox":[1365,518,245,128]}
+{"kind":"shape","id":"sh/6pk3m9kb","slide":1,"name":"flow-z-generator-shaft","bbox":[268,330,77,1]}
+{"kind":"shape","id":"sh/kjidszut","slide":1,"name":"flow-z-generator-arrowhead","bbox":[345,323.5,13,13]}
+{"kind":"shape","id":"sh/lkrul4vy","slide":1,"name":"flow-generator-reconstruction-shaft","bbox":[752,330,56,1]}
+{"kind":"shape","id":"sh/yh0bqpcn","slide":1,"name":"flow-generator-reconstruction-arrowhead","bbox":[808,323.5,13,13]}
+{"kind":"shape","id":"sh/ji9cjud8","slide":1,"name":"flow-reconstruction-operator-shaft","bbox":[1060,330,56,1]}
+{"kind":"shape","id":"sh/wvytofuh","slide":1,"name":"flow-reconstruction-operator-arrowhead","bbox":[1116,323.5,13,13]}
+{"kind":"shape","id":"sh/xgruhkv2","slide":1,"name":"flow-operator-predicted-shaft","bbox":[1254,330,60,1]}
+{"kind":"shape","id":"sh/atgbm5cb","slide":1,"name":"flow-operator-predicted-arrowhead","bbox":[1314,323.5,13,13]}
+{"kind":"shape","id":"sh/bupcfadw","slide":1,"name":"flow-predicted-loss-shaft","bbox":[1488,312,1,31]}
+{"kind":"shape","id":"sh/gr2d0jul","slide":1,"name":"flow-predicted-loss-arrowhead","bbox":[1482,343,12,12]}
+{"kind":"shape","id":"sh/hcbutob6","slide":1,"name":"flow-observed-loss-shaft","bbox":[1488,490,1,28]}
+{"kind":"shape","id":"sh/p87ud43a","slide":1,"name":"flow-observed-loss-arrowhead","bbox":[1482,478,12,12]}
+{"kind":"shape","id":"sh/o7ytkjm5","slide":1,"name":"feedback-optimize-generator-shaft","bbox":[568,508,766,160]}
+{"kind":"shape","id":"sh/36pcbelk","slide":1,"name":"feedback-optimize-generator-arrowhead","bbox":[561.5,495,13,13]}
+{"kind":"shape","id":"sh/g3ytgzmt","slide":1,"name":"network-layer-01-top","bbox":[388,222,37,11]}
+{"kind":"shape","id":"sh/f2pc7ul8","slide":1,"name":"network-layer-01-side","bbox":[416,227,9,222]}
+{"kind":"shape","id":"sh/e1wbep4n","slide":1,"name":"network-layer-01-face","bbox":[388,228,28,226]}
+{"kind":"shape","id":"sh/tgnu5k3i","slide":1,"name":"network-layer-02-top","bbox":[422,238,39,11]}
+{"kind":"shape","id":"sh/sfetczmx","slide":1,"name":"network-layer-02-side","bbox":[452,243,9,190]}
+{"kind":"shape","id":"sh/ilcr6lkf","slide":1,"name":"network-layer-02-face","bbox":[422,244,30,194]}
+{"kind":"shape","id":"sh/jmlsfq10","slide":1,"name":"network-layer-03-top","bbox":[459,255,40,11]}
+{"kind":"shape","id":"sh/k7u98v2l","slide":1,"name":"network-layer-03-side","bbox":[490,260,9,156]}
+{"kind":"shape","id":"sh/583ah0j6","slide":1,"name":"network-layer-03-face","bbox":[459,261,31,160]}
+{"kind":"shape","id":"sh/ahsr2lkj","slide":1,"name":"network-layer-04-top","bbox":[496,272,39,11]}
+{"kind":"shape","id":"sh/vi18bq14","slide":1,"name":"network-layer-04-side","bbox":[526,277,9,122]}
+{"kind":"shape","id":"sh/wju94v2p","slide":1,"name":"network-layer-04-face","bbox":[496,278,30,126]}
+{"kind":"shape","id":"sh/xk3qd0ja","slide":1,"name":"network-layer-05-top","bbox":[532,290,33,11]}
+{"kind":"shape","id":"sh/mdsry1kn","slide":1,"name":"network-layer-05-side","bbox":[556,295,9,86]}
+{"kind":"shape","id":"sh/ne1876ls","slide":1,"name":"network-layer-05-face","bbox":[532,296,24,90]}
+{"kind":"shape","id":"sh/z6lojm5o","slide":1,"name":"network-layer-06-top","bbox":[556,308,27,11]}
+{"kind":"shape","id":"sh/e5cnaho3","slide":1,"name":"network-layer-06-side","bbox":[574,313,9,50]}
+{"kind":"shape","id":"sh/1836lcnu","slide":1,"name":"network-layer-06-face","bbox":[556,314,18,54]}
+{"kind":"shape","id":"sh/07u5cr69","slide":1,"name":"network-layer-07-top","bbox":[578,291,33,10]}
+{"kind":"shape","id":"sh/r21of25s","slide":1,"name":"network-layer-07-side","bbox":[578,296,9,85]}
+{"kind":"shape","id":"sh/q1sn6xo7","slide":1,"name":"network-layer-07-face","bbox":[587,296,24,90]}
+{"kind":"shape","id":"sh/d4j6hcni","slide":1,"name":"network-layer-08-top","bbox":[610,273,39,10]}
+{"kind":"shape","id":"sh/c3a5876x","slide":1,"name":"network-layer-08-side","bbox":[610,278,9,121]}
+{"kind":"shape","id":"sh/3e14b25g","slide":1,"name":"network-layer-08-face","bbox":[619,278,30,126]}
+{"kind":"shape","id":"sh/2dsn2xov","slide":1,"name":"network-layer-09-top","bbox":[643,256,40,10]}
+{"kind":"shape","id":"sh/87mtwzih","slide":1,"name":"network-layer-09-side","bbox":[643,261,9,155]}
+{"kind":"shape","id":"sh/98fup4z2","slide":1,"name":"network-layer-09-face","bbox":[652,261,31,160]}
+{"kind":"shape","id":"sh/m54bup0r","slide":1,"name":"network-layer-10-top","bbox":[675,239,39,10]}
+{"kind":"shape","id":"sh/76dcnuhw","slide":1,"name":"network-layer-10-side","bbox":[675,244,9,189]}
+{"kind":"shape","id":"sh/gv6t0jit","slide":1,"name":"network-layer-10-face","bbox":[684,244,30,194]}
+{"kind":"shape","id":"sh/hwfutoze","slide":1,"name":"network-layer-11-top","bbox":[704,223,37,10]}
+{"kind":"shape","id":"sh/utoby90n","slide":1,"name":"network-layer-11-side","bbox":[704,228,9,221]}
+{"kind":"shape","id":"sh/vuxcreh8","slide":1,"name":"network-layer-11-face","bbox":[713,228,28,226]}
+{"kind":"shape","id":"sh/cz2tofi9","slide":1,"name":"predicted-plot-grid-v-1","bbox":[1379,194,1,106]}
+{"kind":"shape","id":"sh/x0bahkzu","slide":1,"name":"predicted-plot-grid-v-2","bbox":[1420,194,1,106]}
+{"kind":"shape","id":"sh/dw3algby","slide":1,"name":"predicted-plot-grid-v-3","bbox":[1461,194,1,106]}
+{"kind":"shape","id":"sh/cvu9sbad","slide":1,"name":"predicted-plot-grid-v-4","bbox":[1502,194,1,106]}
+{"kind":"shape","id":"sh/rul8j6ts","slide":1,"name":"predicted-plot-grid-v-5","bbox":[1543,194,1,106]}
+{"kind":"shape","id":"sh/qtcrq1s7","slide":1,"name":"predicted-plot-grid-v-6","bbox":[1585,194,1,106]}
+{"kind":"shape","id":"sh/10napgbu","slide":1,"name":"predicted-plot-grid-h-1","bbox":[1377,214.5,221,1]}
+{"kind":"shape","id":"sh/0ze9wba9","slide":1,"name":"predicted-plot-grid-h-2","bbox":[1377,269.1,221,1]}
+{"kind":"shape","id":"sh/zy5sn6to","slide":1,"name":"predicted-plot-curve","bbox":[1379,202,216,76]}
+{"kind":"shape","id":"sh/exwruls3","slide":1,"name":"observed-plot-grid-v-1","bbox":[1379,530,1,104]}
+{"kind":"shape","id":"sh/9o7at0bq","slide":1,"name":"observed-plot-grid-v-2","bbox":[1420,530,1,104]}
+{"kind":"shape","id":"sh/one90val","slide":1,"name":"observed-plot-grid-v-3","bbox":[1461,530,1,104]}
+{"kind":"shape","id":"sh/6987ex83","slide":1,"name":"observed-plot-grid-v-4","bbox":[1502,530,1,104]}
+{"kind":"shape","id":"sh/7ahon298","slide":1,"name":"observed-plot-grid-v-5","bbox":[1543,530,1,104]}
+{"kind":"shape","id":"sh/sbqpgnqt","slide":1,"name":"observed-plot-grid-v-6","bbox":[1585,530,1,104]}
+{"kind":"shape","id":"sh/tcz6psre","slide":1,"name":"observed-plot-grid-h-1","bbox":[1377,550,221,1]}
+{"kind":"shape","id":"sh/ux87ix8z","slide":1,"name":"observed-plot-grid-h-2","bbox":[1377,603.76,221,1]}
+{"kind":"shape","id":"sh/fy1or29k","slide":1,"name":"observed-plot-curve","bbox":[1379,536,216,83]}
+{"kind":"shape","id":"sh/gzapk7q5","slide":1,"name":"measurement-panel","bbox":[1334,100,306,624]}
+{"kind":"shape","id":"sh/h0j6tcrq","slide":1,"name":"noise-frame","bbox":[40,214,228,230]}
+{"kind":"shape","id":"sh/21s7mh8v","slide":1,"name":"generator-frame","bbox":[366,191,386,296]}
+{"kind":"shape","id":"sh/321ovm9g","slide":1,"name":"reconstruction-frame","bbox":[829,220,231,234]}
+{"kind":"shape","id":"sh/nuhkredw","slide":1,"name":"operator-frame","bbox":[1137,279,117,114]}
+{"kind":"shape","id":"sh/2t83i9cb","slide":1,"name":"predicted-frame","bbox":[1365,182,245,130]}
+{"kind":"shape","id":"sh/pwz2tov2","slide":1,"name":"loss-node","bbox":[1434,363,108,107]}
+{"kind":"shape","id":"sh/ovqlkjuh","slide":1,"name":"observed-frame","bbox":[1365,518,245,128]}
+{"kind":"textbox","id":"sh/byhkvet8","slide":1,"name":"feedback-caption","text":"optimize θ","textPreview":"optimize θ","textChars":10,"textLines":1,"bbox":[842,681,170,32]}
+{"kind":"image","id":"im/dgzq9cne","slide":1,"name":"noise-raster-atom","alt":"[noise-raster-atom] exact replaceable synthetic visual atom; not scientific evidence and not pixel-editable","bbox":[44,219,222,222]}
+{"kind":"image","id":"im/eh8rih4z","slide":1,"name":"reconstruction-raster-atom","alt":"[reconstruction-raster-atom] exact replaceable synthetic visual atom; not scientific evidence and not pixel-editable","bbox":[834,224,222,227]}
+{"kind":"image","id":"im/doz2lkbm","slide":1,"name":"eq-z","alt":"[eq-z] vector equation. LaTeX: z","bbox":[135.05,145,45.9,45]}
+{"kind":"image","id":"im/q18jq5cv","slide":1,"name":"eq-generator","alt":"[eq-generator] vector equation. LaTeX: G_{\\theta}","bbox":[536.09,211,55.81,44]}
+{"kind":"image","id":"im/b2hkjatg","slide":1,"name":"eq-xhat","alt":"[eq-xhat] vector equation. LaTeX: \\hat{x}","bbox":[925.29,145,39.43,54]}
+{"kind":"image","id":"im/0rq1wzud","slide":1,"name":"eq-operator","alt":"[eq-operator] vector equation. LaTeX: A","bbox":[1167.32,298,57.35,58]}
+{"kind":"image","id":"im/lsj2p4bi","slide":1,"name":"eq-yhat","alt":"[eq-yhat] vector equation. LaTeX: \\hat{y}","bbox":[1473.36,116,29.28,55]}
+{"kind":"image","id":"im/vml4fyd0","slide":1,"name":"eq-y","alt":"[eq-y] vector equation. LaTeX: y","bbox":[1471.21,652,35.57,48]}
+{"kind":"image","id":"im/alc3mtwf","slide":1,"name":"eq-loss","alt":"[eq-loss] vector equation. LaTeX: \\lVert\\cdot\\rVert_{2}^{2}","bbox":[1457.71,394,60.59,42]}
+{"kind":"image","id":"im/xo3mhovq","slide":1,"name":"eq-objective","alt":"[eq-objective] vector equation. LaTeX: \\theta^{\\ast}\\;=\\;\\operatorname*{arg\\,min}_{\\theta}\\left\\lVert A\\,G_{\\theta}(z)-y\\right\\rVert_{2}^{2}","bbox":[326,770.34,647,91.33]}
+{"kind":"image","id":"im/wnu5o3el","slide":1,"name":"eq-reconstruction","alt":"[eq-reconstruction] vector equation. LaTeX: \\hat{x}\\;=\\;G_{\\theta^{\\ast}}(z)","bbox":[1067,785.45,251,49.11]}
+{"kind":"notes","id":"nt/b7rx9l","slide":1,"text":"Candidate C fidelity-v2 editable delivery.\nCanonical source: source/semantic_figure.json\nSelected-candidate map: source/selected_candidate_map.json\nAsset manifest: source/asset_manifest.json\nThe Candidate C visual reference is not embedded as a whole-slide image.\nTwo exact image atoms are independent, replaceable picture shapes; they are not pixel-editable or scientific evidence.\nFrames, generator layers, plots, connectors, explicit arrowheads, and labels are native editable PowerPoint objects.\nGradient and alpha styling remain native PowerPoint shape styling; equation artwork remains raster-free SVG objects.\nVisual-reference reconstruction and automated checks do not establish scientific correctness or final researcher approval.\n[Sources]\n- source/selected_candidate_map.json — hash-bound visual direction map.\n- source/asset_manifest.json — exact crop provenance and release policy.\n- source/raster_atoms/noise-content.png — exact replaceable synthetic visual atom 2b9e18b06a576b43ebd3135a5732293f8a98d8bb10b217799e86b4016a5d71c2.\n- source/raster_atoms/reconstruction-content.png — exact replaceable synthetic visual atom cedf344e8719184d921bb22a2f99dc57a70f38a71aa05c5f0c3e37d199d5d225.\n- source/math/eq_z.svg — locally rendered raster-free vector equation.\n- source/math/eq_generator.svg — locally rendered raster-free vector equation.\n- source/math/eq_xhat.svg — locally rendered raster-free vector equation.\n- source/math/eq_operator.svg — locally rendered raster-free vector equation.\n- source/math/eq_yhat.svg — locally rendered raster-free vector equation.\n- source/math/eq_y.svg — locally rendered raster-free vector equation.\n- source/math/eq_loss.svg — locally rendered raster-free vector equation.\n- source/math/eq_objective.svg — locally rendered raster-free vector equation.\n- source/math/eq_reconstruction.svg — locally rendered raster-free vector equation."}

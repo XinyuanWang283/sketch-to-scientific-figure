@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0",
+  "status": "AUTHORED_PENDING_VISUAL_QA",
+  "canonical_source": "source/hybrid_figure.json",
+  "canonical_source_sha256": "27f9dd31672f01871fc6bfd195bd600199b5aa0832d3900bfe3d577e62112739",
+  "canvas": {
+    "width": 1672,
+    "height": 941
+  },
+  "slide_count": 1,
+  "object_counts": {
+    "native_connector_paths": 7,
+    "native_arrowheads": 7,
+    "native_frames": 8,
+    "native_network_faces": 33,
+    "native_plot_paths": 14,
+    "native_labels": 1,
+    "cropped_png_modules": 2,
+    "equation_svg_images": 9
+  },
+  "raster_modules": [
+    {
+      "id": "noise-raster-atom",
+      "role": "noise",
+      "source": "assets/noise.png",
+      "sha256": "a9142af90a0dd2b375a4f9128a448f30462f4f08903a6bdbf136f2cca83a3006",
+      "crop": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      }
+    },
+    {
+      "id": "reconstruction-raster-atom",
+      "role": "reconstruction",
+      "source": "assets/reconstruction.png",
+      "sha256": "65e4b8ad974534d6266d8cb4b5ebadeebfaa895fbecce23adc7fca5e4f788fa3",
+      "crop": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      }
+    }
+  ],
+  "equation_modules": [
+    {
+      "id": "eq-z",
+      "equation_id": "eq_z",
+      "source": "equations/eq_z.svg",
+      "sha256": "a90fdcf3a59260939824e853c398280235ea9f7e3a31267bb8303fd61aeac837",
+      "latex_source": "z"
+    },
+    {
+      "id": "eq-generator",
+      "equation_id": "eq_generator",
+      "source": "equations/eq_generator.svg",
+      "sha256": "9155253064757c3e93c0926dfc4e9c4cae14e9100fce0ddab7edbc97ebfc9b31",
+      "latex_source": "G_{\\theta}"
+    },
+    {
+      "id": "eq-xhat",
+      "equation_id": "eq_xhat",
+      "source": "equations/eq_xhat.svg",
+      "sha256": "1448451fce841976722bfb1932390d5478affe06ce065280caeb8bdd101b5723",
+      "latex_source": "\\hat{x}"
+    },
+    {
+      "id": "eq-operator",
+      "equation_id": "eq_operator",
+      "source": "equations/eq_operator.svg",
+      "sha256": "1b3c58a0950867d26fc4719504a6a00077d30b8a6f443aad54a05d000e2ffb6e",
+      "latex_source": "A"
+    },
+    {
+      "id": "eq-yhat",
+      "equation_id": "eq_yhat",
+      "source": "equations/eq_yhat.svg",
+      "sha256": "e6e0decee402632f569a0ccc16d2befb5c09490ba7ad2d0f09aeca401218a480",
+      "latex_source": "\\hat{y}"
+    },
+    {
+      "id": "eq-y",
+      "equation_id": "eq_y",
+      "source": "equations/eq_y.svg",
+      "sha256": "29c40216432971d81b7bb5e381c01e2020baefda28950e69c0e96cc6914a8983",
+      "latex_source": "y"
+    },
+    {
+      "id": "eq-loss",
+      "equation_id": "eq_loss",
+      "source": "equations/eq_loss.svg",
+      "sha256": "531d67fb9b6e58942e79b68f546b3be76270bc23a6b1c2692c4b4fc7e233bb8d",
+      "latex_source": "\\lVert\\hat{y}-y\\rVert_{2}^{2}"
+    },
+    {
+      "id": "eq-objective",
+      "equation_id": "eq_objective",
+      "source": "equations/eq_objective.svg",
+      "sha256": "a5793b2049d6c221a95152bf3933c9fdc8bce8de1859f220c6ad71b5c91b6d07",
+      "latex_source": "\\theta^{\\ast}=\\operatorname*{arg\\,min}_{\\theta}\\left\\lVert A G_{\\theta}(z)-y\\right\\rVert_{2}^{2}"
+    },
+    {
+      "id": "eq-reconstruction",
+      "equation_id": "eq_reconstruction",
+      "source": "equations/eq_reconstruction.svg",
+      "sha256": "355738d122be7b4af3dfa06b5d74c9f22413622fcae9271b56f39d1c29f70650",
+      "latex_source": "\\hat{x}=G_{\\theta^{\\ast}}(z)"
+    }
+  ],
+  "constraints": {
+    "candidate_c_composition": true,
+    "whole_canvas_raster": false,
+    "native_frames": true,
+    "native_network_faces": true,
+    "native_plot_paths": true,
+    "native_labels": true,
+    "native_connectors_and_arrowheads": true,
+    "equations_are_vector_svg": true,
+    "equation_latex_retained_in_alt_and_notes": true,
+    "scientific_approval": false
+  },
+  "outputs": {
+    "pptx": "figure.pptx",
+    "preview": "slide-01.png",
+    "layout": "slide-01.layout.json",
+    "inspection": "artifact_tool_inspect.ndjson",
+    "report": "pptx_artifact_report.json"
+  },
+  "verification_boundary": "Artifact authored; visual inspection, overflow checks, and scientific approval remain separate required steps."
+}

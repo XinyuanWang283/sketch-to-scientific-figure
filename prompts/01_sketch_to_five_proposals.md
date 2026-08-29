@@ -1,100 +1,99 @@
-# Prompt 01: compiled truth to 1, 3, or 5 PNG visual candidates
+# Prompt 01: sketch to five ImageGen candidates from separate calls
 
-The filename is retained for compatibility. The approved proposal mode determines the count. `directed-three` is the normal comparison default; `exploratory-five` is exceptional.
+Use this prompt after focused conversational clarification is complete and a short natural-language rendering brief has been shown to the researcher. A machine-readable `scientific_truth.json`, deterministic topology skeleton, approved wireframe, and pre-generation approval gate are not required for this default path.
 
-## Step A: write machine-readable blueprints
+## Shared inputs
 
-Start from approved `scientific_truth.json`, not from a monolithic image prompt. Write one `candidate_blueprint.json` per candidate using the repository schema.
+Use the same inputs for all five candidates:
 
-Each blueprint must include:
+1. the original hand-drawn sketch;
+2. the complete prior conversation relevant to the figure;
+3. the short clarified rendering brief;
+4. one direction-specific suffix from A–E below.
 
-- stable semantic nodes, ports, edges, and truth instance references;
-- required regions and normalized boxes;
-- rule IDs for every in-scope invariant;
-- allowed flexibility and deliberate omissions;
-- a complexity budget;
-- a layout fingerprint with `reading_axis`, `region_graph`, `dominant_region`, `stage_arrangement`, `repetition_strategy`, `audit_location`, `symmetry`, `connector_topology`, and `occupied_area_distribution`.
+The clarified brief must identify:
 
-Candidate policy:
+- the intended scientific story and reading direction;
+- exact visible labels, symbols, and equations that must remain unchanged;
+- confirmed nodes, arrows, feedback loops, comparisons, grouping, branching, and ordering;
+- the intended image content for ambiguous state or result panels;
+- the target medium and aspect ratio;
+- forbidden implications and any sensitive or unpublished boundaries.
 
-- `focused-one`: one best-fit blueprint; no diversity test.
-- `directed-three`: normally sketch-faithful, mechanism-dominant, and compact editorial.
-- `exploratory-five`: only when hierarchy or message remains genuinely unresolved and the researcher explicitly accepts the budget.
+Treat these items as invariants across all five candidates. Candidate diversity may change composition, hierarchy, color, local graphical language, and presentation emphasis. It may not change scientific relationships, equations, labels, direction, grouping, or meaning.
 
-Role names do not establish diversity. Reject a pair when the four core fingerprint fields—region graph, reading axis, stage arrangement, and repetition strategy—are identical and fewer than three categorical fields differ. Occupied area cannot establish diversity by itself.
+## Generate five separate originals
 
-## Step B: render deterministic topology skeletons
+Make exactly five separate calls to the Codex App built-in ImageGen capability. Use one call per slot and save five original outputs before making any comparison view.
 
-Render `<candidate>_skeleton.svg` and `<candidate>_skeleton.png` from the same scene. The skeleton must encode:
+For each call, create a mandatory repository-local `generation_event_id`. Record a native tool-call ID only if the tool exposes one; never invent it. Do not claim statistical independence. The initial active proposal set contains exactly A–E. If one slot is regenerated, append a new event that supersedes that slot's earlier event and preserve the earlier record.
 
-- major regions and reading order;
-- entity cardinality and grouping;
-- stage order;
-- rough placement;
-- fan-out, fan-in, and meaningful transitions.
+Do not:
 
-It must omit final palette, decoration, final glyph styling, production typography, production equations, and connector aesthetics.
+- call the OpenAI Image API;
+- request or read an API key;
+- use a repository script or CLI as an ImageGen fallback;
+- generate all five candidates in one contact-sheet call;
+- pass candidate A, B, C, D, or E as a reference for another slot;
+- silently produce fewer than five candidates.
 
-Run artifact and skeleton validation before image generation. Fix the truth or blueprint when a count, ID, derived placement, port, edge, stage order, transition, or fingerprint fails. Do not append prose to compensate.
+When the environment exposes no machine-verifiable generator metadata, record provenance honestly as an operator-attested Codex ImageGen output. Do not invent model versions, seeds, or API records.
 
-## Step C: compile the short image brief
+### A — Faithful
 
-Compile one approximately 350–500 English word brief from truth plus one blueprint. It contains only:
+Add this suffix to the shared brief:
 
-- purpose and audience;
-- one visual message;
-- reference-image roles;
-- five to eight image-level blocking rule IDs and descriptions;
-- candidate art direction;
-- a small visible-text whitelist;
-- forbidden visual implications;
-- an explicit statement that production typography is not required.
+> Preserve the hand-drawn sketch's recognizable macro-layout, object order, arrow routing, feedback placement, and visual grammar. Polish spacing, alignment, line quality, typography, and restrained color without redesigning the scientific composition.
 
-Never interpolate the complete contract or all equations into the image prompt.
+### B — Publication
 
-## Step D: generate independent candidates
+Add this suffix to the shared brief:
 
-Make exactly one built-in image-generation call per blueprint. Do not call the Image API, use an API key, generate a contact sheet, or seed a new candidate with a prior candidate.
+> Create a restrained, compact paper-figure direction with strong grayscale readability, economical marks, disciplined whitespace, and minimal decoration. Preserve every confirmed scientific invariant exactly.
 
-Reference roles:
+### C — Presentation
 
-```text
-Image 1: topology skeleton; authoritative for structure
-Image 2: optional style reference; authoritative for style only
-```
+Add this suffix to the shared brief:
 
-Do not attach two competing structural references. For a sketch-faithful candidate, compile the sketch into the topology skeleton or use the sketch instead of a separate skeleton.
+> Create a presentation-ready direction with clearer distance legibility, stronger hierarchy, and a memorable focal relationship. Keep the scientific content precise and avoid decorative complexity that competes with the mechanism.
 
-Use the compiled brief. The candidate should reinterpret visual treatment while preserving the skeleton's macro-topology. Do not add titles, legends, footers, stages, modules, measurements, arrows, or explanatory text.
+### D — Alternative layout
 
-## Step E: pre-display macro-topology review
+Add this suffix to the shared brief:
 
-PNG image-level blockers are:
+> Reorganize the macro-layout into a credible alternative composition while preserving the exact confirmed nodes, labels, equations, directions, feedback, comparisons, grouping, and causal or process meaning. Do not add or remove scientific relationships.
 
-1. stage order and major stage count;
-2. state count and view-per-image count;
-3. shared versus independent entities where the contract distinguishes them;
-4. fan-out and fan-in topology;
-5. aggregation and transition relations follow the order declared by the truth;
-6. shared generator identity and required stage transitions;
-7. any forbidden scientific implication;
-8. failure to follow the candidate's declared dominant region or region graph.
+### E — Visual variant
 
-The following do not block a useful PNG when macro-topology is unambiguous:
+Add this suffix to the shared brief:
 
-- imperfect production indices or short symbolic labels;
-- exact equations;
-- exact centroid coordinates;
-- exact ports, endpoints, and connector routing;
-- final typography, kerning, line breaks, and semantic group IDs.
+> Preserve the confirmed scientific content and topology while exploring a distinct but professional palette, glyph vocabulary, stroke character, and whitespace rhythm. The visual language should be clearly different from A–D without becoming ornamental or misleading.
 
-Record those items as `acceptable raster imperfection` or `must-fix in SVG`; do not start an open-ended raster repair loop.
+## Quality screen and slot regeneration
 
-## Repair budget
+Inspect each original before presenting it. A candidate fails materially when it has any of these problems:
 
-- One regeneration per blueprint for global composition, hierarchy, or blueprint mismatch.
-- One local style edit per candidate for palette, saturation, one glyph appearance, one ornament, local whitespace, or unwanted decoration.
-- Never use local raster edit for count, index, stage order, grouping, source/target, fan-in/fan-out, centroid, equation, connector rewiring, or backward multiplicity.
-- If the same hard topology error appears twice, revise the blueprint/skeleton or reject the candidate.
+1. a required stage, object, comparison, branch, or feedback relation is absent;
+2. an arrow, causal relation, or process direction is reversed or invented;
+3. a required label or equation is missing, unreadable, or meaningfully changed;
+4. the depicted state or result content contradicts the clarified brief;
+5. it introduces a forbidden implication, unsupported result, measurement, or scientific claim;
+6. it is visibly corrupted, clipped, illegible, or unusable at the intended aspect ratio;
+7. its designated A–E direction is not meaningfully represented.
 
-Gate 2 receives only candidates that pass every image-level blocker. A candidate may still contain production details explicitly scheduled for deterministic SVG reconstruction.
+Regenerate only the failed slot, again from the original sketch, shared brief, and that slot's suffix. Never repair topology by editing another candidate or using a prior candidate as reference. Repeat until the user can be shown exactly five materially valid originals. Minor kerning, micro-alignment, and object-level details that can be rebuilt unambiguously as native objects may be noted for reconstruction, but must not conceal a scientific error.
+
+## Present choices and preserve explicit approval
+
+Show all five separate originals labeled A–E outside the generated image content. A comparison sheet may be assembled locally only after all five originals exist; it is a convenience view, not a sixth ImageGen output.
+
+Accept natural-language decisions such as:
+
+- `Choose C.`
+- `Revise C: emphasize the feedback loop.`
+- `Use C's layout with A's color direction.`
+- `Regenerate all five.`
+
+If the user requests a revision or combination, produce the revised candidate and show it before asking for approval. Selection is not approval when changes remain pending. Record explicit approval of the exact candidate or exact combination before editable reconstruction begins.
+
+The approved candidate supplies visual direction only. Exact mathematics, text, and topology continue to come from the original sketch plus the researcher's clarification.

@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "figure_id": "deep-image-prior-c-region-fidelity",
+  "status": "VERIFIED_FIDELITY_MIXED_MEDIA_REVIEW_DRAFT",
+  "canonical_source": "source/semantic_figure.json",
+  "selected_candidate_map": "source/selected_candidate_map.json",
+  "asset_manifest": "source/asset_manifest.json",
+  "raster_atom_review_decision": "source/raster_atom_review_decision.json",
+  "validation_report": "validation/region_fidelity_validation_report.json",
+  "formats": [
+    {
+      "format": "svg",
+      "path": "delivery/svg/master.svg",
+      "status": "VERIFIED_FIDELITY_MIXED_MEDIA",
+      "editability": "native vector composition with two replaceable image atoms"
+    },
+    {
+      "format": "pptx",
+      "path": "delivery/pptx/figure.pptx",
+      "status": "VERIFIED_EDITABLE_MIXED_MEDIA",
+      "editability": "native shapes/text, two independent picture shapes, vector equations"
+    },
+    {
+      "format": "drawio",
+      "path": "delivery/drawio/figure.drawio",
+      "status": "VERIFIED_STRUCTURAL_MIXED_MEDIA",
+      "editability": "native cells/edges and two independent image cells"
+    },
+    {
+      "format": "pdf",
+      "path": "delivery/pdf/publication.pdf",
+      "status": "VERIFIED_PREVIEW_EXPORT",
+      "editability": "none claimed"
+    }
+  ],
+  "final_scientific_approval": null
+}

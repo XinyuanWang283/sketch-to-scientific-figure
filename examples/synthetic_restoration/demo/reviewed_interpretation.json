@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0",
+  "fixture_id": "synthetic_restoration_publication_safe_demo",
+  "input_name": "synthetic demo sketch",
+  "interpretation_name": "reviewed deterministic fixture",
+  "execution_mode": "fixture replay",
+  "labels": [
+    "synthetic",
+    "publication-safe",
+    "deterministic"
+  ],
+  "source_bindings": {
+    "synthetic_demo_sketch": {
+      "path": "examples/synthetic_restoration/sketch.svg",
+      "sha256": "e27da09c611240e8334477cd9a07e1cf96671aa568dae124e167bcd4adea9ec8"
+    },
+    "scientific_truth": {
+      "path": "examples/synthetic_restoration/truth/scientific_truth.json",
+      "sha256": "1a0253352763fb151cf3c9d0f8b9a1f725dd9cbfd024743fe9d66f79d707d636"
+    },
+    "topology_blueprint": {
+      "path": "examples/synthetic_restoration/blueprints/synthetic_restoration.json",
+      "sha256": "01b38a9846cb5dcd4c93ed63cdd7d61d00f5283eedc3c1ad2debad76f63e93a0"
+    },
+    "reviewed_semantic_svg": {
+      "path": "examples/synthetic_restoration/editable_figure.svg",
+      "sha256": "738f06db926242b7b8e2128ed26c64835ac6f7e267c0dab1b816709d14ffc85b"
+    },
+    "semantic_validation_spec": {
+      "path": "examples/synthetic_restoration/validation_spec.json",
+      "sha256": "35542339e0875e11941e52e570d2d3d6e38ece71631596e5a6df47cbfaa97f11"
+    }
+  },
+  "interpretation": {
+    "message": "A synthetic measurement passes through one abstract model to produce an editable estimate.",
+    "reading_order": [
+      "measurement_y",
+      "model_f",
+      "estimate_x"
+    ],
+    "stages": [
+      {
+        "id": "input",
+        "label": "Input"
+      },
+      {
+        "id": "process",
+        "label": "Process"
+      },
+      {
+        "id": "output",
+        "label": "Output"
+      }
+    ],
+    "entities": [
+      {
+        "id": "measurement_y",
+        "type": "measurement",
+        "stage": "input",
+        "label": "y"
+      },
+      {
+        "id": "model_f",
+        "type": "model",
+        "stage": "process",
+        "label": "f_theta"
+      },
+      {
+        "id": "estimate_x",
+        "type": "estimate",
+        "stage": "output",
+        "label": "x_hat"
+      }
+    ],
+    "directed_relations": [
+      {
+        "id": "measurement_feeds_model",
+        "type": "feeds",
+        "source": "measurement_y",
+        "target": "model_f"
+      },
+      {
+        "id": "model_produces_estimate",
+        "type": "produces",
+        "source": "model_f",
+        "target": "estimate_x"
+      }
+    ],
+    "equation": {
+      "id": "restoration_mapping",
+      "latex": "\\hat{x}=f_{\\theta}(y)"
+    },
+    "topology_contract": {
+      "reading_axis": "left-to-right",
+      "region_graph": [
+        "input",
+        "process",
+        "output"
+      ],
+      "connector_topology": "one directed path with exactly two connectors and no branches"
+    },
+    "forbidden_claims": [
+      "measured performance",
+      "clinical validity",
+      "real patient data",
+      "training data or supervision",
+      "optimization procedure"
+    ]
+  },
+  "review_status": "checked-in reviewed fixture",
+  "ai_execution": false,
+  "scope_disclaimer": "This record replays existing public synthetic material. It does not claim that live AI interpretation or scientific validation occurred."
+}

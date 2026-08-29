@@ -186,6 +186,7 @@ def build(
     *,
     figure_id: str | None = None,
     truth_path: Path | None = None,
+    scientific_interpretation_path: Path | None = None,
     wireframe_path: Path | None = None,
     candidate_path: Path | None = None,
 ) -> Dict[str, Any]:
@@ -346,11 +347,11 @@ def build(
                 "alignment": equation_alignment(element.get("text-anchor", "middle")),
                 "style_role": "equation",
                 "platform_render_policy": {
-                    "svg": "live metadata plus vector glyphs",
-                    "figma": "vector group plus LaTeX metadata",
+                    "svg": "live fallback text plus authoritative LaTeX metadata",
+                    "figma": "live fallback text plus authoritative LaTeX metadata; import unverified",
                     "pptx": "equation SVG group plus LaTeX notes",
-                    "drawio": "HTML label with LaTeX source",
-                    "pdf": "vector glyphs",
+                    "drawio": "HTML fallback label with LaTeX source metadata",
+                    "pdf": "Unicode fallback vector text plus authoritative LaTeX metadata",
                 },
                 "checksum": checksum,
             })
@@ -402,7 +403,7 @@ def build(
         "style_tokens": {
             "colors": {
                 "ink": spec_tokens.get("ink", "#1B2632"),
-                "muted": spec_tokens.get("secondary_ink", "#5F6B78"),
+                "muted": spec_tokens.get("muted", spec_tokens.get("secondary_ink", "#5F6B78")),
                 "warm": spec_tokens.get("warm", "#B45309"),
                 "cool": spec_tokens.get("cool", "#4F7CAC"),
                 "accent": spec_tokens.get("accent", "#7C6BAA"),
@@ -427,11 +428,13 @@ def build(
                 "semantic_svg": svg_path,
                 "reconstruction_spec": spec_path,
                 "scientific_truth": truth_path,
+                "gate_1_scientific_interpretation": scientific_interpretation_path,
                 "approved_wireframe": wireframe_path,
                 "approved_png_direction": candidate_path,
             }),
             "source_roles": {
                 "semantic_svg": "researcher-approved semantic geometry",
+                "gate_1_scientific_interpretation": "binding approved scientific interpretation",
                 "approved_wireframe": "binding macro-layout",
                 "approved_png_direction": "art direction only; never embedded or traced",
             },
@@ -464,6 +467,7 @@ def main() -> int:
     parser.add_argument("--run-dir", required=True, type=Path)
     parser.add_argument("--figure-id")
     parser.add_argument("--truth", type=Path)
+    parser.add_argument("--gate-1-scientific-interpretation", type=Path)
     parser.add_argument("--wireframe", type=Path)
     parser.add_argument("--candidate", type=Path)
     args = parser.parse_args()
@@ -473,6 +477,7 @@ def main() -> int:
         args.run_dir,
         figure_id=args.figure_id,
         truth_path=args.truth,
+        scientific_interpretation_path=args.gate_1_scientific_interpretation,
         wireframe_path=args.wireframe,
         candidate_path=args.candidate,
     ), indent=2))

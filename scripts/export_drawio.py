@@ -5,12 +5,30 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any, Dict, Mapping, Tuple
 
 from figure_artifacts import load_json, sha256_file, write_json
 from workflow_v3 import render_semantic_pdf, render_semantic_svg, semantic_integrity_errors, write_text
+
+
+HEX_COLOR = re.compile(r"#[0-9A-Fa-f]{6}")
+
+
+def resolve_color(value: Any, colors: Mapping[str, Any], fallback: Any, seen: frozenset[str] = frozenset()) -> str:
+    """Resolve a semantic color token to a draw.io-safe six-digit hex value."""
+    raw = str(value or "").strip()
+    variable = re.fullmatch(r"var\(--([A-Za-z0-9_-]+)\)", raw)
+    token = variable.group(1) if variable else (raw if raw in colors else None)
+    if token and token not in seen:
+        return resolve_color(colors.get(token), colors, fallback, seen | {token})
+    if HEX_COLOR.fullmatch(raw):
+        return raw.upper()
+    if raw != str(fallback or "").strip():
+        return resolve_color(fallback, colors, "#20252B", seen)
+    return "#20252B"
 
 
 def bounds(shape: Mapping[str, Any]) -> Tuple[float, float, float, float]:
@@ -36,13 +54,25 @@ def make_cell(parent: ET.Element, cell_id: str, value: str, style: str, x: float
 
 
 def build_drawio(semantic: Mapping[str, Any]) -> ET.ElementTree:
+    colors = semantic.get("style_tokens", {}).get("colors", {})
+    stroke_width = semantic.get("style_tokens", {}).get("stroke_width", 2.2)
     model = ET.Element("mxGraphModel", {"dx": "1600", "dy": "900", "grid": "1", "gridSize": "10", "page": "1", "pageWidth": str(semantic["canvas"]["width"]), "pageHeight": str(semantic["canvas"]["height"])})
     root = ET.SubElement(model, "root")
     ET.SubElement(root, "mxCell", {"id": "0"})
     ET.SubElement(root, "mxCell", {"id": "1", "parent": "0"})
     for shape in semantic.get("shapes", []):
         x, y, width, height = bounds(shape)
-        style = "rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;"
+        fill_value = shape.get("fill")
+        if not fill_value and shape.get("fill_token") != "literal":
+            fill_value = colors.get(shape.get("fill_token", "surface"))
+        stroke_value = shape.get("stroke")
+        if not stroke_value and shape.get("stroke_token") != "literal":
+            stroke_value = colors.get(shape.get("stroke_token", "ink"))
+        fill = resolve_color(fill_value, colors, colors.get("surface", "#F2F4F6"))
+        stroke = resolve_color(stroke_value, colors, colors.get("ink", "#20252B"))
+        style = "rounded=1;whiteSpace=wrap;html=1;strokeWidth=%s;fillColor=%s;strokeColor=%s;" % (
+            shape.get("stroke_width", stroke_width), fill, stroke,
+        )
         if shape.get("type") == "ellipse":
             style += "ellipse;"
         if shape.get("entity_type") == "generator":
@@ -51,20 +81,34 @@ def build_drawio(semantic: Mapping[str, Any]) -> ET.ElementTree:
             style += "dashed=1;dashPattern=8 6;"
         make_cell(root, shape["id"], "", style, x, y, width, height, semanticType=str(shape.get("entity_type", "shape")))
     for item in semantic.get("text_objects", []):
-        make_cell(root, item["id"], item.get("text", ""), "text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;", item["x"] - 70, item["y"] - 24, 140, 34, semanticType="text")
+        font_color = resolve_color(colors.get(item.get("fill_token", "ink")), colors, colors.get("ink", "#20252B"))
+        text_style = "text;html=1;strokeColor=none;fillColor=none;fontColor=%s;fontSize=%s;align=center;verticalAlign=middle;" % (
+            font_color, item.get("font_size", 18),
+        )
+        make_cell(root, item["id"], item.get("text", ""), text_style, item["x"] - 70, item["y"] - 24, 140, 34, semanticType="text")
     for equation in semantic.get("equation_objects", []):
         equation_left = equation["x"] - equation.get("width", 360) / 2 if equation.get("text_anchor") == "middle" else equation["x"]
         equation_value = "G<sub>θ</sub>" if equation.get("latex_source") == r"G_\theta" else equation.get("fallback_text", equation["equation_id"])
+        equation_color = resolve_color(colors.get("ink"), colors, "#20252B")
         make_cell(
             root, equation["id"], equation_value,
-            "text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;",
+            "text;html=1;strokeColor=none;fillColor=none;fontColor=%s;fontSize=%s;align=left;verticalAlign=middle;" % (
+                equation_color, equation.get("font_size", 18),
+            ),
             equation_left, equation["y"] - equation.get("height", 36), equation.get("width", 360), equation.get("height", 36),
             semanticType="equation", equationId=equation["equation_id"], latexSource=equation.get("latex_source", ""),
         )
     for connector in semantic.get("connectors", []):
+        connector_color = resolve_color(
+            colors.get(connector.get("stroke_token", connector.get("color_token", "ink"))),
+            colors,
+            colors.get("ink", "#20252B"),
+        )
         edge = ET.SubElement(root, "mxCell", {
             "id": connector["id"], "value": connector.get("label", ""),
-            "style": "edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;",
+            "style": "edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=%s;strokeWidth=%s;" % (
+                connector_color, stroke_width,
+            ),
             "edge": "1", "parent": "1", "source": connector["source_id"], "target": connector["target_id"],
             "relationType": connector.get("relation_type", "relation"),
         })
@@ -84,7 +128,7 @@ def export(semantic_path: Path, output_dir: Path) -> Dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     drawio_path = output_dir / "figure.drawio"
     svg_path = output_dir / "figure_drawio.svg"
-    pdf_path = output_dir / "figure_drawio_editable.pdf"
+    pdf_path = output_dir / "figure_drawio_preview.pdf"
     tree = build_drawio(semantic)
     tree.write(drawio_path, encoding="unicode", xml_declaration=True)
     write_text(svg_path, render_semantic_svg(semantic, profile="drawio-companion"))

@@ -29,7 +29,7 @@ def export(semantic_path: Path, output_dir: Path) -> Dict[str, Any]:
         "status": "VERIFIED" if all(item["status"] == "VERIFIED" for item in outputs) else "BLOCKED",
         "canonical_source": str(semantic_path.resolve()), "canonical_source_sha256": sha256_file(semantic_path),
         "outputs": outputs, "semantic_editability": False, "equation_source_editability": False,
-        "vector_policy": "PDF is a vector publication deliverable; canonical semantic JSON and equations.tex remain the editable sources.",
+        "vector_policy": "PDF is a vector publication-format export/preview; canonical semantic JSON and equations.tex remain the editable sources.",
         "whole_canvas_raster": False,
     }
     write_json(output_dir / "pdf_export_report.json", report)
