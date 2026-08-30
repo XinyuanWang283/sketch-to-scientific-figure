@@ -12,7 +12,7 @@ The demo does not claim a measured time saving, benchmark result, scientific val
 
 The public Deep Image Prior example reaches the editable-delivery review point. Its canonical v0.1 pointer is [`editable_delivery_c_fidelity_v2/`](../examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md), and the workflow/case boundary is documented in the [v0.1 reference case](../examples/deep_image_prior/reference_case_v0_1.md). It contains the original sketch, clarification record, five separate operator-attested built-in ImageGen outputs, hashes, a locally assembled comparison sheet, preserved decision history, an approved eight-region map, and mixed-media editable outputs. Repository code does not independently prove generator backend identity or call isolation.
 
-The first instruction was `Use D's layout with C's visual style`. The researcher rejected that reconstruction, selected Candidate C alone, and then rejected the first native-only C reconstruction because it lost too much visual fidelity. A later hybrid remained unapproved after formula-aspect and workflow defects were found. Superseded outputs remain history, not current alternatives. Fidelity v2 keeps Candidate C SHA-256 bound, maps eight regions, uses exactly two bounded visual atoms, and rebuilds the remaining scientific structure as native/vector objects. Structural checks pass, and a separate human visual approval is bound to the frozen artifact-manifest hash. Scientific approval, Science Day use, and public release remain pending.
+The first instruction was `Use D's layout with C's visual style`. The researcher rejected that reconstruction, selected Candidate C alone, and then rejected the first native-only C reconstruction because it lost too much visual fidelity. A later hybrid remained unapproved after formula-aspect and workflow defects were found. Superseded outputs remain history, not current alternatives. Fidelity v2 keeps Candidate C SHA-256 bound, maps eight regions, uses exactly two bounded visual atoms, and rebuilds the remaining scientific structure as native/vector objects. Structural checks pass, and a separate human visual approval is bound to the frozen artifact-manifest hash. The annotated `v0.1.0` tag separately records project-owner approval for scientific content, Science Day use, and public release of the exact release tree.
 
 ## What the audience should remember
 
@@ -22,7 +22,7 @@ The first instruction was `Use D's layout with C's visual style`. The researcher
 4. The researcher selects, revises, combines, or rejects the proposals.
 5. The selected candidate is mapped into reviewable regions and explicitly approved before reconstruction, rather than being silently flattened into the final figure.
 6. Only an explicitly approved direction proceeds to reconstruction; editability claims are stated per object and format, and PDF is an export/preview.
-7. Automated checks inspect programmable structure; visual, scientific, event-use, and public-release decisions remain separate.
+7. Automated checks inspect programmable structure; visual, scientific, event-use, and public-release decisions remain separate human decisions even when their release approvals have been recorded.
 
 ## Prepare before the event
 
@@ -73,7 +73,7 @@ The five candidate originals are separate files under [`examples/deep_image_prio
 | 1:45–2:20 | Decision history and eight-region overlay | “Candidate C remains hash-bound. Before rebuilding it, Codex records each major region and how it will become a native object or an approved replaceable atom.” |
 | 2:20–3:25 | Run frozen replay; inspect SVG/PPTX, structural draw.io, and PDF preview | “Only the noise and synthetic mountain remain as replaceable image atoms. Network layers, plots, arrows, labels, and nine aspect-preserving LaTeX equations are native or vector objects in SVG/PPTX.” |
 | 3:25–4:15 | Machine-readable structural report and artifact manifest | “Code checked hashes, parsing, the two-raster boundary, equation aspect ratios, and directed topology. It cannot certify scientific correctness.” |
-| 4:15–5:00 | Hash-bound visual approval and pending decisions | “This exact frozen manifest has visual approval. Scientific approval, Science Day use, and public release remain separate researcher decisions.” |
+| 4:15–5:00 | Hash-bound visual approval and tag-level owner approvals | “This exact frozen manifest has visual approval. Automated validation did not approve the science or release; the project owner separately recorded scientific-content, Science Day-use, and public-release approvals in the immutable `v0.1.0` tag.” |
 
 If a fresh live sketch has not reached an approved choice during the event, stop that live branch at selection and continue with the checked-in Candidate C fidelity-v2 case. Say explicitly that the checked-in package is frozen evidence rather than a live ImageGen result.
 
@@ -180,7 +180,9 @@ Open:
 - `/tmp/sketch-figure-science-day-reference-01/delivery/pptx/figure.pptx`
 - `/tmp/sketch-figure-science-day-reference-01/delivery/pdf/publication.pdf`
 
-Say: “This is a frozen replay of five recorded proposals and one approved Candidate C delivery. It did not rerun ImageGen. The exact visual manifest is approved; scientific and release decisions remain pending.”
+The three `false` values above are the frozen replay ledger's pre-authorization state; replay deliberately does not synthesize later governance decisions. The annotated `v0.1.0` tag is the separate hash-bound record of the owner's scientific-content, Science Day-use, and public-release approvals.
+
+Say: “This is a frozen replay of five recorded proposals and one approved Candidate C delivery. It did not rerun ImageGen. Automated validation did not approve the science; the project owner separately approved the exact tagged case for scientific content, Science Day use, and release.”
 
 An optional rebuild is useful only when the native runtime has already passed the explicit preflight in [runtime requirements](runtime_requirements.md#fidelity-v2-rebuild-preflight). It must use a new external output directory and does not inherit the frozen visual approval:
 

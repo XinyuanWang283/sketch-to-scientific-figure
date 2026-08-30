@@ -21,7 +21,7 @@ sys.path.insert(0, str(SCRIPTS))
 from build_figure_editorial_review import OVERLAY_END, OVERLAY_START  # noqa: E402
 from build_fixture_semantic_source import build as build_semantic_source  # noqa: E402
 from compile_figure_artifacts import compile_run  # noqa: E402
-from figure_artifacts import load_json, sha256_file  # noqa: E402
+from figure_artifacts import load_json, sha256_file, word_count, write_json  # noqa: E402
 from render_topology_skeleton import render as render_skeleton  # noqa: E402
 from run_workflow import run  # noqa: E402
 from validate_figure_artifacts import validate as validate_artifacts  # noqa: E402
@@ -50,30 +50,368 @@ def args_for(mode: str, run_dir: Path, **overrides: object) -> SimpleNamespace:
     return SimpleNamespace(**values)
 
 
+def write_generic_contract_fixture(run_dir: Path) -> tuple[Path, Path]:
+    """Create minimal test-only truth and blueprint data outside the repository."""
+
+    source_path = run_dir / "sources" / "method.txt"
+    source_path.parent.mkdir(parents=True, exist_ok=True)
+    source_path.write_text(
+        "One abstract input passes through one transform to produce one output.\n",
+        encoding="utf-8",
+    )
+    truth_path = run_dir / "truth" / "scientific_truth.json"
+    write_json(
+        truth_path,
+        {
+            "schema_version": "1.0",
+            "figure_id": "generic_contract_fixture",
+            "message": {
+                "one_sentence": "One abstract input passes through one transform to produce one output.",
+                "visual_message": "Show one generic left-to-right input, transform, and output path.",
+                "audience": "scientific software developers",
+            },
+            "provenance": {
+                "sources": [
+                    {
+                        "path": "sources/method.txt",
+                        "sha256": sha256_file(source_path),
+                        "role": "test-only method statement",
+                    }
+                ]
+            },
+            "stages": [
+                {"id": "input", "label": "Input"},
+                {"id": "process", "label": "Process"},
+                {"id": "output", "label": "Output"},
+            ],
+            "entities": [
+                {"id": "input", "type": "input", "label": "Input"},
+                {"id": "transform", "type": "operator", "label": "Transform"},
+                {"id": "output", "type": "output", "label": "Output"},
+            ],
+            "instances": [
+                {
+                    "id": "input_x",
+                    "entity_ref": "input",
+                    "type": "input",
+                    "stage": "input",
+                    "label": "x",
+                    "shape": "circle",
+                    "visual_role": "input",
+                },
+                {
+                    "id": "transform_instance",
+                    "entity_ref": "transform",
+                    "type": "operator",
+                    "stage": "process",
+                    "label": "T",
+                    "shape": "operator",
+                    "visual_role": "process",
+                },
+                {
+                    "id": "output_z",
+                    "entity_ref": "output",
+                    "type": "output",
+                    "stage": "output",
+                    "label": "z",
+                    "shape": "square",
+                    "visual_role": "output",
+                },
+            ],
+            "relations": [
+                {
+                    "id": "input_feeds_transform",
+                    "type": "feeds",
+                    "source": "input_x",
+                    "target": "transform_instance",
+                    "rule_ids": ["ARTIFACT_REFERENCE_INTEGRITY"],
+                },
+                {
+                    "id": "transform_produces_output",
+                    "type": "produces",
+                    "source": "transform_instance",
+                    "target": "output_z",
+                    "rule_ids": ["ARTIFACT_REFERENCE_INTEGRITY"],
+                },
+            ],
+            "equations": [
+                {
+                    "id": "generic_mapping",
+                    "latex": "z=T(x)",
+                    "role": "generic mapping",
+                }
+            ],
+            "invariants": [
+                {"rule_id": "ARTIFACT_SOURCE_HASHES"},
+                {"rule_id": "ARTIFACT_REFERENCE_INTEGRITY"},
+                {"rule_id": "BLUEPRINT_TRUTH_COVERAGE"},
+            ],
+            "forbidden_implications": [
+                {
+                    "id": "no_performance_claim",
+                    "description": "Do not imply measured performance.",
+                }
+            ],
+            "sketch_locks": [],
+            "flexibility_zones": [
+                {"id": "style", "allowed": ["palette", "spacing"]}
+            ],
+            "unresolved_ambiguities": [],
+            "information_profiles": {
+                "main_paper_story_first": {
+                    "exact_text": ["Input", "Transform", "Output"],
+                    "displayed_equation_ids": ["generic_mapping"],
+                    "minimum_font_size_pt": 8.0,
+                }
+            },
+        },
+    )
+    blueprint_path = run_dir / "blueprints" / "generic_contract_fixture.json"
+    write_json(
+        blueprint_path,
+        {
+            "schema_version": "1.0",
+            "candidate_id": "generic_contract_fixture",
+            "truth_ref": {
+                "path": "truth/scientific_truth.json",
+                "sha256": sha256_file(truth_path),
+            },
+            "layout_fingerprint": {
+                "reading_axis": "left-to-right",
+                "region_graph": ["input", "process", "output"],
+                "dominant_region": "process",
+                "stage_arrangement": "three aligned regions",
+                "repetition_strategy": "none",
+                "audit_location": "caption",
+                "symmetry": "balanced around the transform",
+                "connector_topology": "single directed path",
+                "occupied_area_distribution": [0.2, 0.4, 0.2],
+            },
+            "regions": [
+                {"id": "input", "label": "Input", "bbox": [0.04, 0.2, 0.22, 0.6]},
+                {"id": "process", "label": "Process", "bbox": [0.34, 0.14, 0.32, 0.72]},
+                {"id": "output", "label": "Output", "bbox": [0.74, 0.2, 0.22, 0.6]},
+            ],
+            "nodes": [
+                {
+                    "id": "input_node",
+                    "type": "input",
+                    "bbox": [0.10, 0.36, 0.10, 0.24],
+                    "instance_refs": ["input_x"],
+                    "layout": "horizontal",
+                },
+                {
+                    "id": "transform_node",
+                    "type": "operator",
+                    "bbox": [0.4, 0.35, 0.2, 0.3],
+                    "instance_refs": ["transform_instance"],
+                    "layout": "horizontal",
+                },
+                {
+                    "id": "output_node",
+                    "type": "output",
+                    "bbox": [0.80, 0.36, 0.10, 0.24],
+                    "instance_refs": ["output_z"],
+                    "layout": "horizontal",
+                },
+            ],
+            "ports": [
+                {"id": "input_node.out", "node_id": "input_node", "name": "out", "position": "right"},
+                {"id": "transform_node.in", "node_id": "transform_node", "name": "in", "position": "left"},
+                {"id": "transform_node.out", "node_id": "transform_node", "name": "out", "position": "right"},
+                {"id": "output_node.in", "node_id": "output_node", "name": "in", "position": "left"},
+            ],
+            "edges": [
+                {
+                    "id": "edge_input_transform",
+                    "source": "input_node.out",
+                    "target": "transform_node.in",
+                    "relation_types": ["feeds"],
+                    "routing": "horizontal",
+                    "arrow": True,
+                },
+                {
+                    "id": "edge_transform_output",
+                    "source": "transform_node.out",
+                    "target": "output_node.in",
+                    "relation_types": ["produces"],
+                    "routing": "horizontal",
+                    "arrow": True,
+                },
+            ],
+            "required_visual_relations": [
+                "input_feeds_transform",
+                "transform_produces_output",
+            ],
+            "in_scope_rule_ids": [
+                "ARTIFACT_REQUIRED_FIELDS",
+                "ARTIFACT_SCHEMA_VALIDITY",
+                "ARTIFACT_SOURCE_HASHES",
+                "ARTIFACT_UNIQUE_IDS",
+                "ARTIFACT_REFERENCE_INTEGRITY",
+                "BLUEPRINT_TRUTH_COVERAGE",
+                "BLUEPRINT_FINGERPRINT_DIVERSITY",
+            ],
+            "allowed_flexibility": ["palette", "spacing"],
+            "deliberate_omissions": ["measurements", "results"],
+            "complexity_budget": {
+                "hero_groups": 3,
+                "displayed_equations": 1,
+                "ordinary_prose_labels": 3,
+                "connector_count": 2,
+            },
+            "visible_text_whitelist": ["Input", "Transform", "Output"],
+            "connector_style": "orthogonal",
+            "art_direction": {
+                "composition": "one calm left-to-right scientific path",
+                "shape_language": "simple native vector glyphs",
+                "color": "restrained and grayscale-safe",
+                "whitespace": "generous outer margins",
+                "connectors": "quiet orthogonal arrows",
+            },
+        },
+    )
+    return truth_path, blueprint_path
+
+
 class GenericWorkflowTests(unittest.TestCase):
-    def test_safe_example_compiles_renders_and_validates(self) -> None:
-        example = REPOSITORY_ROOT / "examples" / "synthetic_restoration"
-        with tempfile.TemporaryDirectory(prefix="safe-example-") as temporary:
-            run_dir = Path(temporary) / "synthetic_restoration"
-            shutil.copytree(example / "truth", run_dir / "truth")
-            shutil.copytree(example / "blueprints", run_dir / "blueprints")
+    def test_generic_contract_compiles_renders_and_validates(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="generic-contract-") as temporary:
+            run_dir = Path(temporary) / "run"
+            truth_path, blueprint_path = write_generic_contract_fixture(run_dir)
             summary = compile_run(run_dir, REPOSITORY_ROOT)
             self.assertEqual(summary["candidate_count"], 1)
-            self.assertTrue(summary["fingerprint_diversity_pass"])
+            self.assertEqual(
+                summary["compiled"][0]["candidate_id"],
+                "generic_contract_fixture",
+            )
 
-            render_skeleton(
-                run_dir / "truth" / "scientific_truth.json",
-                run_dir / "blueprints" / "synthetic_restoration.json",
+            compiled_artifacts = [
+                "rules/validation_rules.json",
+                "skeletons/fingerprint_report.json",
+                "generation/generic_contract_fixture_prompt.md",
+                "generation/generation_manifest.json",
+                "reviews/generic_contract_fixture_review.template.json",
+                "selected/generic_contract_fixture_selected_candidate_map.template.json",
+                "svg/generic_contract_fixture_reconstruction_spec.json",
+                "validation/compile_report.json",
+            ]
+            for relative in compiled_artifacts:
+                with self.subTest(compiled_artifact=relative):
+                    path = run_dir / relative
+                    self.assertTrue(path.is_file(), relative)
+                    self.assertGreater(path.stat().st_size, 0, relative)
+
+            fingerprint = load_json(run_dir / "skeletons" / "fingerprint_report.json")
+            self.assertEqual(len(fingerprint["candidates"]), 1)
+            self.assertEqual(fingerprint["pairs"], [])
+
+            compile_report = load_json(run_dir / "validation" / "compile_report.json")
+            self.assertEqual(compile_report, summary)
+            truth_hash = sha256_file(truth_path)
+            blueprint_hash = sha256_file(blueprint_path)
+            prompt_path = run_dir / "generation" / "generic_contract_fixture_prompt.md"
+            prompt_hash = sha256_file(prompt_path)
+            prompt_words = word_count(prompt_path.read_text(encoding="utf-8"))
+            self.assertEqual(summary["truth_sha256"], truth_hash)
+            self.assertEqual(summary["compiled"][0]["blueprint_sha256"], blueprint_hash)
+            self.assertEqual(summary["compiled"][0]["prompt_sha256"], prompt_hash)
+            self.assertEqual(summary["compiled"][0]["prompt_word_count"], prompt_words)
+
+            generation_manifest = load_json(
+                run_dir / "generation" / "generation_manifest.json"
+            )
+            self.assertEqual(len(generation_manifest["entries"]), 1)
+            manifest_entry = generation_manifest["entries"][0]
+            self.assertEqual(manifest_entry["candidate_id"], "generic_contract_fixture")
+            self.assertEqual(
+                manifest_entry["prompt_path"],
+                "generation/generic_contract_fixture_prompt.md",
+            )
+            self.assertEqual(manifest_entry["prompt_sha256"], prompt_hash)
+            self.assertEqual(manifest_entry["prompt_word_count"], prompt_words)
+            self.assertFalse(manifest_entry["generation_call_completed"])
+            self.assertIsNone(manifest_entry["output_path"])
+
+            review = load_json(
+                run_dir / "reviews" / "generic_contract_fixture_review.template.json"
+            )
+            self.assertEqual(review["candidate_id"], "generic_contract_fixture")
+            self.assertEqual(review["truth_hash"], truth_hash)
+            self.assertEqual(review["blueprint_hash"], blueprint_hash)
+            self.assertEqual(review["prompt_hash"], prompt_hash)
+
+            reconstruction_spec = load_json(
+                run_dir / "svg" / "generic_contract_fixture_reconstruction_spec.json"
+            )
+            self.assertEqual(
+                reconstruction_spec["truth_ref"],
+                {
+                    "path": "truth/scientific_truth.json",
+                    "sha256": truth_hash,
+                },
+            )
+            self.assertEqual(
+                reconstruction_spec["blueprint_ref"],
+                {
+                    "path": "blueprints/generic_contract_fixture.json",
+                    "sha256": blueprint_hash,
+                },
+            )
+            self.assertEqual(reconstruction_spec["exact_equations"], ["z=T(x)"])
+
+            rendered = render_skeleton(
+                truth_path,
+                blueprint_path,
                 run_dir / "skeletons",
             )
-            report = validate_artifacts(run_dir, REPOSITORY_ROOT, REPOSITORY_ROOT)
-            self.assertEqual(report["summary"]["overall"], "pass")
+            self.assertEqual(set(rendered), {"scene", "svg", "png"})
+            for kind, value in rendered.items():
+                with self.subTest(rendered_artifact=kind):
+                    path = Path(value)
+                    self.assertTrue(path.is_file(), value)
+                    self.assertGreater(path.stat().st_size, 0, value)
 
-        svg_report = validate_svg(
-            example / "editable_figure.svg",
-            example / "validation_spec.json",
-        )
-        self.assertEqual(svg_report["summary"]["overall"], "pass")
+            scene = load_json(Path(rendered["scene"]))
+            self.assertEqual(
+                {item["id"] for item in scene["objects"]},
+                {"input_x", "transform_instance", "output_z"},
+            )
+            connectors = {item["id"]: item for item in scene["connectors"]}
+            self.assertEqual(
+                {
+                    connector_id: (item["source"], item["target"])
+                    for connector_id, item in connectors.items()
+                },
+                {
+                    "input_feeds_transform": ("input_x", "transform_instance"),
+                    "transform_produces_output": ("transform_instance", "output_z"),
+                },
+            )
+            for connector in connectors.values():
+                self.assertTrue(connector["arrow"])
+                self.assertGreaterEqual(len(connector["points"]), 2)
+                for start, end in zip(connector["points"], connector["points"][1:]):
+                    self.assertTrue(
+                        abs(start[0] - end[0]) <= 1e-6
+                        or abs(start[1] - end[1]) <= 1e-6
+                    )
+
+            ET.parse(rendered["svg"])
+            from PIL import Image
+
+            with Image.open(rendered["png"]) as image:
+                self.assertEqual(image.size, (1600, 900))
+                image.verify()
+
+            report = validate_artifacts(run_dir, REPOSITORY_ROOT, run_dir)
+            self.assertEqual(report["summary"]["overall"], "pass")
+            self.assertEqual(report["summary"]["failed"], 0)
+            self.assertEqual(report["summary"]["blockers"], 0)
+            self.assertEqual(report["scene_count"], 1)
+            report_path = run_dir / "validation" / "artifact_report.json"
+            self.assertTrue(report_path.is_file())
+            self.assertEqual(load_json(report_path), report)
 
     def test_repository_schemas_and_rules_parse(self) -> None:
         paths = sorted((REPOSITORY_ROOT / "schemas").glob("*.json"))

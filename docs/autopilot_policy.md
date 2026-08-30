@@ -32,4 +32,4 @@ Every gate uses a compact decision packet with at most three questions, at most 
 - No adapter may be labeled editable without format-specific structural evidence.
 - Missing external connectors produce an honest unverified or blocked status, not a fabricated success.
 
-The publication-safe synthetic replay does not simulate live human decisions. Its checked-in Gate 1/2 fixture records are deterministic pre-approvals with `in_run_human_action: false` and `scientific_validation: false`; only a successful full replay can reach Gate 3, where it waits for a separate explicit researcher/operator action.
+The frozen v0.1 reference replay is outside this V3 gate model. It imports already recorded, hash-bound selection, region-map, validation, and visual-approval evidence; it does not simulate fresh human decisions or create scientific, Science Day-use, or public-release approval.

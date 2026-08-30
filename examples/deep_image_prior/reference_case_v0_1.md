@@ -85,12 +85,14 @@ A fresh offline replay reports `workflow_revision: 6` because this is the replay
 
 The generated fidelity-v2 package reports describe the pre-case packaging state and remain frozen with their earlier nullable final-approval fields. Those `null` values do not override or conflict with the separate, hash-bound reference-case visual decision; that record is the authoritative visual approval for v0.1 replay.
 
-The remaining decisions are separate and pending:
+The checked-in record preserves the pre-authorization snapshot state:
 
-- scientific approval is pending;
-- Science Day use approval is pending;
-- public-release approval is pending and remains governed by the repository release checklist;
+- scientific approval is `PENDING` in replay state;
+- Science Day use approval is `PENDING` in replay state;
+- public-release approval is `PENDING` in replay state;
 - structural validation must not be presented as any of those approvals.
+
+The annotated `v0.1.0` tag is a separate, later attestation bound to the exact release commit, Git tree, snapshot digests, artifact manifest, validation report, visual approval, and canonical artifact hashes. It records project-owner approval for scientific content, Science Day use, and public release of that exact release tree without rewriting the frozen replay ledger.
 
 ## Rebuild boundary
 

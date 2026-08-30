@@ -11,26 +11,26 @@ Do not make the repository public until every P0 item is resolved.
 - [x] Pin third-party GitHub Actions to verified immutable full commit SHAs.
 - [x] Run the core unit tests from a clean environment.
 - [x] Run the personal-path, credential, cache, and broken-link scans recorded in the preparation report.
-- [ ] Record repository-owner acceptance of the exact proposed release-candidate file set.
-- [ ] Record scientific approval for the exact reference-case artifact manifest, or explicitly decide that the public repository may ship with scientific approval pending.
-- [ ] Record Science Day-use approval for the exact frozen case before presenting it at the event.
-- [ ] Record public-release approval after reviewing this local tree and all remaining blockers.
+- [x] Record repository-owner acceptance of the exact proposed release-candidate file set.
+- [x] Record scientific approval for the exact reference-case artifact manifest in the annotated `v0.1.0` tag attestation.
+- [x] Record Science Day-use approval for the exact frozen case in the annotated `v0.1.0` tag attestation.
+- [x] Record public-release approval for the exact release tree in the annotated `v0.1.0` tag attestation.
 - [x] Use the verified GitHub noreply identity for author and committer metadata throughout local `main` history.
-- [ ] Push the accepted file set, then confirm that remote Actions pass for that exact commit while GitHub visibility remains **Private**.
+- [x] Push the accepted file set and confirm that remote Actions pass for the exact `main` commit and `v0.1.0` tag while GitHub visibility remains **Private**.
 
 ## P1 — strongly recommended
 
 - [x] Add an original publication-safe sketch with five separately generated ImageGen proposals, hash-bound selection and region-map records, validation-backed delivery registration, and a separate visual approval.
-- [x] Add a fictional, non-confidential end-to-end example with an editable SVG and deterministic topology artifacts.
+- [x] Preserve the frozen Deep Image Prior v0.1 reference case, including its hash-bound manifest, validation report, and separate visual approval.
 - [ ] Obtain one colleague's dry-run feedback using only the README.
 - [ ] Add a repository description and topic tags on GitHub.
 - [ ] Add a small social preview image.
-- [ ] Create the first release tag only after the public contents are frozen.
+- [x] Create the first release tag only after the release contents are frozen.
 
 ## First-push boundary
 
-The current release-candidate changes exist only in the local working tree; they have not been pushed. After an explicit local review and push, confirm that Actions passed for that exact commit, inspect the rendered README and safe example while the repository is still Private, resolve every unchecked P0 item above, and make any visibility change as a separate explicit action.
+Release `v0.1.0` is committed, tagged, and published inside the still-Private repository. For every later `main` change, review the exact diff, wait for Actions on the new commit, and keep any visibility change as a separate explicit owner action.
 
 ## Science Day evidence
 
-Use the [Science Day demo guide](science-day-demo.md) for the original Deep Image Prior sketch, five separately generated proposals, preserved decision history, and the canonical [`editable_delivery_c_fidelity_v2/`](../examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md) reference case. Earlier revisions remain legacy evidence. Fidelity v2 binds eight source regions to the selected Candidate C hash, keeps exactly two bounded synthetic raster atoms, and rebuilds the remaining scientific structure with native/vector objects and aspect-preserving LaTeX-derived equations. Its draw.io file is an experimental structural view with a known official-render defect, and its PDF is a preview/export. Structural validation and a hash-bound visual approval exist; scientific approval, Science Day use, and public release remain pending. The primary offline replay executes no AI. Neither path is human research, a scientific-correctness result, or a time-saving benchmark.
+Use the [Science Day demo guide](science-day-demo.md) for the original Deep Image Prior sketch, five separately generated proposals, preserved decision history, and the canonical [`editable_delivery_c_fidelity_v2/`](../examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md) reference case. Earlier revisions remain legacy evidence. Fidelity v2 binds eight source regions to the selected Candidate C hash, keeps exactly two bounded synthetic raster atoms, and rebuilds the remaining scientific structure with native/vector objects and aspect-preserving LaTeX-derived equations. Its draw.io file is an experimental structural view with a known official-render defect, and its PDF is a preview/export. Structural validation and a hash-bound visual approval exist. The annotated `v0.1.0` tag separately records owner approval for scientific content, Science Day use, and public release of the exact release tree. The primary offline replay executes no AI. Neither path is human research, a scientific-correctness result, or a time-saving benchmark.

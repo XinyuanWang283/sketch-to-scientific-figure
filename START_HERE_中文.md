@@ -58,22 +58,23 @@ $sketch-to-scientific-figure
 
 公式以 [`source/equations.tex`](examples/deep_image_prior/editable_delivery_c_fidelity_v2/source/equations.tex) 为权威源，并由本地 LaTeX 渲染为保持原始宽高比的 vector equation objects。PPTX 和 SVG 中的结构对象可分别编辑；SVG 的两个 raster atom 使用 `delivery/svg/assets/` 下的相对 sidecar，必须与 `master.svg` 一起移动。两个 image atom 可整体替换，但不可逐像素编辑，也不是科学证据。draw.io 仅是 experimental topology view：官方 CLI 当前会把主要彩色区域渲染成黑块，并把 9 个公式显示为 raw LaTeX，因此不能作为视觉保真证据。PDF 只是 export/preview。
 
-当前 v0.1 已有一条绑定 frozen artifact-manifest SHA-256 的独立人工 visual approval；它不会随 rebuild 自动继承，也不包含 scientific、Science Day 或 public-release approval。后三项仍为 pending。自动 validation 只检查可编程的文件与连接结构，不能代替这些决定。完整边界见 [v0.1 reference case](examples/deep_image_prior/reference_case_v0_1.md)。
+当前 v0.1 已有一条绑定 frozen artifact-manifest SHA-256 的独立人工 visual approval；它不会随 rebuild 自动继承。checked-in governance fields 保留授权前 snapshot 的 `PENDING` 状态，而 annotated `v0.1.0` tag 另外记录了项目 owner 对该精确 tree 的 scientific content、Science Day use 和 public release 批准。自动 validation 只检查可编程的文件与连接结构，不能代替这些人工决定。完整边界见 [v0.1 reference case](examples/deep_image_prior/reference_case_v0_1.md)。
 
-## 离线开发者 fixture（非默认用户路径）
+## 冻结的 v0.1 离线参考路径
 
-从 repository root、Python 3.11+ 环境运行；输出路径必须位于仓库外且尚不存在：
+从 repository root、Python 3.11+ 环境运行；replay 输出路径必须位于仓库外且尚不存在：
 
 ```bash
 python -m pip install -r requirements.txt
-python scripts/run_synthetic_demo.py \
-  --mode core \
-  --output-dir /tmp/sketch-figure-core-demo-01
+python scripts/replay_reference_case.py validate
+python scripts/replay_reference_case.py replay \
+  --output-dir /tmp/sketch-figure-reference-v0-1
+python scripts/replay_reference_case.py status
 ```
 
 如果系统默认 `python`/`python3` 低于 3.11，请在上述命令中统一换成已安装的 `python3.11` 或更新版本。
 
-预期结果是 `status: INCOMPLETE` 和 `stage: incomplete_core_only`。这是一个不执行 AI 的 checked-in deterministic adapter/test fixture，用来证明部分可编辑重建和格式验证，不代表默认 ImageGen 用户路径。完整现场讲解见 [Science Day demo guide](docs/science-day-demo.md)。
+该路径不调用 ImageGen、网络或远程服务。预期 workflow stage 为 `VISUAL_APPROVED`；tag-level scientific、Science Day-use 和 public-release 批准不会被 replay 伪装成自动 validation 结果。完整现场讲解见 [Science Day demo guide](docs/science-day-demo.md)。
 
 ## 旧版 V3 离线适配器参考（非默认）
 

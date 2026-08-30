@@ -28,8 +28,6 @@ jobs:
         run: python -m pip check
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
-      - name: Run deterministic synthetic demo smoke test
-        run: python -B scripts/run_synthetic_demo.py --mode core --output-dir "${RUNNER_TEMP}/synthetic-demo-core"
       - name: Validate frozen v0.1 reference case
         run: python -B scripts/replay_reference_case.py validate
       - name: Replay frozen v0.1 reference case

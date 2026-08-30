@@ -44,7 +44,7 @@ After reviewing that delivery, the researcher rejected its visual result and ask
 
 [![Preview of the canonical Candidate C fidelity-v2 review draft](editable_delivery_c_fidelity_v2/preview.png)](editable_delivery_c_fidelity_v2/README.md)
 
-The canonical [fidelity-v2 delivery](editable_delivery_c_fidelity_v2/README.md) binds eight visible regions to the selected PNG hash and records an inspection overlay. A separate [`raster_atom_review_decision.json`](editable_delivery_c_fidelity_v2/source/raster_atom_review_decision.json) authorizes only the noise and synthetic mountain content as exact-pixel, replaceable review-draft atoms. Frames, network layers, plots, arrows, labels, and nine aspect-preserving LaTeX-derived equations remain native or vector objects in SVG/PPTX. The v0.1 [reference-case record](reference_case_v0_1.md) binds structural evidence and a separate visual approval to exact hashes; scientific approval, Science Day use, and public release remain pending.
+The canonical [fidelity-v2 delivery](editable_delivery_c_fidelity_v2/README.md) binds eight visible regions to the selected PNG hash and records an inspection overlay. A separate [`raster_atom_review_decision.json`](editable_delivery_c_fidelity_v2/source/raster_atom_review_decision.json) authorizes only the noise and synthetic mountain content as exact-pixel, replaceable review-draft atoms. Frames, network layers, plots, arrows, labels, and nine aspect-preserving LaTeX-derived equations remain native or vector objects in SVG/PPTX. The v0.1 [reference-case record](reference_case_v0_1.md) binds structural evidence and a separate visual approval to exact hashes. Its checked-in governance fields preserve the pre-authorization snapshot state; the annotated `v0.1.0` tag separately records the owner's scientific-content, Science Day-use, and public-release approvals for the exact release tree.
 
 The [all-native region-first option](editable_delivery_c_region_native/README.md), earlier [region-fidelity draft](editable_delivery_c_region_fidelity/README.md), [hybrid](editable_delivery_c_hybrid/README.md), [native-only C delivery](editable_delivery_c/README.md), and [D-layout/C-style delivery](editable_delivery/README.md) are preserved as legacy decision evidence without being overwritten. They are not current alternatives to the canonical fidelity-v2 pointer. [`selection_history.json`](selection_history.json) records the revision sequence.
 
@@ -65,7 +65,7 @@ Candidate C is not embedded as a whole-canvas image. The two image atoms are rep
 
 This is region-level fidelity, not pixel equivalence. Fidelity v2 uses editable gradient generator layers and local reference-fitted synthetic curves, but neither operation recovers scientific data from Candidate C. Diagnostic image metrics and triptychs support human review; they do not create visual, scientific, or publication approval.
 
-See the [v0.1 reference-case note](reference_case_v0_1.md) for the live Codex path, offline frozen replay, format boundaries, and pending approvals.
+See the [v0.1 reference-case note](reference_case_v0_1.md) for the live Codex path, offline frozen replay, format boundaries, frozen pre-authorization state, and tag-level owner approvals.
 
 ## Asset and provenance note
 

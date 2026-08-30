@@ -33,4 +33,4 @@ The arrows from the canonical source to adapters are independent: no adapter tre
 
 The repository does not independently establish which generator produced a registered PNG. A sketch-led run records the candidate as `operator_attested_candidate` with `provenance_assurance: operator_attested_not_independently_verified`, plus exact bytes, SHA-256, call ID, and Gate 1 bindings. Gate 2 is the researcher/operator's selection of that registered visual direction, not approval of the candidate's text, equations, topology, or provenance claim.
 
-The public synthetic replay is a separate deterministic path. It executes no AI and uses checked-in fixture pre-approval records for Gates 1 and 2. Core mode stops `INCOMPLETE`; full mode runs the native adapters and structural checks, then stops awaiting an explicit Gate 3 decision.
+The frozen Deep Image Prior v0.1 replay is separate from V3. It executes no AI, verifies the hash-bound Candidate C selection, region-map approval, delivery evidence, and visual approval, and does not create scientific, Science Day-use, or public-release approval.

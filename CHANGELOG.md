@@ -7,11 +7,10 @@ All notable project changes will be documented in this file.
 ### Added
 
 - ImageGen-first Codex workflow: focused clarification, exactly five active A–E visual proposals from separate calls, explicit researcher selection, and post-selection case-specific editable reconstruction.
-- Original Deep Image Prior hand-sketch example with five separate built-in ImageGen candidate files, call records, hashes, a local comparison sheet, and an intentionally unapproved selection state.
+- Original Deep Image Prior hand-sketch example with five separate built-in ImageGen candidate files, call records, hashes, a local comparison sheet, and a hash-bound Candidate C selection.
 - Local ImageGen artifact ledger and regression tests for exact candidate count, unique call IDs, file bindings, approval enforcement, editable delivery registration, and separate final approval.
-- Science Day runbook centered on the real sketch-to-five-candidates story with an honest offline adapter fallback.
+- Science Day runbook centered on the frozen offline reference replay, with an optional live ImageGen extension.
 - Public-facing project overview, visual walkthrough, and quick start.
-- Fictional synthetic-restoration example with hashed sources, truth contract, blueprint, deterministic skeleton, editable SVG, and validation spec.
 - Generic semantic-SVG fixtures and workflow regression tests, including deliberately broken connector coverage.
 - Python project metadata and GitHub Actions unit-test workflow.
 - Runtime, contribution, citation, security, issue-template, pull-request, reference, and release documentation.
@@ -28,3 +27,4 @@ All notable project changes will be documented in this file.
 
 - Python caches, macOS metadata, internal revision directories, and private run-state/provenance artifacts from the public draft.
 - Identified non-public example assets, delivery outputs, and project-specific workflow material from the public draft. Remaining domain-specific case studies still require owner publication-clearance review before release.
+- The legacy synthetic-restoration example and its dedicated demo runner from current `main`; both remain preserved in the immutable `v0.1.0` tag. The frozen Deep Image Prior reference replay remains the supported offline path.

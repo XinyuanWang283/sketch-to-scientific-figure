@@ -54,7 +54,7 @@ python scripts/replay_reference_case.py status
 
 If the default `python3` is older, replace it consistently with an installed supported interpreter such as `python3.11`.
 
-The replay copies the frozen reference package into `/tmp/sketch-figure-reference-v0-1`, verifies the five recorded candidate events and Candidate C selection, consumes the approved region map, recomputes structural evidence, registers the exact delivery, and imports its hash-bound visual approval. Expected stage: `VISUAL_APPROVED`. Scientific approval, Science Day use, and public release remain `PENDING`.
+The replay copies the frozen reference package into `/tmp/sketch-figure-reference-v0-1`, verifies the five recorded candidate events and Candidate C selection, consumes the approved region map, recomputes structural evidence, registers the exact delivery, and imports its hash-bound visual approval. Expected stage: `VISUAL_APPROVED`. Its governance fields remain `PENDING` because replay preserves the pre-authorization snapshot; the annotated `v0.1.0` tag separately records the owner's scientific-content, Science Day-use, and public-release approvals for the exact release tree.
 
 This v0.1 repository is an executable Codex workflow, not an importable Python library or an installed console application. The dependency command above intentionally installs only the declared runtime packages and does not create `*.egg-info` in the checkout.
 
@@ -110,17 +110,7 @@ The researcher first tried **D's layout with C's visual style**, rejected that r
 
 [![Candidate C fidelity-v2 review draft](examples/deep_image_prior/editable_delivery_c_fidelity_v2/preview.png)](examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md)
 
-The canonical [fidelity-v2 package](examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md) preserves the selected noise and synthetic mountain regions as exactly two unresampled, replaceable raster atoms referenced through relative SVG sidecars. Network layers, frames, plots, connectors, labels, and nine aspect-preserving LaTeX-derived equations remain native or vector objects in SVG/PPTX. The image atoms are not pixel-editable or scientific evidence. The draw.io file is an experimental structural view: the official CLI currently renders major colored regions as black blocks and equations as raw LaTeX, so it is not visual-fidelity evidence. Structural checks pass, and v0.1 records a separate human visual approval bound to the frozen artifact-manifest hash; scientific approval, Science Day use, and public release remain pending.
-
-### Offline adapter fixture
-
-The included example is fictional: a measurement `y` enters one abstract model `f_θ` and produces an estimate `x̂`. It contains no experimental data, performance result, or unpublished method.
-
-| Rough sketch | Deterministic topology | Editable semantic SVG |
-|---|---|---|
-| ![Rough fictional sketch](examples/synthetic_restoration/sketch.svg) | ![Deterministic topology skeleton](examples/synthetic_restoration/skeletons/synthetic_restoration_skeleton.svg) | ![Editable final figure](examples/synthetic_restoration/editable_figure.svg) |
-
-Inspect the full [synthetic restoration example](examples/synthetic_restoration/README.md), including its source hashes, truth contract, blueprint, compiled prompt, semantic validation spec, and reproducible commands.
+The canonical [fidelity-v2 package](examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md) preserves the selected noise and synthetic mountain regions as exactly two unresampled, replaceable raster atoms referenced through relative SVG sidecars. Network layers, frames, plots, connectors, labels, and nine aspect-preserving LaTeX-derived equations remain native or vector objects in SVG/PPTX. The image atoms are not pixel-editable or scientific evidence. The draw.io file is an experimental structural view: the official CLI currently renders major colored regions as black blocks and equations as raw LaTeX, so it is not visual-fidelity evidence. Structural checks pass, and the frozen case records a separate human visual approval bound to the artifact-manifest hash. Its checked-in governance fields preserve the pre-authorization snapshot state; the annotated `v0.1.0` tag records project-owner approval for scientific content, Science Day use, and public release of that exact tree.
 
 ## Developer checks
 
@@ -134,27 +124,7 @@ python -m pip install -r requirements.txt
 python -m unittest discover -s tests -v
 ```
 
-The full synthetic adapter path additionally needs Node.js with the local artifact-tool module and either TeX or a local MathJax installation for equations. Optional compatibility/visual checks use LibreOffice, Poppler, and Chromium. See [runtime requirements](docs/runtime_requirements.md).
-
-## Offline adapter fixture: core versus full
-
-These modes exercise the legacy deterministic adapter fixture. They remain useful for regression testing after candidate approval but are not the default user journey.
-
-| Mode | Runtime | Main artifacts | Honest stopping point |
-|---|---|---|---|
-| `core` | Python 3.11 plus declared Python dependencies | copied inputs and approvals, topology SVG/PNG/scene, canonical semantic JSON, equation sources, master/delivery SVG | `INCOMPLETE`; no PPTX, draw.io, PDF set, cross-format report, or Gate 3 |
-| `full` | Core plus the documented local native adapter runtime | Core artifacts plus Figma-ready SVG, native PPTX, native draw.io, PDF exports, manifest, report, and cross-format preview | `AWAITING_DECISION` at Gate 3 after structural checks pass |
-
-Gate 3 approval is a separate explicit action after scientific review:
-
-```bash
-python scripts/run_synthetic_demo.py \
-  --approve-final \
-  --operator "Researcher Name" \
-  --output-dir /tmp/sketch-figure-full-demo-01
-```
-
-The command refuses approval unless the run is a full run awaiting Gate 3 and all hash-bound validated artifacts are unchanged.
+The optional Deep Image Prior fidelity-v2 rebuild additionally needs Node.js with the local artifact-tool module, LaTeX/dvisvgm, LibreOffice, and Poppler. See [runtime requirements](docs/runtime_requirements.md).
 
 ## How the default workflow works
 
@@ -195,7 +165,7 @@ A candidate image is never scientific authority. It may influence composition, h
 
 ## Support status
 
-A local full-mode audit run has exercised the adapter and validation path with `python scripts/run_synthetic_demo.py --mode full --output-dir <outside-repo-directory>`. The default CI runs the offline core path, not this optional native-runtime path. Status labels below describe programmable structural evidence from that local run, not remote CI evidence, scientific correctness, visual quality, or application-level manual review.
+The frozen Deep Image Prior v0.1 reference case is validated and replayed by `scripts/replay_reference_case.py`. The status labels below describe programmable structural evidence for that exact hash-bound package, not scientific correctness, visual quality, or application-level manual review.
 
 | Deliverable | Report status | Editability boundary |
 |---|---|---|
@@ -205,7 +175,7 @@ A local full-mode audit run has exercised the adapter and validation path with `
 | Figma-ready SVG | `IMPORT_READY_UNVERIFIED` | SVG structure is checked, but an actual Figma import has not been verified |
 | Publication, grayscale, and draw.io companion PDFs | `VERIFIED` | Vector/text/page structure is checked; `semantic_editability=false`, so PDFs are exports/previews, not editable sources |
 
-Any failed required adapter or structural check blocks the full demo before Gate 3.
+Any failed required structural or integrity check blocks validation and replay.
 
 ## Why not stop at generated pixels?
 
@@ -223,19 +193,18 @@ Any failed required adapter or structural check blocks the full demo before Gate
 2. **Candidate decision:** select, revise, combine, or reject the five proposals. Editable reconstruction requires explicit approval of one exact candidate or hash-bound combination.
 3. **Final check:** review exact labels, equations, arrow directions, native objects, and target-application appearance before using the figure.
 
-Automated checks support these decisions. They do not make them. The offline adapter fixture retains its older gate terminology only as legacy regression evidence.
+Automated checks support these decisions. They do not make them.
 
 ## Repository map
 
 - [`.agents/skills/`](.agents/skills/sketch-to-scientific-figure/SKILL.md) — repository-scoped Codex skill and execution order.
-- [`examples/deep_image_prior/`](examples/deep_image_prior/README.md) — original hand sketch, five separately generated ImageGen candidates, preserved decision history, an eight-region reconstruction map, and the canonical fidelity-v2 case with separate pending approval states.
-- [`examples/synthetic_restoration/`](examples/synthetic_restoration/README.md) — fictional end-to-end example safe to share.
+- [`examples/deep_image_prior/`](examples/deep_image_prior/README.md) — original hand sketch, five separately generated ImageGen candidates, preserved decision history, an eight-region reconstruction map, and the canonical fidelity-v2 case with frozen pre-authorization state plus tag-level owner approvals.
 - [`prompts/`](prompts/) — focused clarification, five-candidate generation, review, and reconstruction instructions.
 - [`rules/`](rules/) and [`schemas/`](schemas/) — stable rule IDs and machine-readable contracts.
 - [`scripts/imagegen_workflow.py`](scripts/imagegen_workflow.py) — local evidence ledger for five active candidate slots, explicit selection and region-map approval, validation-gated delivery registration, and separate approvals; it never invokes ImageGen.
 - [`scripts/`](scripts/) — comparison-sheet builder, compilers, renderers, adapters, orchestration, and validators.
 - [`tests/`](tests/) — deterministic pass/fail fixtures and workflow regression tests.
-- [`docs/science-day-demo.md`](docs/science-day-demo.md) — a 3–5 minute ImageGen-first demo script with an offline fallback.
+- [`docs/science-day-demo.md`](docs/science-day-demo.md) — a 3–5 minute demo centered on the frozen offline replay, with an optional live ImageGen extension.
 - [`docs/technical_reference.md`](docs/technical_reference.md) — full artifact and workflow reference.
 
 ## Evidence and safety boundary
@@ -247,7 +216,7 @@ Automated checks support these decisions. They do not make them. The offline ada
 - The default live path uses Codex built-in ImageGen and does not request a user-supplied OpenAI API key. Repository Python never calls the Image API.
 - A passing validator is not scientific validation, a quality guarantee, or a substitute for researcher review.
 - Figma import is unverified; PDF outputs are exports/previews and are not semantically editable.
-- Full-mode runtime availability and adapter output can vary by local native-tool versions.
+- Optional native-runtime rebuild availability and adapter output can vary by local tool versions.
 - No output should be called publication-ready or production-ready until a researcher has reviewed it in its target application and context.
 - Time saving is a hypothesis until active human time is measured across comparable cases.
 

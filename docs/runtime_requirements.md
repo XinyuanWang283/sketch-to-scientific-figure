@@ -21,25 +21,16 @@ python -m unittest discover -s tests -v
 
 The repository is a script- and Codex-skill workflow, not an importable Python package or installed console application. Installing `requirements.txt` avoids creating package metadata in the checkout. The core suite checks schemas, scientific-contract structure, topology skeletons, semantic SVG structure, gate enforcement, and the ordinary Python portions of the V3 workflow. These are programmable checks, not scientific validation.
 
-The publication-safe core replay is:
+The frozen Deep Image Prior v0.1 reference replay is:
 
 ```bash
-python scripts/run_synthetic_demo.py \
-  --mode core \
-  --output-dir /tmp/sketch-figure-core-demo-01
+python scripts/replay_reference_case.py validate
+python scripts/replay_reference_case.py replay \
+  --output-dir /tmp/sketch-figure-reference-v0-1
+python scripts/replay_reference_case.py status
 ```
 
-The output path must be outside the repository and must not already exist. The replay uses no AI, network, API key, or credentials and intentionally returns `INCOMPLETE` after the canonical semantic source and editable SVG are built.
-
-## Full multi-format delivery
-
-The complete synthetic full replay requires:
-
-- Node.js plus `RUNTIME_NODE_MODULES` containing `@oai/artifact-tool/dist/artifact_tool.mjs` for native PPTX generation;
-- an equation renderer: `latex` plus `dvisvgm`, or the local `mathjax-full` module;
-- the declared Python dependencies used by the SVG, draw.io, PDF, and structural-validation paths.
-
-System commands are discovered from `PATH`; the Node executable may also be supplied as `RUNTIME_NODE`. The repository does not contain a machine-specific runtime path. LibreOffice (`soffice`), Poppler commands, and Chromium are used by optional compatibility or visual-inspection helpers, but the synthetic full replay does not require them.
+The output path must be outside the repository and must not already exist. These commands use no AI, network, API key, or credentials. The replay verifies the frozen five-candidate evidence, Candidate C selection, approved region map, validation-backed delivery, and visual approval; it does not create scientific correctness or fresh researcher approval.
 
 ## Fidelity-v2 rebuild preflight
 
@@ -79,10 +70,10 @@ The builder refuses an existing output directory. This rebuild is case-specific,
 
 When the bundled presentation runtime is unavailable, the unit test that exercises the entire adapter chain is skipped. That skip means the core workflow was checked, not that every delivery format was regenerated on that machine.
 
-A successful full synthetic replay produces native PPTX and draw.io sources, SVG views, PDF exports/previews, a delivery manifest, and a cross-format report, then stops at Gate 3. Format labels remain narrow: Figma-ready SVG is `IMPORT_READY_UNVERIFIED`, PDFs have `semantic_editability=false`, and `VERIFIED` never means scientific correctness or automatic approval.
+A successful fidelity-v2 rebuild produces the case-specific SVG, native PPTX, experimental structural draw.io view, PDF preview/export, manifests, validation reports, and preview. It does not inherit the frozen visual approval. Format labels remain narrow: PDFs have `semantic_editability=false`, and `VERIFIED` never means scientific correctness or automatic approval.
 
 ## Subscription boundary
 
 An optional live assisted workflow may use image capability available in a ChatGPT/Codex workspace. The repository CLI does not call the OpenAI API, request an API key, invoke a candidate generator, or independently verify generator identity. Registered candidate provenance is operator-attested and not independently verified.
 
-Installing dependencies can require network access when packages are not cached. Once the environment and native tools are installed, the synthetic `core` and `full` replay commands themselves do not execute AI or require network access.
+Installing dependencies can require network access when packages are not cached. Once dependencies are installed, the frozen v0.1 validate, replay, and status commands execute no AI or network calls.
