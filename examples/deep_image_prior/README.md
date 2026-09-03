@@ -34,19 +34,15 @@ The comparison sheet was assembled locally after the five originals existed; it 
 
 Each candidate used the same sketch and scientific invariants but a different art-direction suffix. See [`generation_prompts.md`](generation_prompts.md) and [`candidate_manifest.json`](candidate_manifest.json) for the direction summaries, file hashes, dimensions, and five mandatory repository-local `generation_event_id` values. No native tool-call ID is recorded because the tool exposed none for this frozen evidence. The recorded events and observed embedded Content Credentials are provenance evidence, not cryptographic proof of backend identity or call isolation by repository code.
 
-## Researcher decision history and current editable result
+## Researcher decision and current editable result
 
-The first reconstruction used this hash-bound instruction:
-
-> Use D's layout with C's visual style
-
-After reviewing that delivery, the researcher rejected its visual result and asked to try **candidate C alone**. The first native-only C reconstruction was also rejected because it no longer retained enough of candidate C's visual quality. A later hybrid preserved the two image regions but stretched the LaTeX objects and had not instantiated the repository's full region-map stage. The active decision in [`candidate_selection_c_only.json`](candidate_selection_c_only.json) still binds the exact C source file; the current implementation now starts from an eight-region map.
+The active decision in [`candidate_selection_c_only.json`](candidate_selection_c_only.json) binds **candidate C alone** as the exact visual reference. Earlier D+C, native-only, hybrid, and region-first attempts remain documented in [`selection_history.json`](selection_history.json) and compact history capsules; they are not active reconstruction options.
 
 [![Preview of the canonical Candidate C fidelity-v2 review draft](editable_delivery_c_fidelity_v2/preview.png)](editable_delivery_c_fidelity_v2/README.md)
 
 The canonical [fidelity-v2 delivery](editable_delivery_c_fidelity_v2/README.md) binds eight visible regions to the selected PNG hash and records an inspection overlay. A separate [`raster_atom_review_decision.json`](editable_delivery_c_fidelity_v2/source/raster_atom_review_decision.json) authorizes only the noise and synthetic mountain content as exact-pixel, replaceable review-draft atoms. Frames, network layers, plots, arrows, labels, and nine aspect-preserving LaTeX-derived equations remain native or vector objects in SVG/PPTX. The v0.1 [reference-case record](reference_case_v0_1.md) binds structural evidence and a separate visual approval to exact hashes. Its checked-in governance fields preserve the pre-authorization snapshot state; the annotated `v0.1.0` tag separately records the owner's scientific-content, Science Day-use, and public-release approvals for the exact release tree.
 
-Compact history capsules preserve the preview and rejection rationale for the [all-native region-first option](editable_delivery_c_region_native/README.md), earlier [region-fidelity draft](editable_delivery_c_region_fidelity/README.md), [hybrid](editable_delivery_c_hybrid/README.md), [native-only C delivery](editable_delivery_c/README.md), and [D-layout/C-style delivery](editable_delivery/README.md). Their complete frozen packages remain available at the immutable [`v0.1.0` tag](https://github.com/XinyuanWang283/sketch-to-scientific-figure/tree/v0.1.0/examples/deep_image_prior); they are not current alternatives to the canonical fidelity-v2 pointer. [`selection_history.json`](selection_history.json) records the revision sequence.
+The compact history capsules preserve rejected previews and rationale, while their complete frozen packages remain available at the immutable [`v0.1.0` tag](https://github.com/XinyuanWang283/sketch-to-scientific-figure/tree/v0.1.0/examples/deep_image_prior). They are historical evidence, not alternatives to the canonical fidelity-v2 delivery.
 
 [`candidate_selection.template.json`](candidate_selection.template.json) remains a blank reusable template for one exact registered candidate. A revision or cross-candidate combination must first be rendered and registered as a new candidate; automated checks never populate approval.
 

@@ -38,7 +38,7 @@ The **offline reference path** replays frozen, hash-bound evidence. It does not 
 
 ## Quick start
 
-From a clean checkout, use Python 3.11 or newer. Installation may download declared dependencies; the replay itself is local and offline. The output directory must be outside the repository and must not already exist.
+From a clean checkout, use Python 3.11 or newer. The commands below were verified on macOS and Linux; Windows has not yet been verified. Installation may download declared dependencies; the replay itself is local and offline. The output directory must be outside the repository and must not already exist.
 
 ```bash
 git clone https://github.com/XinyuanWang283/sketch-to-scientific-figure.git

@@ -2,7 +2,7 @@
 
 Release `v0.1.0` exists in the still-Private GitHub repository. Its tag and owner attestations bind only that exact release tree; they do not approve later local or `main` changes.
 
-## Verified remote facts — 2026-09-03
+## Verified remote facts — 2026-09-04
 
 - [x] Repository visibility is **Private**.
 - [x] GitHub description is set.
@@ -25,12 +25,13 @@ Release `v0.1.0` exists in the still-Private GitHub repository. Its tag and owne
 
 ## Required before the next push or public visibility
 
-- [ ] Finish the current local cleanup without changing the canonical fidelity-v2 artifact bytes.
-- [ ] Review the exact proposed file set and diff; exclude local prototypes, caches, build output, and unapproved assets.
-- [ ] Run the full suite and focused workflow tests on the final local tree.
-- [ ] Run personal-path, credential, cache, symlink, asset-provenance, and Markdown-link checks on the proposed snapshot.
-- [ ] Obtain explicit owner approval for the exact new commit contents.
-- [ ] Commit and push only under separate authorization.
+- [x] Finish the local cleanup without changing the canonical fidelity-v2 artifact bytes.
+- [x] Review the exact proposed file set and diff; exclude local prototypes, caches, build output, and unapproved assets.
+- [x] Run the full suite and focused workflow tests on the final local tree.
+- [x] Run personal-path, credential, cache, symlink, asset-provenance, and Markdown-link checks on the proposed snapshot.
+- [x] Obtain explicit owner approval for the exact local commit contents.
+- [x] Create two focused local commits using the reviewed GitHub noreply identity.
+- [ ] Push the reviewed local commits only under separate authorization.
 - [ ] Confirm remote Actions pass for that exact pushed commit.
 - [ ] Perform the final privacy and canonical-hash check after remote CI.
 - [ ] Change repository visibility only under a separate explicit owner instruction.
