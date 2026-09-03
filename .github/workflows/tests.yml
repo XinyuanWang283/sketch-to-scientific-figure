@@ -32,5 +32,7 @@ jobs:
         run: python -B scripts/replay_reference_case.py validate
       - name: Replay frozen v0.1 reference case
         run: python -B scripts/replay_reference_case.py replay --output-dir "${RUNNER_TEMP}/reference-case-v0-1"
+      - name: Validate replayed reference case
+        run: python -B scripts/replay_reference_case.py validate --run-dir "${RUNNER_TEMP}/reference-case-v0-1"
       - name: Report separate human approval states
-        run: python -B scripts/replay_reference_case.py status
+        run: python -B scripts/replay_reference_case.py status --run-dir "${RUNNER_TEMP}/reference-case-v0-1"

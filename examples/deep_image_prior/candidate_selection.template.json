@@ -1,17 +1,15 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "example_id": "deep-image-prior-synthetic",
   "status": "template_not_approved",
   "selection_type": null,
   "single_selection": null,
-  "combination": {
-    "layout_source": null,
-    "visual_style_source": null
-  },
   "researcher": null,
+  "approved_at": null,
+  "provenance": null,
   "decision": null,
   "revision_request": null,
   "editable_reconstruction_authorized": false,
   "final_scientific_approval": null,
-  "note": "Populate one exact candidate or one hash-bound combination only after explicit researcher approval. Automated checks never create this decision or final scientific approval."
+  "note": "Populate one exact registered candidate only after explicit researcher approval. A requested revision or combination must first become a newly rendered, registered candidate. Automated checks never create this decision or final scientific approval."
 }

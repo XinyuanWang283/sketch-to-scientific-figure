@@ -15,6 +15,7 @@ import os
 import re
 import shutil
 import sys
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path, PureWindowsPath
 from typing import Any, Mapping, Sequence
@@ -423,8 +424,11 @@ def inspect_reference_case(example_root: str | Path) -> ReferenceCase:
     )
     if region_approval.get("recipe_id") != RECIPE_ID:
         raise ValueError(f"region map approval recipe_id must be {RECIPE_ID}")
-    _require_text(region_approval.get("operator"), "region map approval.operator")
-    _require_text(region_approval.get("approved_at"), "region map approval.approved_at")
+    imagegen_workflow.require_approval_metadata(
+        region_approval,
+        "region map approval",
+        allow_legacy_approval_basis=True,
+    )
     _require_false(
         region_approval.get("scientific_approval_created"),
         "region map approval.scientific_approval_created",
@@ -515,9 +519,7 @@ def inspect_reference_case(example_root: str | Path) -> ReferenceCase:
         raise ValueError(
             "visual approval canonical_artifact_hashes do not match the artifact manifest"
         )
-    _require_text(visual_approval.get("operator"), "visual approval.operator")
-    _require_text(visual_approval.get("approved_at"), "visual approval.approved_at")
-    _require_text(visual_approval.get("provenance"), "visual approval.provenance")
+    imagegen_workflow.require_approval_metadata(visual_approval, "visual approval")
     limitations = visual_approval.get("known_limitations")
     if not isinstance(limitations, list) or not limitations or not all(
         isinstance(item, str) and item.strip() for item in limitations
@@ -544,6 +546,27 @@ def inspect_reference_case(example_root: str | Path) -> ReferenceCase:
         paths=paths,
         output_hashes=output_hashes,
     )
+
+
+def _region_approval_for_replay(reference: ReferenceCase) -> dict[str, Any]:
+    """Normalize the one frozen legacy provenance field without changing its source."""
+    approval = dict(reference.region_map_approval)
+    if isinstance(approval.get("provenance"), str) and approval["provenance"].strip():
+        return approval
+    basis = _require_text(
+        approval.get("approval_basis"), "region map approval legacy approval_basis"
+    )
+    source_binding = _record(
+        reference.case["approved_region_map"]["approval_record"],
+        "reference region-map approval binding",
+    )
+    approval["provenance"] = basis
+    approval["provenance_source"] = {
+        "field": "approval_basis",
+        "normalization": "replay_only_legacy_field_alias",
+        "source_record_sha256": source_binding["sha256"],
+    }
+    return approval
 
 
 def _encoded_json(value: Mapping[str, Any]) -> bytes:
@@ -623,11 +646,18 @@ def build_validation_report(
     return report
 
 
-def build_status(reference: ReferenceCase) -> dict[str, Any]:
+def build_status(
+    reference: ReferenceCase,
+    *,
+    replay_state: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
     approvals = reference.case["approvals"]
-    return {
+    result = {
         "schema_version": "1.0",
         "report_type": "reference_case_status",
+        "status_target": (
+            "replay_run" if replay_state is not None else "canonical_reference_case"
+        ),
         "case_id": CASE_ID,
         "delivery_revision": DELIVERY_REVISION,
         "case_integrity": {"status": "VALID", "overall_pass": True},
@@ -642,6 +672,19 @@ def build_status(reference: ReferenceCase) -> dict[str, Any]:
             "public_release": dict(approvals["public_release"]),
         },
     }
+    if replay_state is not None:
+        result.update(
+            {
+                "run_id": replay_state.get("run_id"),
+                "workflow_stage": replay_state.get("stage"),
+                "workflow_revision": replay_state.get("revision"),
+                "workflow_revision_meaning": (
+                    "append-only ledger event count for this replay run; "
+                    "not the reference-case delivery-history sequence"
+                ),
+            }
+        )
+    return result
 
 
 def _write_json_exclusive(path: Path, value: Mapping[str, Any]) -> None:
@@ -672,11 +715,160 @@ def _write_text_exclusive(path: Path, value: str) -> None:
 
 def _require_external_output(path: Path, example_root: Path, label: str) -> Path:
     resolved = path.expanduser().resolve(strict=False)
-    try:
-        resolved.relative_to(example_root.resolve(strict=True))
-    except ValueError:
-        return resolved
-    raise ValueError(f"{label} must be outside the canonical example root")
+    restricted_roots = (
+        REPOSITORY_ROOT.resolve(strict=True),
+        example_root.expanduser().resolve(strict=True),
+    )
+    for restricted_root in restricted_roots:
+        try:
+            resolved.relative_to(restricted_root)
+        except ValueError:
+            continue
+        raise ValueError(
+            f"{label} must be outside the public repository root and supplied example root"
+        )
+    return resolved
+
+
+def inspect_replay_run(
+    reference: ReferenceCase, run_dir: str | Path
+) -> tuple[Path, dict[str, Any]]:
+    """Verify that an external directory is the exact completed frozen-case replay."""
+    resolved = _require_external_output(
+        Path(run_dir), reference.example_root, "replay run-dir"
+    )
+    if not resolved.is_dir() or resolved.is_symlink():
+        raise ValueError(f"replay run-dir is missing or unsafe: {resolved}")
+    loaded_dir, state = imagegen_workflow.load_state(resolved)
+    if loaded_dir != resolved:
+        raise ValueError("replay run-dir resolved inconsistently")
+    if state.get("stage") != "VISUAL_APPROVED" or state.get("revision") != 6:
+        raise ValueError(
+            "replay run-dir must contain the completed VISUAL_APPROVED six-event ledger"
+        )
+
+    sketch = _require_object(state.get("sketch"), "replay sketch")
+    if sketch.get("sha256") != reference.case["input_sketch"]["sha256"]:
+        raise ValueError("replay source sketch differs from the frozen reference case")
+    clarification = _require_object(state.get("clarification"), "replay clarification")
+    clarification_brief = clarification.get("brief")
+    # `initialize_run` deliberately normalizes surrounding whitespace. The
+    # source file itself was hash-verified while loading `reference`, so exact
+    # normalized-text equality binds this ledger value to that frozen record.
+    frozen_clarification = _require_text(
+        reference.paths["clarification"].read_text(encoding="utf-8"),
+        "frozen clarification",
+    )
+    if (
+        not isinstance(clarification_brief, str)
+        or clarification_brief != frozen_clarification
+    ):
+        raise ValueError("replay clarification differs from the frozen reference case")
+
+    candidate_pool = state.get("candidate_pool")
+    if not isinstance(candidate_pool, list) or len(candidate_pool) != 5:
+        raise ValueError("replay candidate pool must contain exactly A-E")
+    replay_candidates = {
+        item.get("slot"): item for item in candidate_pool if isinstance(item, Mapping)
+    }
+    frozen_candidates = {
+        item["slot"]: item for item in reference.case["candidates"]
+    }
+    if set(replay_candidates) != set(EXPECTED_CANDIDATES):
+        raise ValueError("replay candidate pool must contain exactly A-E")
+    for slot in EXPECTED_CANDIDATES:
+        observed = replay_candidates[slot]
+        expected = frozen_candidates[slot]
+        for field in ("slot", "candidate_id", "sha256", "generation_event_id"):
+            if observed.get(field) != expected.get(field):
+                raise ValueError(
+                    f"replay candidate {slot} {field} differs from the frozen reference case"
+                )
+        if ("native_tool_call_id" in observed) != ("native_tool_call_id" in expected) or (
+            observed.get("native_tool_call_id") != expected.get("native_tool_call_id")
+        ):
+            raise ValueError(
+                f"replay candidate {slot} native_tool_call_id differs from the frozen reference case"
+            )
+        _resolve_record(resolved, observed, f"replay candidate {slot}")
+
+    selected = _require_object(state.get("selected_candidate"), "replay selected candidate")
+    _check_selected(
+        selected,
+        "replay selected candidate",
+        reference.case["selection"]["sha256"],
+    )
+    selection_approval = _require_object(
+        state.get("candidate_selection_approval"), "replay candidate selection approval"
+    )
+    if selection_approval.get("sha256") != reference.case["selection"]["record"]["sha256"]:
+        raise ValueError("replay selection approval differs from the frozen reference case")
+
+    region = _require_object(state.get("approved_region_map"), "replay approved region map")
+    if (
+        region.get("case_id") != CASE_ID
+        or region.get("delivery_revision") != DELIVERY_REVISION
+        or region.get("recipe_id") != RECIPE_ID
+        or _require_object(region.get("region_map"), "replay region map").get("sha256")
+        != reference.case["approved_region_map"]["sha256"]
+    ):
+        raise ValueError("replay region-map evidence differs from the frozen reference case")
+    replay_region_approval_binding = _require_object(
+        region.get("approval_record"), "replay region-map approval"
+    )
+    replay_region_approval_path = _resolve_record(
+        resolved, replay_region_approval_binding, "replay region-map approval"
+    )
+    if _load_json(replay_region_approval_path, "replay region-map approval") != (
+        _region_approval_for_replay(reference)
+    ):
+        raise ValueError(
+            "replay region-map approval is not the provenance-normalized frozen record"
+        )
+
+    delivery = _require_object(state.get("delivery"), "replay delivery")
+    if delivery.get("case_id") != CASE_ID or delivery.get("delivery_revision") != DELIVERY_REVISION:
+        raise ValueError("replay delivery has the wrong case or delivery revision")
+    expected_records = {
+        **{
+            key: reference.artifact_manifest["artifacts"][key]
+            for key in ARTIFACT_KEYS
+        },
+        "validation_report": reference.artifact_manifest["validation_report"],
+        "artifact_manifest": reference.case["artifact_manifest"],
+    }
+    for key, expected in expected_records.items():
+        observed = _require_object(delivery.get(key), f"replay delivery {key}")
+        if any(observed.get(field) != expected.get(field) for field in ("path", "sha256")):
+            raise ValueError(f"replay delivery {key} differs from the frozen manifest")
+
+    visual = _require_object(state.get("visual_approval"), "replay visual approval")
+    if visual.get("sha256") != reference.case["approvals"]["visual"]["sha256"]:
+        raise ValueError("replay visual approval differs from the frozen reference case")
+    return resolved, state
+
+
+def _label_validation_target(
+    report: Mapping[str, Any], replay_state: Mapping[str, Any] | None
+) -> dict[str, Any]:
+    """Add CLI-only target metadata without changing the frozen validation report."""
+    result = dict(report)
+    result["validation_target"] = (
+        "replay_run" if replay_state is not None else "canonical_reference_case"
+    )
+    if replay_state is not None:
+        result.update(
+            {
+                "run_id": replay_state.get("run_id"),
+                "workflow_stage": replay_state.get("stage"),
+                "workflow_revision": replay_state.get("revision"),
+                "workflow_revision_meaning": (
+                    "append-only ledger event count for this replay run; "
+                    "not the reference-case delivery-history sequence"
+                ),
+            }
+        )
+    return result
 
 
 def _copy_tree_contents_exclusive(source: Path, destination: Path) -> None:
@@ -726,11 +918,15 @@ def replay_reference_case(example_root: str | Path, output_dir: str | Path) -> d
         run_dir,
         reference.paths["candidate_selection"],
     )
-    state = imagegen_workflow.register_region_map_approval(
-        run_dir,
-        region_map=reference.paths["region_map"],
-        approval_record=reference.paths["region_map_approval"],
-    )
+    normalized_region_approval = _region_approval_for_replay(reference)
+    with tempfile.TemporaryDirectory(prefix="sketch-reference-replay-approval-") as temporary:
+        normalized_approval_path = Path(temporary) / "region_map_approval.json"
+        _write_json_exclusive(normalized_approval_path, normalized_region_approval)
+        state = imagegen_workflow.register_region_map_approval(
+            run_dir,
+            region_map=reference.paths["region_map"],
+            approval_record=normalized_approval_path,
+        )
 
     _copy_tree_contents_exclusive(reference.paths["package_root"], run_dir)
     candidate_record = next(item for item in state["candidate_pool"] if item["slot"] == SELECTED_SLOT)
@@ -762,7 +958,8 @@ def replay_reference_case(example_root: str | Path, output_dir: str | Path) -> d
     state = imagegen_workflow.register_visual_approval(
         run_dir, reference.paths["visual_approval"]
     )
-    status = build_status(reference)
+    _, state = inspect_replay_run(reference, run_dir)
+    status = build_status(reference, replay_state=state)
     readiness = {
         "schema_version": "1.0",
         "report_type": "reference_case_replay_readiness",
@@ -773,6 +970,8 @@ def replay_reference_case(example_root: str | Path, output_dir: str | Path) -> d
         "canonical_modified": False,
         "workflow_stage": state.get("stage"),
         "workflow_revision": state.get("revision"),
+        "workflow_revision_meaning": status["workflow_revision_meaning"],
+        "validation_target": "replay_run",
         "structural_validation": {
             "status": report["status"],
             "overall_pass": report["overall_pass"],
@@ -816,6 +1015,14 @@ def build_parser() -> argparse.ArgumentParser:
     for name in ("validate", "status"):
         command = subparsers.add_parser(name)
         command.add_argument("--example-root", type=Path, default=DEFAULT_EXAMPLE_ROOT)
+        command.add_argument(
+            "--run-dir",
+            type=Path,
+            help=(
+                "Verify a completed external replay directory instead of only the "
+                "checked-in canonical reference case"
+            ),
+        )
         if name == "validate":
             command.add_argument("--report", type=Path)
     replay = subparsers.add_parser("replay")
@@ -831,10 +1038,18 @@ def main(argv: Sequence[str] | None = None) -> int:
             result = replay_reference_case(args.example_root, args.output_dir)
         else:
             reference = inspect_reference_case(args.example_root)
+            run_root: Path | None = None
+            run_state: dict[str, Any] | None = None
+            if args.run_dir is not None:
+                run_root, run_state = inspect_replay_run(reference, args.run_dir)
             if args.command == "status":
-                result = build_status(reference)
+                result = build_status(reference, replay_state=run_state)
             else:
-                result = build_validation_report(reference)
+                report = build_validation_report(
+                    reference,
+                    package_root=run_root,
+                )
+                result = _label_validation_target(report, run_state)
                 if args.report is not None:
                     report_path = _require_external_output(
                         args.report, reference.example_root, "validation report"

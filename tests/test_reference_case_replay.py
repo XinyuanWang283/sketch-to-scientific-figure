@@ -6,9 +6,12 @@ import shutil
 import sys
 import tempfile
 import unittest
-from contextlib import redirect_stdout
+from collections.abc import Callable
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 from unittest import mock
+
+from PIL import Image
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,6 +38,18 @@ def record(root: Path, path: Path) -> dict[str, str]:
     }
 
 
+def rewrite_ledger_states(
+    run_dir: Path, mutation: Callable[[dict[str, object]], None]
+) -> None:
+    paths = [run_dir / "imagegen_workflow_state.json"] + sorted(
+        (run_dir / "ledger" / "state_history").glob("*.json")
+    )
+    for path in paths:
+        state = json.loads(path.read_text(encoding="utf-8"))
+        mutation(state)
+        write_json(path, state)
+
+
 class Fixture:
     def __init__(self, root: Path) -> None:
         self.root = root
@@ -53,7 +68,11 @@ class Fixture:
         for index, (slot, candidate_id) in enumerate(replay.EXPECTED_CANDIDATES.items()):
             path = self.root / "candidates" / f"{candidate_id}.png"
             path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_bytes(f"candidate-{slot}".encode())
+            Image.new(
+                "RGB",
+                (32, 20),
+                (40 + index * 30, 80, 160),
+            ).save(path, format="PNG")
             binding = record(self.root, path)
             candidates.append(
                 {
@@ -106,6 +125,7 @@ class Fixture:
                 "recipe_id": replay.RECIPE_ID,
                 "operator": "fixture operator",
                 "approved_at": "2026-08-29T00:00:00+00:00",
+                "approval_basis": "explicit synthetic fixture approval",
                 "scientific_approval_created": False,
             },
         )
@@ -420,6 +440,11 @@ class ReferenceCaseReplayTests(unittest.TestCase):
                     fake.register_visual_approval,
                     create=True,
                 ),
+                mock.patch.object(
+                    replay,
+                    "inspect_replay_run",
+                    side_effect=lambda *_args, **_kwargs: (output.resolve(), fake.state),
+                ),
             ):
                 readiness = replay.replay_reference_case(fixture.root, output)
             self.assertEqual(
@@ -490,6 +515,197 @@ class ReferenceCaseReplayTests(unittest.TestCase):
             self.assertEqual(status["approvals"]["scientific"]["status"], "PENDING")
             self.assertEqual(status["approvals"]["science_day_use"]["status"], "PENDING")
             self.assertEqual(status["approvals"]["public_release"]["status"], "PENDING")
+            self.assertEqual(status["status_target"], "canonical_reference_case")
+
+    def test_validate_and_status_can_target_the_fresh_replay_run(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="reference-replay-target-") as temporary:
+            parent = Path(temporary)
+            fixture = self.make_fixture(parent)
+            output = parent / "external-run"
+            with mock.patch.object(
+                replay, "validate_package", side_effect=passing_package_report
+            ):
+                replay.replay_reference_case(fixture.root, output)
+
+                validate_output = io.StringIO()
+                with redirect_stdout(validate_output):
+                    validate_code = replay.main(
+                        [
+                            "validate",
+                            "--example-root",
+                            str(fixture.root),
+                            "--run-dir",
+                            str(output),
+                        ]
+                    )
+                self.assertEqual(validate_code, 0)
+                validation = json.loads(validate_output.getvalue())
+                self.assertEqual(validation["validation_target"], "replay_run")
+                self.assertEqual(validation["workflow_stage"], "VISUAL_APPROVED")
+                self.assertEqual(validation["workflow_revision"], 6)
+                self.assertIn("ledger event count", validation["workflow_revision_meaning"])
+
+                status_output = io.StringIO()
+                with redirect_stdout(status_output):
+                    status_code = replay.main(
+                        [
+                            "status",
+                            "--example-root",
+                            str(fixture.root),
+                            "--run-dir",
+                            str(output),
+                        ]
+                    )
+                self.assertEqual(status_code, 0)
+                status = json.loads(status_output.getvalue())
+                self.assertEqual(status["status_target"], "replay_run")
+                self.assertEqual(status["workflow_revision"], 6)
+                self.assertEqual(status["approvals"]["scientific"]["status"], "PENDING")
+
+                normalized_approval = json.loads(
+                    (output / "approvals" / "region_map_approval.json").read_text(
+                        encoding="utf-8"
+                    )
+                )
+                self.assertEqual(
+                    normalized_approval["provenance"],
+                    normalized_approval["approval_basis"],
+                )
+                self.assertEqual(
+                    normalized_approval["provenance_source"]["source_record_sha256"],
+                    fixture.case["approved_region_map"]["approval_record"]["sha256"],  # type: ignore[index]
+                )
+
+                (output / replay.EXPECTED_ARTIFACT_PATHS["svg"]).write_text(
+                    "<svg xmlns='http://www.w3.org/2000/svg'/>",
+                    encoding="utf-8",
+                )
+                failure_output = io.StringIO()
+                with redirect_stderr(failure_output):
+                    self.assertEqual(
+                        replay.main(
+                            [
+                                "validate",
+                                "--example-root",
+                                str(fixture.root),
+                                "--run-dir",
+                                str(output),
+                            ]
+                        ),
+                        2,
+                    )
+                self.assertIn("no longer matches", failure_output.getvalue())
+
+    def test_replay_run_is_bound_to_every_frozen_input(self) -> None:
+        cases = (
+            ("sketch", "source sketch differs"),
+            ("clarification", "clarification differs"),
+            ("candidate_a", "candidate A sha256 differs"),
+            ("generation_event", "candidate A generation_event_id differs"),
+        )
+        for mode, expected in cases:
+            with self.subTest(mode=mode), tempfile.TemporaryDirectory(
+                prefix=f"reference-replay-complete-binding-{mode}-"
+            ) as temporary:
+                parent = Path(temporary)
+                fixture = self.make_fixture(parent)
+                output = parent / "external-run"
+                with mock.patch.object(
+                    replay, "validate_package", side_effect=passing_package_report
+                ):
+                    replay.replay_reference_case(fixture.root, output)
+                reference = replay.inspect_reference_case(fixture.root)
+
+                if mode == "sketch":
+                    current = json.loads(
+                        (output / "imagegen_workflow_state.json").read_text(
+                            encoding="utf-8"
+                        )
+                    )
+                    sketch_path = output / current["sketch"]["path"]
+                    sketch_path.write_bytes(b"coherently rebound but not frozen sketch")
+                    replacement = replay.sha256_file(sketch_path)
+
+                    def mutate(state: dict[str, object]) -> None:
+                        state["sketch"]["sha256"] = replacement  # type: ignore[index]
+
+                elif mode == "clarification":
+
+                    def mutate(state: dict[str, object]) -> None:
+                        state["clarification"]["brief"] = (  # type: ignore[index]
+                            "Coherently rebound but not frozen clarification.\n"
+                        )
+
+                elif mode == "candidate_a":
+                    candidate_path = output / "ledger" / "candidates" / "A.png"
+                    Image.new("RGB", (32, 20), (1, 2, 3)).save(
+                        candidate_path, format="PNG"
+                    )
+                    replacement = replay.sha256_file(candidate_path)
+
+                    def mutate(state: dict[str, object]) -> None:
+                        for item in state.get("candidate_pool", []):  # type: ignore[union-attr]
+                            if item["slot"] == "A":
+                                item["sha256"] = replacement
+                        packet = state.get("selection_packet")
+                        if isinstance(packet, dict):
+                            for item in packet["candidates"]:
+                                if item["slot"] == "A":
+                                    item["sha256"] = replacement
+
+                else:
+
+                    def mutate(state: dict[str, object]) -> None:
+                        for item in state.get("candidate_pool", []):  # type: ignore[union-attr]
+                            if item["slot"] == "A":
+                                item["generation_event_id"] = "coherently-rebound-event-A"
+                        packet = state.get("selection_packet")
+                        if isinstance(packet, dict):
+                            for item in packet["candidates"]:
+                                if item["slot"] == "A":
+                                    item["generation_event_id"] = (
+                                        "coherently-rebound-event-A"
+                                    )
+
+                rewrite_ledger_states(output, mutate)
+                replay.imagegen_workflow.load_state(output)
+                with self.assertRaisesRegex(ValueError, expected):
+                    replay.inspect_replay_run(reference, output)
+
+    def test_output_and_report_paths_inside_public_repository_are_rejected(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="reference-replay-output-root-") as temporary:
+            fixture = self.make_fixture(Path(temporary))
+            for label, path in (
+                ("replay output-dir", ROOT / "would-be-replay-output"),
+                ("validation report", ROOT / "would-be-validation-report.json"),
+            ):
+                with self.subTest(label=label):
+                    with self.assertRaisesRegex(
+                        ValueError, "outside the public repository root"
+                    ):
+                        replay._require_external_output(path, fixture.root, label)
+
+            link = Path(temporary) / "repository-link"
+            link.symlink_to(ROOT, target_is_directory=True)
+            with self.assertRaisesRegex(ValueError, "outside the public repository root"):
+                replay._require_external_output(
+                    link / "would-be-output", fixture.root, "replay output-dir"
+                )
+
+            with self.assertRaisesRegex(ValueError, "supplied example root"):
+                replay._require_external_output(
+                    fixture.root / "would-be-output",
+                    fixture.root,
+                    "replay output-dir",
+                )
+            example_link = Path(temporary) / "example-link"
+            example_link.symlink_to(fixture.root, target_is_directory=True)
+            with self.assertRaisesRegex(ValueError, "supplied example root"):
+                replay._require_external_output(
+                    example_link / "would-be-output",
+                    fixture.root,
+                    "replay output-dir",
+                )
 
     def test_bare_human_approval_statuses_fail_closed(self) -> None:
         for approval_key in ("scientific", "science_day_use", "public_release"):

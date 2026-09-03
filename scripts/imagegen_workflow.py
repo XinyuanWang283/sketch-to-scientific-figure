@@ -34,6 +34,11 @@ PROVENANCE_ASSURANCE = "operator_attested_not_independently_verified"
 PDF_ROLE = "preview_export_not_editable_source"
 VALIDATION_SCOPE = "passing_structural_report_and_artifact_manifest_hash_bound"
 SHA256_PATTERN = re.compile(r"^[a-f0-9]{64}$")
+COMBINATION_REQUIRES_NEW_RUN = (
+    "v0.1 cannot approve a mixed candidate for editable reconstruction. "
+    "Create a new append-only proposal run that renders the requested combination "
+    "into one A-E slot, then approve that exact hash-bound candidate."
+)
 
 CANDIDATE_DIRECTIONS: tuple[tuple[str, str, str], ...] = (
     ("A", "A-faithful", "faithful"),
@@ -74,10 +79,44 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def require_text(value: str | None, label: str) -> str:
-    if value is None or not value.strip():
+def require_text(value: Any, label: str) -> str:
+    if not isinstance(value, str) or not value.strip():
         raise ValueError(f"{label} must be a non-empty human-readable string")
     return value.strip()
+
+
+def require_approval_timestamp(value: Any, label: str) -> str:
+    """Require a parseable, timezone-aware ISO-8601 approval timestamp."""
+    raw = require_text(value, label)
+    normalized = raw[:-1] + "+00:00" if raw.endswith("Z") else raw
+    try:
+        parsed = datetime.fromisoformat(normalized)
+    except ValueError as exc:
+        raise ValueError(f"{label} must be a timezone-aware ISO-8601 timestamp") from exc
+    if parsed.tzinfo is None or parsed.utcoffset() is None:
+        raise ValueError(f"{label} must be a timezone-aware ISO-8601 timestamp")
+    return raw
+
+
+def require_approval_metadata(
+    approval: Mapping[str, Any],
+    label: str,
+    *,
+    allow_legacy_approval_basis: bool = False,
+) -> tuple[str, str, str]:
+    """Validate the human and provenance fields on an imported approval record."""
+    operator = require_text(approval.get("operator"), f"{label} operator")
+    approved_at = require_approval_timestamp(
+        approval.get("approved_at"), f"{label} approved_at"
+    )
+    provenance_value = approval.get("provenance")
+    if provenance_value is None and allow_legacy_approval_basis:
+        # The frozen v0.1 region approval predates the current field name.  Its
+        # non-empty approval_basis carries the same operator-attested provenance
+        # without changing the immutable source record.
+        provenance_value = approval.get("approval_basis")
+    provenance = require_text(provenance_value, f"{label} provenance")
+    return operator, approved_at, provenance
 
 
 def require_existing_file(path: str | Path, label: str) -> Path:
@@ -485,6 +524,10 @@ def assert_state_invariants(
                 approval_record, "region-map approval", run_dir=run_dir
             )
             approval = read_json(approval_path, "region-map approval")
+            require_approval_metadata(
+                approval,
+                "region-map approval",
+            )
             if (
                 approval.get("decision") != "APPROVE_REGION_MAP_FOR_RECONSTRUCTION"
                 or approval.get("case_id") != case_id
@@ -544,6 +587,7 @@ def assert_state_invariants(
                 visual_approval, "visual delivery approval", run_dir=run_dir
             )
             visual = read_json(visual_path, "visual delivery approval")
+            require_approval_metadata(visual, "visual approval")
             if (
                 visual.get("decision") != "APPROVE_VISUAL_DELIVERY"
                 or visual.get("case_id") != delivery.get("case_id")
@@ -849,8 +893,9 @@ def register_candidates(
     state["selection_packet"] = {
         "status": "awaiting_operator_selection",
         "instructions": (
-            "Select one exact candidate, or explicitly combine one layout source with one "
-            "visual-style source; confirm every selected SHA-256 binding."
+            "Select one exact hash-bound candidate. If a mixed layout/style direction is "
+            "needed, create a new append-only proposal run that renders the combination "
+            "into one A-E slot before approval."
         ),
         "candidates": deepcopy(pool),
     }
@@ -987,32 +1032,6 @@ def register_candidate_selection_approval(
     )
 
 
-def _resolve_combination_source(
-    state: Mapping[str, Any],
-    slot: str,
-    candidate_id: str,
-    candidate_sha256: str,
-    label: str,
-) -> tuple[dict[str, str], Mapping[str, Any]]:
-    selected_slot = require_text(slot, f"{label} slot").upper()
-    selected_id = require_text(candidate_id, f"{label} candidate ID")
-    selected_hash = require_text(candidate_sha256, f"{label} SHA-256").lower()
-    if SHA256_PATTERN.fullmatch(selected_hash) is None:
-        raise ValueError(f"{label} SHA-256 must be a lowercase 64-character digest")
-    registered = _candidate_map(state).get(selected_slot)
-    if registered is None:
-        raise ValueError(f"{label} slot is not registered: {selected_slot}")
-    if registered["candidate_id"] != selected_id:
-        raise ValueError(f"{label} ID does not match the exact registered slot")
-    if registered["sha256"] != selected_hash:
-        raise ValueError(f"{label} SHA-256 does not match the registered artifact")
-    return {
-        "slot": selected_slot,
-        "candidate_id": selected_id,
-        "sha256": selected_hash,
-    }, registered
-
-
 def select_combination(
     run_dir: str | Path,
     layout_slot: str,
@@ -1023,69 +1042,20 @@ def select_combination(
     visual_style_sha256: str,
     operator: str,
 ) -> dict[str, Any]:
-    """Approve a hash-bound layout/style combination without granting final approval."""
-    resolved_run, state = load_state(run_dir)
+    """Reject mixed-source approval; v0.1 reconstructs one exact candidate only."""
+    _, state = load_state(run_dir)
     if state["stage"] != "CANDIDATES_REGISTERED":
         raise ValueError("combination selection requires a complete five-candidate pool")
-    selected_operator = require_text(operator, "selection operator")
-    layout_source, registered_layout = _resolve_combination_source(
-        state,
+    del (
         layout_slot,
         layout_candidate_id,
         layout_sha256,
-        "layout source",
-    )
-    visual_style_source, registered_style = _resolve_combination_source(
-        state,
         visual_style_slot,
         visual_style_candidate_id,
         visual_style_sha256,
-        "visual style source",
+        operator,
     )
-
-    approval_path = resolved_run / CANDIDATE_APPROVAL_PATH
-    approval = {
-        "schema_version": "1.1",
-        "decision": "APPROVE_IMAGEGEN_COMBINATION",
-        "operator": selected_operator,
-        "approved_at": utc_now(),
-        "layout_source": {
-            **layout_source,
-            "generation_event_id": registered_layout["generation_event_id"],
-            "provenance_assurance": registered_layout["provenance_assurance"],
-        },
-        "visual_style_source": {
-            **visual_style_source,
-            "generation_event_id": registered_style["generation_event_id"],
-            "provenance_assurance": registered_style["provenance_assurance"],
-        },
-    }
-    write_json_exclusive(approval_path, approval)
-    state["selected_candidate"] = None
-    state["selected_combination"] = {
-        "layout_source": layout_source,
-        "visual_style_source": visual_style_source,
-        "operator": selected_operator,
-    }
-    state["candidate_selection_approval"] = artifact_record(
-        approval_path, relative_base=resolved_run
-    )
-    state["selection_packet"]["status"] = "resolved"
-    state["selection_packet"]["selected_slots"] = {
-        "layout_source": layout_source["slot"],
-        "visual_style_source": visual_style_source["slot"],
-    }
-    state["stage"] = "CANDIDATE_APPROVED"
-    return advance_state(
-        resolved_run,
-        state,
-        "candidate_combination_explicitly_approved",
-        layout_slot=layout_source["slot"],
-        layout_candidate_id=layout_source["candidate_id"],
-        visual_style_slot=visual_style_source["slot"],
-        visual_style_candidate_id=visual_style_source["candidate_id"],
-        operator=selected_operator,
-    )
+    raise ValueError(COMBINATION_REQUIRES_NEW_RUN)
 
 
 def _delivery_record(run_dir: Path, path: str | Path, label: str, extensions: set[str]) -> dict[str, str]:
@@ -1107,10 +1077,14 @@ def register_region_map_approval(
     if state["stage"] != "CANDIDATE_APPROVED":
         raise ValueError("region-map approval requires an explicitly approved candidate")
     if not isinstance(state.get("selected_candidate"), Mapping):
-        raise ValueError("v0.1 region-map approval supports one exact selected candidate")
+        raise ValueError(COMBINATION_REQUIRES_NEW_RUN)
     source_map = require_existing_file(region_map, "approved region map")
     source_approval = require_existing_file(approval_record, "region-map approval record")
     approval = read_json(source_approval, "region-map approval record")
+    operator, approved_at, provenance = require_approval_metadata(
+        approval,
+        "region-map approval",
+    )
     selected = state["selected_candidate"]
     selected_binding = approval.get("selected_candidate")
     if approval.get("decision") != "APPROVE_REGION_MAP_FOR_RECONSTRUCTION":
@@ -1153,7 +1127,9 @@ def register_region_map_approval(
         "region_map_explicitly_approved",
         case_id=case_id,
         delivery_revision=delivery_revision,
-        operator=approval.get("operator"),
+        operator=operator,
+        approved_at=approved_at,
+        provenance=provenance,
     )
 
 
@@ -1449,6 +1425,9 @@ def register_visual_approval(
         raise ValueError("visual approval requires a structurally registered delivery")
     source = require_existing_file(approval_record, "visual approval record")
     approval = read_json(source, "visual approval record")
+    operator, approved_at, provenance = require_approval_metadata(
+        approval, "visual approval"
+    )
     delivery = state["delivery"]
     if (
         approval.get("decision") != "APPROVE_VISUAL_DELIVERY"
@@ -1470,7 +1449,9 @@ def register_visual_approval(
         resolved_run,
         state,
         "visual_delivery_explicitly_approved",
-        operator=approval.get("operator"),
+        operator=operator,
+        approved_at=approved_at,
+        provenance=provenance,
         artifact_manifest_sha256=approval.get("artifact_manifest_sha256"),
     )
 
@@ -1568,7 +1549,10 @@ def build_parser() -> argparse.ArgumentParser:
 
     combination = subparsers.add_parser(
         "select-combination",
-        help="Explicitly approve a hash-bound layout source and visual-style source",
+        help=(
+            "Reject mixed-source approval in v0.1 and direct the operator to a new "
+            "append-only proposal run"
+        ),
     )
     combination.add_argument("--run-dir", type=Path, required=True)
     combination.add_argument(

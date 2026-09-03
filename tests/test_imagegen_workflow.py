@@ -108,6 +108,8 @@ class ImageGenWorkflowTests(unittest.TestCase):
                     },
                     "region_map_sha256": workflow.sha256_file(region_map),
                     "operator": "researcher@example.test",
+                    "approved_at": "2026-09-03T10:00:00+00:00",
+                    "provenance": "explicit synthetic test approval",
                     "scientific_approval_created": False,
                 }
             ),
@@ -211,6 +213,8 @@ class ImageGenWorkflowTests(unittest.TestCase):
                     "delivery_revision": state["delivery"]["delivery_revision"],  # type: ignore[index]
                     "artifact_manifest_sha256": state["delivery"]["artifact_manifest"]["sha256"],  # type: ignore[index]
                     "operator": "researcher@example.test",
+                    "approved_at": "2026-09-03T10:01:00+00:00",
+                    "provenance": "explicit synthetic test approval",
                     "scientific_approval_created": False,
                     "science_day_use_approval_created": False,
                     "public_release_approval_created": False,
@@ -481,54 +485,27 @@ class ImageGenWorkflowTests(unittest.TestCase):
                 )
             self.assertFalse((run_dir / workflow.CANDIDATE_APPROVAL_PATH).exists())
 
-    def test_combination_selection_binds_layout_and_visual_style_separately(self) -> None:
+    def test_combination_selection_is_rejected_without_advancing_state(self) -> None:
         with tempfile.TemporaryDirectory(prefix="imagegen-ledger-combination-") as temporary:
             root = Path(temporary)
             run_dir, _ = self.initialize(root)
             state = self.register_pool(root, run_dir)
 
-            state = self.select_d_layout_c_style(run_dir, state)
+            with self.assertRaisesRegex(ValueError, "new append-only proposal run"):
+                self.select_d_layout_c_style(run_dir, state)
 
-            self.assertEqual(state["stage"], "CANDIDATE_APPROVED")
-            self.assertIsNone(state["selected_candidate"])
-            combination = state["selected_combination"]
-            self.assertEqual(combination["layout_source"]["slot"], "D")  # type: ignore[index]
-            self.assertEqual(
-                combination["layout_source"]["candidate_id"],  # type: ignore[index]
-                "D-alternative-layout",
-            )
-            self.assertEqual(combination["visual_style_source"]["slot"], "C")  # type: ignore[index]
-            self.assertEqual(
-                combination["visual_style_source"]["candidate_id"],  # type: ignore[index]
-                "C-presentation",
-            )
-            packet = state["selection_packet"]
-            self.assertEqual(
-                packet["selected_slots"],  # type: ignore[index]
-                {"layout_source": "D", "visual_style_source": "C"},
+            self.assertFalse((run_dir / workflow.CANDIDATE_APPROVAL_PATH).exists())
+            _, reloaded = workflow.load_state(run_dir)
+            self.assertEqual(reloaded["stage"], "CANDIDATES_REGISTERED")
+            self.assertIsNone(reloaded["selected_candidate"])
+            self.assertIsNone(reloaded["selected_combination"])
+            self.assertEqual(reloaded["selection_packet"]["status"], "awaiting_operator_selection")
+            self.assertIn(
+                "one exact hash-bound candidate",
+                reloaded["selection_packet"]["instructions"],
             )
 
-            approval_path = run_dir / workflow.CANDIDATE_APPROVAL_PATH
-            approval = json.loads(approval_path.read_text(encoding="utf-8"))
-            self.assertEqual(approval["decision"], "APPROVE_IMAGEGEN_COMBINATION")
-            self.assertEqual(approval["layout_source"]["sha256"], combination["layout_source"]["sha256"])  # type: ignore[index]
-            self.assertEqual(
-                approval["visual_style_source"]["sha256"],
-                combination["visual_style_source"]["sha256"],  # type: ignore[index]
-            )
-
-            region_map = root / "combination-region-map.json"
-            region_map.write_text("{}\n", encoding="utf-8")
-            region_approval = root / "combination-region-approval.json"
-            region_approval.write_text("{}\n", encoding="utf-8")
-            with self.assertRaisesRegex(ValueError, "supports one exact selected candidate"):
-                workflow.register_region_map_approval(
-                    run_dir,
-                    region_map=region_map,
-                    approval_record=region_approval,
-                )
-
-    def test_combination_selection_rejects_mismatched_source_bindings(self) -> None:
+    def test_combination_rejection_is_not_bypassed_by_malformed_bindings(self) -> None:
         with tempfile.TemporaryDirectory(prefix="imagegen-ledger-combination-invalid-") as temporary:
             root = Path(temporary)
             run_dir, _ = self.initialize(root)
@@ -536,7 +513,7 @@ class ImageGenWorkflowTests(unittest.TestCase):
             presentation = state["candidate_pool"][2]  # type: ignore[index]
             alternative_layout = state["candidate_pool"][3]  # type: ignore[index]
 
-            with self.assertRaisesRegex(ValueError, "layout source SHA-256 does not match"):
+            with self.assertRaisesRegex(ValueError, "new append-only proposal run"):
                 workflow.select_combination(
                     run_dir,
                     "D",
@@ -547,7 +524,7 @@ class ImageGenWorkflowTests(unittest.TestCase):
                     presentation["sha256"],  # type: ignore[index]
                     "researcher@example.test",
                 )
-            with self.assertRaisesRegex(ValueError, "visual style source ID does not match"):
+            with self.assertRaisesRegex(ValueError, "new append-only proposal run"):
                 workflow.select_combination(
                     run_dir,
                     "D",
@@ -734,6 +711,9 @@ class ImageGenWorkflowTests(unittest.TestCase):
                             for key in ("slot", "candidate_id", "sha256")
                         },
                         "region_map_sha256": "0" * 64,
+                        "operator": "researcher@example.test",
+                        "approved_at": "2026-09-03T10:00:00+00:00",
+                        "provenance": "explicit synthetic test approval",
                         "scientific_approval_created": False,
                     }
                 ),
@@ -745,6 +725,97 @@ class ImageGenWorkflowTests(unittest.TestCase):
                     region_map=region_map,
                     approval_record=approval,
                 )
+
+    def test_region_map_approval_requires_human_provenance_metadata(self) -> None:
+        mutations = {
+            "operator": ("", "operator.*non-empty"),
+            "approved_at": ("not-a-time", "timezone-aware ISO-8601"),
+            "approved_at_without_timezone": (
+                "2026-09-03T10:00:00",
+                "timezone-aware ISO-8601",
+            ),
+            "provenance": ("", "provenance.*non-empty"),
+            "legacy_approval_basis_only": (
+                "legacy provenance text",
+                "provenance.*non-empty",
+            ),
+        }
+        for label, (replacement, expected) in mutations.items():
+            with self.subTest(field=label), tempfile.TemporaryDirectory(
+                prefix=f"imagegen-ledger-region-metadata-{label}-"
+            ) as temporary:
+                root = Path(temporary)
+                run_dir, _ = self.initialize(root)
+                state = self.register_pool(root, run_dir)
+                state = self.select_publication(run_dir, state)
+                region_map = root / "region-map.json"
+                region_map.write_text("{}\n", encoding="utf-8")
+                approval = {
+                    "decision": "APPROVE_REGION_MAP_FOR_RECONSTRUCTION",
+                    "case_id": "test-case",
+                    "delivery_revision": "test-revision",
+                    "recipe_id": "test-recipe",
+                    "selected_candidate": {
+                        key: state["selected_candidate"][key]  # type: ignore[index]
+                        for key in ("slot", "candidate_id", "sha256")
+                    },
+                    "region_map_sha256": workflow.sha256_file(region_map),
+                    "operator": "researcher@example.test",
+                    "approved_at": "2026-09-03T10:00:00+00:00",
+                    "provenance": "explicit synthetic test approval",
+                    "scientific_approval_created": False,
+                }
+                if label == "legacy_approval_basis_only":
+                    approval.pop("provenance")
+                    approval["approval_basis"] = replacement
+                else:
+                    field = "approved_at" if label == "approved_at_without_timezone" else label
+                    approval[field] = replacement
+                approval_path = root / "region-approval.json"
+                approval_path.write_text(json.dumps(approval), encoding="utf-8")
+                with self.assertRaisesRegex(ValueError, expected):
+                    workflow.register_region_map_approval(
+                        run_dir,
+                        region_map=region_map,
+                        approval_record=approval_path,
+                    )
+                _, reloaded = workflow.load_state(run_dir)
+                self.assertEqual(reloaded["stage"], "CANDIDATE_APPROVED")
+
+    def test_visual_approval_requires_human_provenance_metadata(self) -> None:
+        mutations = {
+            "operator": ("", "operator.*non-empty"),
+            "approved_at": ("not-a-time", "timezone-aware ISO-8601"),
+            "provenance": ("", "provenance.*non-empty"),
+        }
+        for label, (replacement, expected) in mutations.items():
+            with self.subTest(field=label), tempfile.TemporaryDirectory(
+                prefix=f"imagegen-ledger-visual-metadata-{label}-"
+            ) as temporary:
+                root = Path(temporary)
+                run_dir, _ = self.initialize(root)
+                state = self.register_pool(root, run_dir)
+                self.select_publication(run_dir, state)
+                state = self.register_delivery(root, run_dir)
+                approval = {
+                    "decision": "APPROVE_VISUAL_DELIVERY",
+                    "case_id": state["delivery"]["case_id"],  # type: ignore[index]
+                    "delivery_revision": state["delivery"]["delivery_revision"],  # type: ignore[index]
+                    "artifact_manifest_sha256": state["delivery"]["artifact_manifest"]["sha256"],  # type: ignore[index]
+                    "operator": "researcher@example.test",
+                    "approved_at": "2026-09-03T10:01:00+00:00",
+                    "provenance": "explicit synthetic test approval",
+                    "scientific_approval_created": False,
+                    "science_day_use_approval_created": False,
+                    "public_release_approval_created": False,
+                }
+                approval[label] = replacement
+                approval_path = root / "visual-approval.json"
+                approval_path.write_text(json.dumps(approval), encoding="utf-8")
+                with self.assertRaisesRegex(ValueError, expected):
+                    workflow.register_visual_approval(run_dir, approval_path)
+                _, reloaded = workflow.load_state(run_dir)
+                self.assertEqual(reloaded["stage"], "DELIVERY_REGISTERED")
 
     def test_delivery_artifacts_must_be_inside_the_run(self) -> None:
         with tempfile.TemporaryDirectory(prefix="imagegen-ledger-scoped-delivery-") as temporary:
@@ -783,7 +854,7 @@ class ImageGenWorkflowTests(unittest.TestCase):
         )
         self.assertIn("pattern", schema["definitions"]["relative_path"])
 
-    def test_cli_exposes_hash_bound_combination_selection(self) -> None:
+    def test_cli_retains_combination_command_only_as_a_fail_closed_migration_path(self) -> None:
         args = workflow.build_parser().parse_args([
             "select-combination",
             "--run-dir", "/tmp/example-run",
