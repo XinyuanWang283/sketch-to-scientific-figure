@@ -1,17 +1,19 @@
 # Start here / 从这里开始
 
-## 当前默认流程
+## 这个项目是什么
 
-这个 repository-scoped Skill 帮科研人员把一张手绘科学草图先变成 **5 个可比较的视觉方向**，选定后再重建为可编辑科学图：
+这是一个由研究者控制的 Codex workflow：先把手绘科学草图转成五个视觉候选，再把研究者批准的一个精确候选重建成可编辑科学图。
 
-> 手绘草图 → Codex 聚焦提问 → 5 次分别调用内置 ImageGen → 研究者选择/修改 → 显式批准 → 原生可编辑 SVG/PPTX 重建 + experimental draw.io 结构视图 → PDF 预览 → 最终人工检查
+> 手绘草图 → 聚焦澄清 → 5 次分别调用内置 ImageGen → 研究者批准一个精确候选 → 分区映射 → 原生可编辑 SVG/PPTX → experimental draw.io 结构视图 → PDF 预览 → 自动结构检查 → 研究者最终决定
 
-**AI 提方案，科研人员做决定。** 你不需要先审查 structured interpretation、JSON、truth contract 或 deterministic skeleton。内部语义元数据只在选定候选后用于稳定重建和验证，不是用户前置作业。
+**Codex 提方案，重建工具做转换，自动检查验证可编程约束，科研人员做决定。**
 
-## 最快使用方法
+v0.1 提供可复用 workflow 和一个经过验证的 Deep Image Prior 参考案例；它不是适用于任意草图的通用转换器，也不保证跨草图重建效果。
 
-1. 在可使用内置图像生成的 Codex App 会话中打开本仓库，附上手绘草图。
-2. 说明必须精确保留的标签、公式、箭头含义或敏感内容边界。
+## 路径一：用于你自己的草图
+
+1. 在支持内置图像生成的 Codex App 会话中打开本仓库并附上草图。
+2. 说明必须精确保留的标签、公式、箭头含义，以及任何敏感或未发表内容边界。
 3. 调用：
 
 ```text
@@ -19,121 +21,79 @@ $sketch-to-scientific-figure
 ```
 
 4. Codex 先检查草图和已有对话，每轮只问 1–3 个真正会改变结果的问题，通常不超过两轮。
-5. 信息齐全后，Codex 用同一张草图和同一份简短自然语言 brief，分别调用 5 次内置 ImageGen。
-6. 你可以直接说 `Choose C`、`Revise C`、`Use C's layout with A's colors` 或 `Regenerate all five`。
-7. 只有在你明确批准一个方向后，才开始可编辑重建。
+5. 信息足够后，Codex 使用同一张草图和同一份短 brief，分别调用五次内置 ImageGen，得到 A–E 五张原图。
+6. 研究者批准其中一个精确候选，或要求生成新版本。
+7. Codex 建立候选哈希绑定的 region map；研究者检查科学拓扑和 raster 例外后明确批准。
+8. 重建工具生成 SVG、PPTX、draw.io 和 PDF，并执行结构检查。
+9. 研究者分别决定视觉效果、科学内容、演示使用和公开发布是否可以接受。
 
-默认 live 路径使用 **Codex 内置 ImageGen**，不要求你提供 `OPENAI_API_KEY`，也不由仓库 Python 代码伪装调用图像模型。
+五次调用是五个分开的生成事件；项目不声称它们具有统计独立性。默认 live 路径使用 Codex 内置 ImageGen，不要求 `OPENAI_API_KEY`，也不是由仓库 Python 代码调用图像模型。内置生成能力是否可用取决于 Codex 环境。
 
-## 固定的 5 个候选
+### 固定候选方向
 
-| 槽位 | 方向 | 主要目的 |
+| 槽位 | 方向 | 目的 |
 |---|---|---|
-| A | Faithful | 尽量保留手绘布局与识别特征，做专业化润色 |
+| A | Faithful | 保留草图的主要布局和识别特征 |
 | B | Publication | 紧凑、克制、适合论文图幅 |
-| C | Presentation | 强调层级与远距离可读性，适合 Science Day |
-| D | Alternative layout | 在不改变已确认科学关系的前提下重组构图 |
-| E | Visual variant | 保留内容和拓扑，尝试不同配色与图形语言 |
+| C | Presentation | 强化层级和远距离可读性 |
+| D | Alternative layout | 在不改变科学关系的前提下重组构图 |
+| E | Visual variant | 尝试不同配色和图形语言 |
 
-5 张必须来自 5 次分别调用，不能让 ImageGen 一次生成五联图。在 5 张原图都存在后，可以用本地代码组装仅供比较的 contact sheet。
+如果你说 `Revise C`，Codex 应生成并登记一个新的 C 版本，再让你检查。如果你说“用 C 的布局和 A 的颜色”，这只是新图的生成 brief，不是可以直接进入重建的 combination approval：必须先生成一张新的候选图，再批准其精确文件和哈希。若科学 brief 或整体方向发生实质变化，应开启新一轮 A–E。
 
-## 人工控制点
+## 路径二：离线重放参考案例
 
-1. **澄清**：你纠正会改变科学含义或画面结果的歧义；这是短对话，不是额外 approval gate。
-2. **候选决定**：你查看 A–E，可以选择、定向修改、组合两张的布局/配色，或全部重生。
-3. **最终检查**：你审查精确文字、公式、箭头方向、原生可编辑对象和目标软件中的外观。
-
-自动 validation 可以检查文件解析、对象、标签、连接和格式结构，但不能证明科学正确，也不会自动写入最终批准。PDF 只是 export/preview，不称为可编辑源。
-
-## 当前 Deep Image Prior 示例
-
-[`examples/deep_image_prior/`](examples/deep_image_prior/README.md) 收录了：
-
-- 你原创的手绘 Deep Image Prior 原理草图，不是根据某张 paper figure 仿画；
-- 本次对话得到的简短澄清 brief；
-- 5 次分别调用 Codex 内置 ImageGen 产生的 A–E 原图；
-- 候选文件哈希、调用记录和本地组装的对比图。
-
-你最初选择了 **D 的布局 + C 的视觉风格**，随后否决了该版本；只使用 **候选 C** 的第一版原生重绘也因视觉质感不足而被否决。后续 hybrid 虽保留了两个图像区域，但公式发生非等比拉伸，而且没有真正执行完整的分区映射。旧版本均作为决策历史保留，不再称为 current。当前 canonical 指针是 [`editable_delivery_c_fidelity_v2/`](examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md)：它绑定候选 C 的哈希和 8 区 map，保留两个无重采样、可替换 raster atom，并用原生/vector 对象重建网络层、框、两条 synthetic curve、箭头、标签和 9 个公式。
-
-公式以 [`source/equations.tex`](examples/deep_image_prior/editable_delivery_c_fidelity_v2/source/equations.tex) 为权威源，并由本地 LaTeX 渲染为保持原始宽高比的 vector equation objects。PPTX 和 SVG 中的结构对象可分别编辑；SVG 的两个 raster atom 使用 `delivery/svg/assets/` 下的相对 sidecar，必须与 `master.svg` 一起移动。两个 image atom 可整体替换，但不可逐像素编辑，也不是科学证据。draw.io 仅是 experimental topology view：官方 CLI 当前会把主要彩色区域渲染成黑块，并把 9 个公式显示为 raw LaTeX，因此不能作为视觉保真证据。PDF 只是 export/preview。
-
-当前 v0.1 已有一条绑定 frozen artifact-manifest SHA-256 的独立人工 visual approval；它不会随 rebuild 自动继承。checked-in governance fields 保留授权前 snapshot 的 `PENDING` 状态，而 annotated `v0.1.0` tag 另外记录了项目 owner 对该精确 tree 的 scientific content、Science Day use 和 public release 批准。自动 validation 只检查可编程的文件与连接结构，不能代替这些人工决定。完整边界见 [v0.1 reference case](examples/deep_image_prior/reference_case_v0_1.md)。
-
-## 冻结的 v0.1 离线参考路径
-
-从 repository root、Python 3.11+ 环境运行；replay 输出路径必须位于仓库外且尚不存在：
+从 repository root 使用 Python 3.11+：
 
 ```bash
 python -m pip install -r requirements.txt
-python scripts/replay_reference_case.py validate
 python scripts/replay_reference_case.py replay \
   --output-dir /tmp/sketch-figure-reference-v0-1
-python scripts/replay_reference_case.py status
+python scripts/replay_reference_case.py validate \
+  --run-dir /tmp/sketch-figure-reference-v0-1
+python scripts/replay_reference_case.py status \
+  --run-dir /tmp/sketch-figure-reference-v0-1
 ```
 
-如果系统默认 `python`/`python3` 低于 3.11，请在上述命令中统一换成已安装的 `python3.11` 或更新版本。
+如果默认 `python` 低于 3.11，请把四条命令统一换成可用的 `python3.11` 或更新版本。replay 输出目录必须位于仓库外且尚不存在。
 
-该路径不调用 ImageGen、网络或远程服务。预期 workflow stage 为 `VISUAL_APPROVED`；tag-level scientific、Science Day-use 和 public-release 批准不会被 replay 伪装成自动 validation 结果。完整现场讲解见 [Science Day demo guide](docs/science-day-demo.md)。
+这条路径只验证和复制冻结证据，不调用 ImageGen、网络或远程服务，也不会生成新的人工批准。预期 workflow stage 为 `VISUAL_APPROVED`。checked-in governance fields 保留冻结时的状态；annotated `v0.1.0` tag 另行记录该发布 tree 的 owner attestation。
 
-## 旧版 V3 离线适配器参考（非默认）
+## Deep Image Prior 参考案例
 
-以下内容保留用于回归测试和显式请求的 legacy contract-driven run。其 `scientific_truth.json`、blueprint、deterministic skeleton 和旧版 Gate 1/2 不是当前 Quick Start 的用户步骤。
+[`examples/deep_image_prior/`](examples/deep_image_prior/README.md) 包含：
 
-## 运行时产物
+- repository author 原创的手绘原理草图；
+- 简短澄清 brief；
+- 五次分别调用 Codex 内置 ImageGen 得到的 A–E 原图；
+- 候选哈希、generation-event records 和本地生成的 contact sheet；
+- Candidate C 的哈希绑定选择；
+- 研究者批准的八区 region map；
+- canonical [`editable_delivery_c_fidelity_v2/`](examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md)；
+- 结构验证和 hash-bound visual approval。
 
-- `scientific_truth.json`：稳定 ID、实体实例、关系、计数、符号、源文件哈希和禁止暗示；
-- `candidate_blueprint.json`：region、port、edge、rule ID、geometry 和 fingerprint；
-- `*_skeleton.svg/png`：从 blueprint 确定性渲染的结构参考；
-- `generation_brief.md`：350–500 词，只保留视觉消息、参考图角色、阻塞性视觉规则、art direction 和文字白名单；
-- `review_result.json`：把规则分成 image-level blocking、acceptable raster imperfection、must-fix in SVG、caption-only；
-- `selected_candidate_map.json`：只迁移构图和艺术方向，明确废弃生成文字/公式/连接线；
-- `svg_reconstruction_spec.json`：语义 SVG 的稳定对象、端口、连接和验证要求；
-- `validation_rules.json`：各阶段共享的 `rule_id` 注册表。
+Fidelity v2 只保留两个经批准、可独立替换的 synthetic raster atoms。网络层、框、曲线、箭头、标签和九个公式使用 native/vector objects 重建。公式的权威源是 LaTeX；输出中的 vector equation object 可缩放和整体编辑，但不等于语义层面的可编辑 LaTeX。
 
-## 执行流程
+SVG 和 PPTX 是本案例的主要可编辑输出。draw.io 包含可编辑 graph cells 和 directed edges，但其官方渲染仍有已知视觉缺陷，所以只称 experimental structural view。PDF 只称 export/preview。
 
-### 1. 建立并确认科学真值
+## 人工与自动化的边界
 
-使用 `prompts/00_scientific_figure_brief.md`。先处理来源冲突；不得用旧图或生成图覆盖当前方程。主论文方法图通常使用 `story-first` profile，最多展示两组关键方程；其余方程仍完整保存在 truth 或 caption 角色中。
+| 环节 | Codex / 工具做什么 | 研究者决定什么 |
+|---|---|---|
+| 澄清 | 找出会改变结果的歧义 | 科学含义、精确符号和边界 |
+| 候选 | 提出五个视觉方向 | 批准哪一个精确候选，或要求新版本 |
+| Region map | 草拟分区、对象和转换方式 | 拓扑是否正确、哪些 raster 例外可接受 |
+| 重建 | 生成原生对象和格式 | 视觉表达是否忠实且可用 |
+| Validation | 检查文件、对象、哈希、路径和基础拓扑 | 科学是否正确、是否可用于演示或公开发布 |
 
-### 2. 编译蓝图、规则和短 brief
+自动 validation 不能证明科学正确，也不会自动创建 visual、scientific、Science Day-use 或 public-release approval。
 
-每个 blueprint 用稳定 semantic IDs 绑定 truth instances，并显式记录 source port、target port、relation ID 和 rule IDs。编译器必须在生成前拒绝不完整引用、brief 越界和重复 fingerprint。
+## 更多信息
 
-### 3. 渲染确定性拓扑骨架
+- [English README](README.md)
+- [Technical reference](docs/technical_reference.md)
+- [Science Day demo guide](docs/science-day-demo.md)
+- [Reference-case evidence](examples/deep_image_prior/reference_case_v0_1.md)
+- [Asset provenance and licensing boundaries](ASSETS.md)
 
-从同一 scene 同时输出 SVG 与 PNG。骨架负责 major regions、cardinality、grouping、stage order、rough placement、fan-out/fan-in 和关键 transition；它不负责最终配色、装饰、长公式或 connector 美化。
-
-### 4. 在外部生成并注册 PNG（可选）
-
-若 operator 使用图像生成，每个候选应对应一次独立调用，只附带它自己的 skeleton 作为结构参考；可选第二张图只能作为 style-only reference。不得使用 contact sheet、上一候选上下文或相互竞争的结构参考。Repository runner 只注册 exact PNG bytes、SHA-256、call ID 和 Gate 1 bindings；它不调用 generator，也不独立验证 generator identity。
-
-### 5. 做宏观审查并停止过度修 raster
-
-PNG 必须通过 stage order、major counts、grouping、source/target relation、fan-out/fan-in 和禁止暗示等阻塞规则。精确文字、公式、索引、派生位置、port、端点和 routing 统一在 SVG 阶段重建。
-
-每个 blueprint 最多一次全局 regeneration；每个候选最多一次只影响样式的局部编辑。不得用局部 raster edit 修数量、阶段顺序、分组、source/target、fan-in/fan-out、centroid、公式、connector rewiring 或 backward multiplicity。同一拓扑错误重复出现时，修改 blueprint/skeleton 或淘汰候选。
-
-### 6. 确定性重建语义 SVG
-
-使用 `prompts/02_selected_proposal_to_svg.md`：
-
-- truth 决定内容、数量、符号和关系；
-- blueprint 决定语义拓扑与几何；
-- selected-candidate map 只决定 palette、stroke character、corner language、whitespace rhythm 和 glyph appearance。
-
-最终 SVG 必须有可解析 XML、唯一稳定 ID、语义 group、live text、显式 port、带 source/target/relation/rule metadata 的独立 connector、全局 style tokens，且不得把整张 PNG 包进 SVG。默认不使用 raster atoms；若你明确要求复用已选候选图的某个无标签区域，必须另外记录候选哈希、精确 bbox、review-draft-only decision 和 asset manifest，且最终 publication/scientific approval 继续留空。
-
-### 7. 结构检查并由研究者决定
-
-使用 `scripts/validate_figure_artifacts.py`、`scripts/validate_semantic_svg.py` 或 full delivery 的 `scripts/validate_delivery.py`。同时进行最终尺寸、灰度、公式隐藏和科学审阅。`VERIFIED` 仅表示可编程结构检查通过，不等于科学正确，也不会自动创建 Gate 3 approval。
-
-## 订阅边界与文件保护
-
-- 所有历史 run 只读保留；新实验使用新的 dated run directory。
-- 不凭空声称改进。没有跨案例数据、人工修正时长和最终选择时，结论只能是 preliminary 或 `INSUFFICIENT_EVIDENCE`。
-- Canonical source 是 truth、blueprint、规则和 semantic SVG，不是生成 PNG，也不是 Figma 回导文件。
-- Figma-ready SVG 的状态是 `IMPORT_READY_UNVERIFIED`，不能声称真实 Figma import 已验证。
-- PDF 是 vector export/preview，`semantic_editability=false`；canonical semantic JSON、LaTeX、SVG 与 PPTX 是主要可编辑源。只有通过对应 official-render 检查的 draw.io 才能扩大格式声明；当前 fidelity-v2 draw.io 仅是 experimental structural view。
-- 未经目标应用和科研内容审阅，不得把产物描述为 publication-ready 或 production-ready。
+旧版 V2/V3 contract-driven workflow 保存在不可变的 `v0.1.0` 发布历史中，不是当前 Skill 或 Quick Start 的执行说明。

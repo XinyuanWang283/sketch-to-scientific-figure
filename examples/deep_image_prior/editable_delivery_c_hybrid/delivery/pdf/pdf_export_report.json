@@ -1,9 +1,0 @@
-{
-  "status": "VERIFIED_HYBRID_PREVIEW",
-  "path": "delivery/pdf/publication.pdf",
-  "sha256": "936d2ffcbcbab76a62c71394efee16c41664a7bbb9342082755cb6d7d0afee6a",
-  "page_count": 1,
-  "role": "MIXED_MEDIA_PREVIEW_EXPORT",
-  "semantic_editability": false,
-  "scientific_validation": false
-}

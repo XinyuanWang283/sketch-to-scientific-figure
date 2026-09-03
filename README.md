@@ -21,13 +21,14 @@ Scientific figures are not ordinary image-generation tasks: a polished image can
 
 | Input | Codex does | Researcher decides | Output |
 |---|---|---|---|
-| A hand-drawn sketch plus exact labels, equations, or method notes | Asks only outcome-changing questions, then makes five separate built-in ImageGen calls | Corrects ambiguity, selects or revises a direction, approves its region map, and makes the final scientific decisions | Five PNG proposals, then case-specific editable SVG/PPTX, an experimental structural draw.io view, and a PDF export/preview |
+| A hand-drawn sketch plus exact labels, equations, or method notes | Asks only outcome-changing questions, then makes five separate built-in ImageGen calls | Corrects ambiguity, approves one exact rendered candidate or requests a new revision, approves its region map, and makes the final scientific decisions | Five PNG proposals, then case-specific editable SVG/PPTX, an experimental structural draw.io view, and a PDF export/preview |
 
 **AI proposes; the scientist decides.** Clarification is a short conversation, not a structured-interpretation form. The researcher never has to approve JSON before seeing a useful picture. Built-in ImageGen proposes five visual directions; the researcher chooses or requests changes; post-selection code reconstructs native objects and checks programmable structure.
 
 ```text
-sketch → focused clarification → five separate ImageGen calls → choose / revise
-       → explicit selection → approved region map → editable reconstruction
+sketch → focused clarification → five separate ImageGen calls
+       → approve one exact candidate / request a newly rendered revision
+       → hash-bound selection → approved region map → editable reconstruction
        → automated structural checks → separate researcher decisions
 ```
 
@@ -48,8 +49,10 @@ source /tmp/sketch-figure-v01-venv/bin/activate
 python -m pip install -r requirements.txt
 python scripts/replay_reference_case.py replay \
   --output-dir /tmp/sketch-figure-reference-v0-1
-python scripts/replay_reference_case.py validate
-python scripts/replay_reference_case.py status
+python scripts/replay_reference_case.py validate \
+  --run-dir /tmp/sketch-figure-reference-v0-1
+python scripts/replay_reference_case.py status \
+  --run-dir /tmp/sketch-figure-reference-v0-1
 ```
 
 If the default `python3` is older, replace it consistently with an installed supported interpreter such as `python3.11`.
@@ -95,7 +98,7 @@ For a 3–5 minute narrated walkthrough, full-runtime command, fallback path, an
 
 - A repository-scoped Codex skill that turns ambiguity into a short conversation instead of a user-facing JSON contract.
 - Exactly five active built-in ImageGen candidate slots with fixed A–E roles, initially populated by five separate generation calls.
-- Hash-bound candidate registration and explicit researcher selection or combination without pretending that Python invoked ImageGen.
+- Hash-bound candidate registration and explicit researcher approval of one exact candidate without pretending that Python invoked ImageGen. A revision or combination request must first become a newly rendered candidate in a new proposal run.
 - Hash-bound post-selection region mapping, followed by semantic reconstruction with stable IDs, live labels, equation metadata, explicit ports, and source/target connectors.
 - Independent adapters for SVG, Figma-ready SVG, PowerPoint, draw.io, and PDF exports.
 - Structural validation and regression tests that remain separate from scientific approval.
@@ -106,7 +109,7 @@ The [Deep Image Prior example](examples/deep_image_prior/README.md) uses an orig
 
 [![Five separately generated Deep Image Prior candidates](examples/deep_image_prior/candidate-comparison.png)](examples/deep_image_prior/README.md)
 
-The researcher first tried **D's layout with C's visual style**, rejected that reconstruction, and then selected **candidate C alone**. A first native-only C reconstruction was also rejected because it lost too much of C's visual quality. A later hybrid revealed an aspect-ratio defect and had skipped the required full region map. All revisions are preserved; the current review package first records eight Candidate C regions, then rebuilds the figure with two exact, replaceable image atoms and native/vector scientific structure.
+The researcher ultimately approved **candidate C alone** as the visual reference. Compact history capsules preserve earlier rejected attempts without making them part of the active path. The current review package records eight Candidate C regions, then rebuilds the figure with two exact, replaceable image atoms and native/vector scientific structure.
 
 [![Candidate C fidelity-v2 review draft](examples/deep_image_prior/editable_delivery_c_fidelity_v2/preview.png)](examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md)
 
@@ -138,7 +141,8 @@ hand-drawn sketch + prior conversation
  five separate built-in ImageGen calls
         A       B       C       D       E
                     │
-       researcher chooses / revises
+ researcher approves one exact candidate
+       or requests a new rendered revision
                     │
         explicit candidate approval
                     │
@@ -161,7 +165,7 @@ A candidate image is never scientific authority. It may influence composition, h
 | Built-in ImageGen | Five proposals from separate generation calls | Scientific authority, editable source, or candidate approval |
 | Reconstruction code | File/hash bindings, native objects, exports, and repeatable checks after selection | Judging whether a scientific claim is correct |
 | Programmable validation | XML/OOXML/PDF structure, IDs, relations, text/vector evidence, and report status | Scientific correctness, visual quality, or final approval |
-| Researcher/operator | Corrects ambiguity, selects or revises a candidate, approves reconstruction, and makes the final decision | Delegating accountability to an AI image or validator status |
+| Researcher/operator | Corrects ambiguity, approves an exact rendered candidate or requests a new one, approves reconstruction, and makes the final decision | Delegating accountability to an AI image or validator status |
 
 ## Support status
 
@@ -173,7 +177,7 @@ The frozen Deep Image Prior v0.1 reference case is validated and replayed by `sc
 | PowerPoint (`.pptx`) | `VERIFIED` | Native shapes, live text, connector references, and equation objects with authoritative LaTeX provenance are inspected; an export may use editable fallback text or rendered SVG equations, but not native Office Math |
 | draw.io (`.drawio`) | `STRUCTURAL_ONLY` for fidelity v2 | Native `mxCell` objects and source/target edges are checked. The fidelity-v2 official CLI render has black major regions and raw-LaTeX equations, so visual fidelity is not verified |
 | Figma-ready SVG | `IMPORT_READY_UNVERIFIED` | SVG structure is checked, but an actual Figma import has not been verified |
-| Publication, grayscale, and draw.io companion PDFs | `VERIFIED` | Vector/text/page structure is checked; `semantic_editability=false`, so PDFs are exports/previews, not editable sources |
+| Publication PDF | `VERIFIED` | The canonical one-page PDF parses and renders as an export/preview; `semantic_editability=false`, so it is not an editable source |
 
 Any failed required structural or integrity check blocks validation and replay.
 
@@ -190,7 +194,7 @@ Any failed required structural or integrity check blocks validation and replay.
 ## Researcher control points
 
 1. **Clarification:** answer only questions whose answers materially change the science or visual result. This is not an approval gate.
-2. **Candidate decision:** select, revise, combine, or reject the five proposals. Editable reconstruction requires explicit approval of one exact candidate or hash-bound combination.
+2. **Candidate decision:** approve one exact candidate, reject the set, or request a revision or combination. Any requested change must first be rendered and registered as a new candidate; editable reconstruction never starts from an unrendered composite instruction.
 3. **Final check:** review exact labels, equations, arrow directions, native objects, and target-application appearance before using the figure.
 
 Automated checks support these decisions. They do not make them.
@@ -206,6 +210,7 @@ Automated checks support these decisions. They do not make them.
 - [`tests/`](tests/) — deterministic pass/fail fixtures and workflow regression tests.
 - [`docs/science-day-demo.md`](docs/science-day-demo.md) — a 3–5 minute demo centered on the frozen offline replay, with an optional live ImageGen extension.
 - [`docs/technical_reference.md`](docs/technical_reference.md) — full artifact and workflow reference.
+- [`ASSETS.md`](ASSETS.md) — provenance and reuse boundaries for the public sketch, candidates, crops, and derived outputs.
 
 ## Evidence and safety boundary
 

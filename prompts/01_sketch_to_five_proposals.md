@@ -94,6 +94,6 @@ Accept natural-language decisions such as:
 - `Use C's layout with A's color direction.`
 - `Regenerate all five.`
 
-If the user requests a revision or combination, produce the revised candidate and show it before asking for approval. Selection is not approval when changes remain pending. Record explicit approval of the exact candidate or exact combination before editable reconstruction begins.
+`Choose C` may approve the registered Candidate C directly. A revision or combination request is different: render it as a new candidate in a new append-only proposal run, show that exact image, and obtain explicit approval of its file hash before reconstruction. Do not treat an instruction such as “use C's layout with A's colors” as an approved composite that has no rendered candidate file. Selection is not approval while requested changes remain pending.
 
 The approved candidate supplies visual direction only. Exact mathematics, text, and topology continue to come from the original sketch plus the researcher's clarification.

@@ -24,10 +24,12 @@ The repository is a script- and Codex-skill workflow, not an importable Python p
 The frozen Deep Image Prior v0.1 reference replay is:
 
 ```bash
-python scripts/replay_reference_case.py validate
 python scripts/replay_reference_case.py replay \
   --output-dir /tmp/sketch-figure-reference-v0-1
-python scripts/replay_reference_case.py status
+python scripts/replay_reference_case.py validate \
+  --run-dir /tmp/sketch-figure-reference-v0-1
+python scripts/replay_reference_case.py status \
+  --run-dir /tmp/sketch-figure-reference-v0-1
 ```
 
 The output path must be outside the repository and must not already exist. These commands use no AI, network, API key, or credentials. The replay verifies the frozen five-candidate evidence, Candidate C selection, approved region map, validation-backed delivery, and visual approval; it does not create scientific correctness or fresh researcher approval.

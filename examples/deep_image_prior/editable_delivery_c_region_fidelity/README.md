@@ -1,30 +1,9 @@
-# Candidate C — region-first fidelity review package
+# Historical reconstruction: Candidate C region-first fidelity
 
-Status: `AWAITING_FINAL_RESEARCHER_REVIEW`. Final scientific approval is `null`.
+**Review outcome:** `SUPERSEDED_BY_VERIFIED_FIDELITY_V2_REFERENCE`.
 
-This is a **fidelity-first mixed-media editable composition**. The user selected Candidate C and the current request authorizes this segmented review draft; it does not authorize final publication approval.
+This compact capsule preserves the visible result of the first eight-region fidelity reconstruction. It established the two-atom mixed-media boundary but preceded the validator and manifest hardening recorded by fidelity v2. The exact selection remains in [`../candidate_selection_c_only.json`](../candidate_selection_c_only.json), with the full sequence in [`../selection_history.json`](../selection_history.json).
 
-## Region-first construction
+![Superseded region-first fidelity reconstruction](preview.png)
 
-1. `source/selected_candidate_map.json` binds Candidate C by SHA-256 and records eight major source-pixel regions.
-2. `source/region_overlay.png` and `source/reference_regions/` expose the region review. They are `reference_only_not_embedded` QA assets.
-3. `source/raster_atom_review_decision.json` records the user's narrow `APPROVED_FOR_REVIEW_DRAFT_ONLY` authorization before assembly; both final approval fields remain `null`.
-4. `source/asset_manifest.json` authorizes exactly two exact-pixel raster atoms: noise content and reconstruction content.
-5. Every other component is rebuilt as native shapes, text, plot paths, explicit arrows, or intrinsic-aspect vector LaTeX.
-
-## Editability boundary
-
-The two image atoms are **replaceable but not pixel-editable**. They are independent image objects, not a whole-slide screenshot. Generator layers, frames, plot curves, plot sample points, labels, connectors, and arrowheads remain separately editable. Equations are vector SVGs generated from the authoritative LaTeX in `source/equations.tex`.
-
-## Outputs
-
-- `delivery/svg/master.svg`: native composition plus two relative replaceable image-asset references.
-- `delivery/pptx/figure.pptx`: more than 500 native shapes, two independent picture shapes, and nine vector equation objects.
-- `delivery/drawio/figure.drawio`: native structural cells and seven directed edges plus two independent image cells.
-- `delivery/pdf/publication.pdf`: **preview/export only**; no editability or scientific-correctness claim.
-- `preview.png`: rendered PDF review preview.
-- `delivery/pptx/slide-01.png`: independent PowerPoint authoring render.
-
-## Approval boundary
-
-Candidate C selection and this segmented review draft are visual decisions. `source/raster_atom_review_decision.json` authorizes only the two listed atoms for this review draft. The image atoms are synthetic visuals, not scientific evidence. Automated validation checks provenance, exact crops, file structure, topology, arrow construction, and equation aspect ratio. It does not validate scientific correctness. Final publication approval and final scientific approval are both `null` and require explicit researcher review.
+The full historical package is preserved in the immutable [`v0.1.0` tag](https://github.com/XinyuanWang283/sketch-to-scientific-figure/tree/v0.1.0/examples/deep_image_prior/editable_delivery_c_region_fidelity). It is intentionally omitted from current `main`; this preview is not the active result or evidence of scientific approval. Use the canonical [`editable_delivery_c_fidelity_v2/`](../editable_delivery_c_fidelity_v2/README.md) package for the verified reference case.

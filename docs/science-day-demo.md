@@ -12,14 +12,14 @@ The demo does not claim a measured time saving, benchmark result, scientific val
 
 The public Deep Image Prior example reaches the editable-delivery review point. Its canonical v0.1 pointer is [`editable_delivery_c_fidelity_v2/`](../examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md), and the workflow/case boundary is documented in the [v0.1 reference case](../examples/deep_image_prior/reference_case_v0_1.md). It contains the original sketch, clarification record, five separate operator-attested built-in ImageGen outputs, hashes, a locally assembled comparison sheet, preserved decision history, an approved eight-region map, and mixed-media editable outputs. Repository code does not independently prove generator backend identity or call isolation.
 
-The first instruction was `Use D's layout with C's visual style`. The researcher rejected that reconstruction, selected Candidate C alone, and then rejected the first native-only C reconstruction because it lost too much visual fidelity. A later hybrid remained unapproved after formula-aspect and workflow defects were found. Superseded outputs remain history, not current alternatives. Fidelity v2 keeps Candidate C SHA-256 bound, maps eight regions, uses exactly two bounded visual atoms, and rebuilds the remaining scientific structure as native/vector objects. Structural checks pass, and a separate human visual approval is bound to the frozen artifact-manifest hash. The annotated `v0.1.0` tag separately records project-owner approval for scientific content, Science Day use, and public release of the exact release tree.
+The active stage story begins with the researcher's exact, hash-bound selection of Candidate C. Superseded attempts are retained only as compact history capsules and do not need stage time. Fidelity v2 maps eight Candidate C regions, uses exactly two bounded visual atoms, and rebuilds the remaining scientific structure as native/vector objects. Structural checks pass, and a separate human visual approval is bound to the frozen artifact-manifest hash. The annotated `v0.1.0` tag separately records project-owner approval for scientific content, Science Day use, and public release of the exact release tree.
 
 ## What the audience should remember
 
 1. A sketch is a fast way to communicate an initial scientific figure idea.
 2. Codex asks only questions whose answers materially change the meaning or result.
 3. Built-in ImageGen makes five visual proposals through separate calls; it does not decide which one is correct.
-4. The researcher selects, revises, combines, or rejects the proposals.
+4. The researcher approves one exact candidate, rejects the set, or asks for a newly rendered revision.
 5. The selected candidate is mapped into reviewable regions and explicitly approved before reconstruction, rather than being silently flattened into the final figure.
 6. Only an explicitly approved direction proceeds to reconstruction; editability claims are stated per object and format, and PDF is an export/preview.
 7. Automated checks inspect programmable structure; visual, scientific, event-use, and public-release decisions remain separate human decisions even when their release approvals have been recorded.
@@ -34,8 +34,12 @@ python3 -m venv /tmp/sketch-figure-science-day-venv-01
 source /tmp/sketch-figure-science-day-venv-01/bin/activate
 python -m pip install -r requirements.txt
 python -m unittest discover -s tests -v
-python scripts/replay_reference_case.py validate
-python scripts/replay_reference_case.py status
+python scripts/replay_reference_case.py replay \
+  --output-dir /tmp/sketch-figure-science-day-preflight-01
+python scripts/replay_reference_case.py validate \
+  --run-dir /tmp/sketch-figure-science-day-preflight-01
+python scripts/replay_reference_case.py status \
+  --run-dir /tmp/sketch-figure-science-day-preflight-01
 ```
 
 Installation may need network access if declared packages are not cached. Complete it before the event. The presentation path itself needs no user-supplied API key and should not depend on venue Wi-Fi.
@@ -113,14 +117,12 @@ Do not claim that generated labels, equations, or arrows are authoritative. The 
 
 ### 4. Make the researcher decision visible
 
-Show the visible decision sequence used for this example:
+Show the active decision sequence used for this example:
 
 ```text
-Use D's layout with C's visual style.
-Rejected for visual revision.
 Choose candidate C only for the new editable review draft.
-Reject the native-only reconstruction: it no longer preserves enough of C's visual quality.
 Keep C as the reference; map its regions first, then use the fidelity-first editable reconstruction.
+Approve the eight-region map and the two explicit raster exceptions.
 ```
 
 For a future revision request, use wording such as:
@@ -129,7 +131,7 @@ For a future revision request, use wording such as:
 Revise D: keep the central loss loop, but use A's restrained color direction.
 ```
 
-Do not create an approval record for an unselected or still-revising direction. Editable reconstruction begins only after explicit approval of one exact candidate or exact combination.
+That instruction is not itself an approved composite. Render it as a new candidate in a new append-only proposal run, register its file and hash, show it to the researcher, and then ask for approval. Editable reconstruction begins only after explicit approval of one exact rendered candidate.
 
 ### 5. Explain the editable reconstruction
 
@@ -159,6 +161,10 @@ The primary demo is the frozen Deep Image Prior reference case. It executes no I
 ```bash
 python scripts/replay_reference_case.py replay \
   --output-dir /tmp/sketch-figure-science-day-reference-01
+python scripts/replay_reference_case.py validate \
+  --run-dir /tmp/sketch-figure-science-day-reference-01
+python scripts/replay_reference_case.py status \
+  --run-dir /tmp/sketch-figure-science-day-reference-01
 ```
 
 Expected summary:

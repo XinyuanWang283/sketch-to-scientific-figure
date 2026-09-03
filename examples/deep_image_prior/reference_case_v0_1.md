@@ -19,8 +19,9 @@ hand sketch and exact scientific material
 → focused questions about outcome-changing ambiguity
 → five separate Codex built-in ImageGen calls
 → A Faithful / B Publication / C Presentation / D Alternative layout / E Visual variant
-→ researcher selection, combination, revision, or rejection
-→ explicit approval of one exact visual direction
+→ researcher approval of one exact candidate, rejection, or request for a new revision
+→ any requested revision is rendered and registered as a new candidate
+→ explicit hash-bound approval of one exact visual direction
 → case-specific, hash-bound region map
 → native/mixed-media reconstruction and review
 ```
@@ -39,9 +40,11 @@ From the repository root, write only to a new directory outside the repository:
 python scripts/replay_reference_case.py replay \
   --output-dir /tmp/sketch-figure-reference-v0-1
 
-python scripts/replay_reference_case.py validate
+python scripts/replay_reference_case.py validate \
+  --run-dir /tmp/sketch-figure-reference-v0-1
 
-python scripts/replay_reference_case.py status
+python scripts/replay_reference_case.py status \
+  --run-dir /tmp/sketch-figure-reference-v0-1
 ```
 
 Use a different new output directory for every replay. The optional live Science Day branch may show focused clarification and fresh A–E generation, but it is non-deterministic and must stop if the researcher has not approved an exact direction. Continue the presentation with the frozen reference case rather than presenting an unapproved live branch as complete.
@@ -59,7 +62,7 @@ Use a different new output directory for every replay. The optional live Science
 
 The authoritative index is [`reference_case_v0_1.json`](reference_case_v0_1.json). The input is an original synthetic sketch of the Deep Image Prior principle, accompanied by a short [`clarification_brief.md`](clarification_brief.md). Five separately recorded candidates and their hashes are listed in [`candidate_manifest.json`](candidate_manifest.json). The active direction is Candidate C, bound to SHA-256 `c888a5fd0d2c4380717c8e38c1f9ec08d764ef31ef770983ead278a26c8cb26c` by the selection and [region-map approval](approvals/fidelity_v2_region_map_approval.json).
 
-The decision history matters. A D-layout/C-style reconstruction was rejected. A native-only C reconstruction lost too much of the selected visual character. A later hybrid retained two image regions but had equation-aspect and missing-region-map defects. Those packages remain as legacy evidence. The canonical v0.1 result is the later fidelity-v2 review package, which starts from an eight-region map and preserves two narrowly authorized, independently replaceable synthetic image atoms.
+The decision history matters. A D-layout/C-style reconstruction was rejected. A native-only C reconstruction lost too much of the selected visual character. A later hybrid retained two image regions but had equation-aspect and missing-region-map defects. Compact history capsules preserve those decisions, while the complete frozen legacy packages remain available at the immutable [`v0.1.0` tag](https://github.com/XinyuanWang283/sketch-to-scientific-figure/tree/v0.1.0/examples/deep_image_prior). The canonical v0.1 result is the later fidelity-v2 review package, which starts from an eight-region map and preserves two narrowly authorized, independently replaceable synthetic image atoms.
 
 The [machine-readable validation report](reference_case_v0_1_validation_report.json) and [artifact manifest](reference_case_v0_1_artifact_manifest.json) bind the approved inputs to the exact delivery outputs. Their input hashes include both the raster-asset manifest and its explicit review-draft authorization; a rejected, weakened, missing, or mismatched raster decision fails closed. Programmatic validation reports `VERIFIED_FIDELITY_V2_REVIEW_DRAFT`. This means the checked scope—candidate and crop provenance, the eight-region/two-raster boundary, equation aspect ratio, native/vector structure, parsing, and directed topology—passed. It does not mean the figure is scientifically correct, publication-ready, or universally reproducible from other sketches. Visual acceptance is a separate human record described below.
 

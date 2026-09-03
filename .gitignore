@@ -31,6 +31,3 @@ tmp/
 scratch/
 runs/
 local-runs/
-
-# Interrupted local audit build; never include in a public commit
-examples/deep_image_prior/editable_delivery_c_segmented_native/
