@@ -4,6 +4,8 @@
 
 这是一个由研究者控制的 Codex workflow：先把手绘科学草图转成五个视觉候选，再把研究者批准的一个精确候选重建成可编辑科学图。
 
+**想直接开始？** 克隆或下载仓库，在 Codex 中打开项目文件夹，附上草图并调用 `$sketch-to-scientific-figure`。回答必要问题、选定候选、批准分区方案后，再检查生成的可编辑图。新结果应保存到仓库外；不要覆盖参考案例。如果 Skill 没有出现在列表里，请让 Codex 读取 [SKILL.md](.agents/skills/sketch-to-scientific-figure/SKILL.md) 并按其链接的 prompts 执行。
+
 > 手绘草图 → 聚焦澄清 → 5 次分别调用内置 ImageGen → 研究者批准一个精确候选 → 分区映射 → 原生可编辑 SVG/PPTX → experimental draw.io 结构视图 → PDF 预览 → 自动结构检查 → 研究者最终决定
 
 **Codex 提方案，重建工具做转换，自动检查验证可编程约束，科研人员做决定。**

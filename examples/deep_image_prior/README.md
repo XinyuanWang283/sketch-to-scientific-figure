@@ -36,13 +36,21 @@ Each candidate used the same sketch and scientific invariants but a different ar
 
 ## Researcher decision and current editable result
 
-The active decision in [`candidate_selection_c_only.json`](candidate_selection_c_only.json) binds **candidate C alone** as the exact visual reference. Earlier D+C, native-only, hybrid, and region-first attempts remain documented in [`selection_history.json`](selection_history.json); their delivery directories are not retained on `main` as reconstruction options.
+The decision in [`candidate_selection_c_only.json`](candidate_selection_c_only.json) binds **candidate C** as the exact visual reference for the editable reconstruction below.
 
 [![Preview of the canonical Candidate C fidelity-v2 review draft](editable_delivery_c_fidelity_v2/preview.png)](editable_delivery_c_fidelity_v2/README.md)
 
 The canonical [fidelity-v2 delivery](editable_delivery_c_fidelity_v2/README.md) binds eight visible regions to the selected PNG hash and records an inspection overlay. A separate [`raster_atom_review_decision.json`](editable_delivery_c_fidelity_v2/source/raster_atom_review_decision.json) authorizes only the noise and synthetic mountain content as exact-pixel, replaceable review-draft atoms. Frames, network layers, plots, arrows, labels, and nine aspect-preserving LaTeX-derived equations remain native or vector objects in SVG/PPTX. The v0.1 [reference-case record](reference_case_v0_1.md) binds structural evidence and a separate visual approval to exact hashes. Its checked-in governance fields preserve the pre-authorization snapshot state; the annotated `v0.1.0` tag separately records the owner's scientific-content, Science Day-use, and public-release approvals for the exact release tree.
 
-Rejected previews and complete superseded packages remain available at the immutable [`v0.1.0` tag](https://github.com/XinyuanWang283/sketch-to-scientific-figure/tree/v0.1.0/examples/deep_image_prior). They are historical evidence, not alternatives to the canonical fidelity-v2 delivery.
+The evidence needed to inspect this result is:
+
+| Question | Record |
+|---|---|
+| Where did the candidates come from? | [Candidate provenance and hashes](candidate_manifest.json) |
+| Which image did the researcher choose? | [Candidate C selection](candidate_selection_c_only.json) |
+| What was approved for reconstruction? | [Region-map approval](approvals/fidelity_v2_region_map_approval.json) and [raster exceptions](editable_delivery_c_fidelity_v2/source/raster_atom_review_decision.json) |
+| Which output files were checked? | [Artifact manifest](reference_case_v0_1_artifact_manifest.json) and [structural report](reference_case_v0_1_validation_report.json) |
+| Was the visual delivery accepted? | [Hash-bound visual approval](approvals/fidelity_v2_visual_approval.json); see the [approval scope](reference_case_v0_1.md#approval-state) for separate decisions |
 
 [`candidate_selection.template.json`](candidate_selection.template.json) remains a blank reusable template for one exact registered candidate. A revision or cross-candidate combination must first be rendered and registered as a new candidate; automated checks never populate approval.
 

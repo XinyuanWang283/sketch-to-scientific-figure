@@ -9,13 +9,39 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-2EA44F.svg)](LICENSE)
 [![Codex skill](https://img.shields.io/badge/Codex-repository%20skill-111827.svg)](.agents/skills/sketch-to-scientific-figure/SKILL.md)
 
-[Quick start](#quick-start) · [v0.1 reference case](examples/deep_image_prior/reference_case_v0_1.md) · [Support status](#support-status) · [Chinese guide](START_HERE_中文.md)
+[Use your sketch](#quick-start) · [Try the reference case](#explore-the-reference-case) · [Support status](#support-status) · [Chinese guide](START_HERE_中文.md)
 
 </div>
 
+## Quick start
+
+1. Clone or download this repository, then open its folder in **Codex**:
+
+   ```bash
+   git clone https://github.com/XinyuanWang283/sketch-to-scientific-figure.git
+   ```
+
+2. Start a new conversation, attach your sketch, and mention any exact labels, equations, intended figure size, or confidentiality boundaries.
+3. Invoke the workflow:
+
+   ```text
+   $sketch-to-scientific-figure
+   Help me turn this sketch into an editable scientific figure.
+   Ask about material ambiguities first. Save new outputs outside the repository.
+   ```
+
+4. Answer the focused questions, then choose one of the five generated candidates, A–E, or request a revision.
+5. Review the proposed regions and any image exceptions. After your approval, Codex reconstructs editable SVG/PPTX and checks the files; inspect the result and request corrections before accepting it.
+
+No API key is required for this built-in Codex path. Image-generation availability depends on your Codex environment. If the Skill is not listed, ask Codex to read [its SKILL.md](.agents/skills/sketch-to-scientific-figure/SKILL.md) and follow its linked prompts. If image generation is unavailable, use the frozen reference case below; it is not a new conversion of your sketch.
+
+New reconstructions are case-specific, not guaranteed automatic conversions. SVG/PPTX are the primary editable formats; draw.io is experimental and PDF is a preview/export. Check [runtime requirements](docs/runtime_requirements.md) if an export tool is unavailable.
+
+## Explore the reference case
+
 **Open the reference result:** [SVG folder](examples/deep_image_prior/editable_delivery_c_fidelity_v2/delivery/svg/) · [PowerPoint](examples/deep_image_prior/editable_delivery_c_fidelity_v2/delivery/pptx/figure.pptx) · [PDF preview](examples/deep_image_prior/editable_delivery_c_fidelity_v2/delivery/pdf/publication.pdf) · [draw.io — experimental structural view](examples/deep_image_prior/editable_delivery_c_fidelity_v2/delivery/drawio/figure.drawio)
 
-To edit the SVG, keep `master.svg` and its sibling `assets/` folder together; downloading only `master.svg` loses two image regions. Clone or download the repository, or run the [offline replay](#quick-start) to obtain the complete package. The PowerPoint file can be opened on its own. These are frozen reference outputs, not a new conversion of your sketch.
+To edit the SVG, keep `master.svg` and its sibling `assets/` folder together; downloading only `master.svg` loses two image regions. Clone or download the repository, or run the [offline replay](#offline-replay) to obtain the complete package. The PowerPoint file can be opened on its own. These are frozen reference outputs, not a new conversion of your sketch.
 
 Scientific figures are not ordinary image-generation tasks: a polished image can still reverse an arrow, invent an equation, or hide the fact that it is only a flattened bitmap. This repository uses Codex to clarify material ambiguity, generate five distinct visual proposals with built-in ImageGen, preserve the researcher's choice, map that exact candidate into reviewable regions, and rebuild the approved direction as an editable composition. Native vector is the default; a narrowly approved image region remains an explicit, replaceable atom rather than a hidden whole-canvas flattening. In the checked-in example, generator provenance is operator-attested rather than independently proven by repository code.
 
@@ -40,7 +66,7 @@ The **live Codex path** uses built-in ImageGen when that capability is available
 
 The **offline reference path** replays frozen, hash-bound evidence. It does not rerun ImageGen. Use it to inspect the editable outputs and reproduce their structural checks. This is the only v0.1 case whose reconstruction and artifact structure have been verified here.
 
-## Quick start
+## Offline replay
 
 From a clean checkout, use Python 3.11 or newer. The commands below were verified on macOS and Linux; Windows has not yet been verified. Installation may download declared dependencies; the replay itself is local and offline. The output directory must be outside the repository and must not already exist.
 
@@ -86,18 +112,6 @@ python scripts/build_deep_image_prior_c_fidelity_v2.py \
 
 This rebuild requires the Codex-bundled `@oai/artifact-tool` module as well as the documented native tools; installing the Python requirements alone is not enough. An independent setup outside that bundled runtime has not been verified. The rebuild does not inherit the frozen visual approval.
 
-### Optional live Codex path
-
-Open the repository in a Codex session with built-in image generation available, attach a sketch, and invoke:
-
-```text
-$sketch-to-scientific-figure
-```
-
-Codex asks only material clarification questions, then makes five separate calls for slots A–E. The five outputs are separate original files; a labeled comparison sheet may be assembled afterward. A live result remains blocked until the researcher explicitly approves one exact selection and the case-specific region map. Availability and pixels may vary by Codex environment.
-
-For reconstruction dependencies and recovery when native tools are unavailable, see [runtime requirements](docs/runtime_requirements.md).
-
 ## What you get
 
 - A repository-scoped Codex skill that turns ambiguity into a short conversation instead of a user-facing JSON contract.
@@ -113,7 +127,7 @@ The [Deep Image Prior example](examples/deep_image_prior/README.md) uses an orig
 
 [![Five separately generated Deep Image Prior candidates](examples/deep_image_prior/candidate-comparison.png)](examples/deep_image_prior/README.md)
 
-The researcher ultimately approved **candidate C alone** as the visual reference. [Selection history](examples/deep_image_prior/selection_history.json) records earlier rejected attempts; their packages remain in the immutable [v0.1.0 history](https://github.com/XinyuanWang283/sketch-to-scientific-figure/tree/v0.1.0/examples/deep_image_prior), not as active delivery directories on `main`. The current review package records eight Candidate C regions, then rebuilds the figure with two exact, replaceable image atoms and native/vector scientific structure.
+The researcher approved **candidate C** as the visual reference, recorded in the [hash-bound selection](examples/deep_image_prior/candidate_selection_c_only.json). Its eight-region map guides reconstruction into native/vector scientific objects with two explicitly approved, replaceable image regions.
 
 [![Candidate C fidelity-v2 review draft](examples/deep_image_prior/editable_delivery_c_fidelity_v2/preview.png)](examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md)
 
@@ -206,7 +220,7 @@ Automated checks support these decisions. They do not make them.
 ## Repository map
 
 - [`.agents/skills/`](.agents/skills/sketch-to-scientific-figure/SKILL.md) — repository-scoped Codex skill and execution order.
-- [`examples/deep_image_prior/`](examples/deep_image_prior/README.md) — original hand sketch, five separately generated ImageGen candidates, preserved decision history, an eight-region reconstruction map, and the canonical fidelity-v2 case with frozen pre-authorization state plus tag-level owner approvals.
+- [`examples/deep_image_prior/`](examples/deep_image_prior/README.md) — original sketch, five visual candidates, the approved Candidate C selection, an eight-region reconstruction map, editable outputs, and provenance and approval evidence.
 - [`prompts/`](prompts/) — focused clarification, five-candidate generation, review, and reconstruction instructions.
 - [`rules/`](rules/) and [`schemas/`](schemas/) — stable rule IDs and machine-readable contracts.
 - [`scripts/imagegen_workflow.py`](scripts/imagegen_workflow.py) — local evidence ledger for five active candidate slots, explicit selection and region-map approval, validation-gated delivery registration, and separate approvals; it never invokes ImageGen.

@@ -21,9 +21,9 @@ Exact candidate hashes, dimensions, generation-event records, and provenance sta
 
 The candidate files were observed to contain Content Credentials when the reference evidence was assembled. The repository does not cryptographically validate those credentials and does not treat them as proof of backend identity or call isolation.
 
-## Superseded previews
+## Audit-only records
 
-The current tree retains [selection history](examples/deep_image_prior/selection_history.json), not the five superseded delivery directories. Rejected previews and complete superseded packages remain available in the immutable [v0.1.0 release history](https://github.com/XinyuanWang283/sketch-to-scientific-figure/tree/v0.1.0/examples/deep_image_prior). They are historical evidence, not supported deliverables.
+The current case retains [selection lineage](examples/deep_image_prior/selection_history.json) and the hash-linked records under `examples/deep_image_prior/history/` to preserve approval provenance. These are audit-only records, not alternative outputs or required reading for using the workflow. Superseded visual packages are not shipped in the current tree; they remain retrievable through Git history. The supported reference output is the canonical fidelity-v2 package listed above.
 
 ## Source readings and external links
 

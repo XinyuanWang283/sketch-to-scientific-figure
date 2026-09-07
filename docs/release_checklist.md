@@ -1,6 +1,6 @@
 # Release and public-visibility checklist
 
-The last recorded remote check (2026-09-04) found Release `v0.1.0` in a Private GitHub repository. Recheck current remote state before publication. Its tag and owner attestations bind only that exact release tree; they do not approve later local or `main` changes.
+The 2026-09-08 remote check confirmed that the repository remains **Private** and commit `410a067cdedf5115569c646e582f1bff03d9f85a` passed [GitHub Actions](https://github.com/XinyuanWang283/sketch-to-scientific-figure/actions/runs/34166188147). Release `v0.1.0` and its tag are preserved. The tag's owner attestations bind only that exact release tree; they do not approve later local or `main` changes.
 
 ## Verified remote facts — 2026-09-04
 
@@ -23,11 +23,17 @@ The last recorded remote check (2026-09-04) found Release `v0.1.0` in a Private 
 - [x] The annotated `v0.1.0` tag separately records owner approval for scientific content, Science Day use, and public release of that exact tree.
 - [x] Author and committer history uses the reviewed GitHub noreply identity.
 
-## Current publication candidate — pending
+## Verification record — 2026-09-08
 
-The 2026-09-07 review started from `0a6d69bec7c331ea81a61364141369dd1023dadd` plus uncommitted legacy cleanup. Historical checks above apply to `v0.1.0`, not to this candidate. Record the final candidate commit and its verification evidence when available; do not carry forward checked boxes from a different tree.
+The latest pushed commit above has passing remote CI. Subsequent local documentation edits simplify the reader path and remove obsolete design notes; their local checks must not be described as remote CI results for an unpushed tree.
 
-That review passed targeted tests and verified the four canonical main-output hashes, but full tests, replay, and the complete privacy scan were interrupted by file-read stalls. Git history inspection timed out, and dependency downloads and the GitHub API were unavailable. These are incomplete checks, not passing release evidence or a diagnosis of a code defect.
+The earlier installation/network and history-read interruptions were resolved during the final check on 2026-09-07: a clean Python 3.12 environment installed the declared requirements without conflicts, and a fresh read-only mirror with the same eight reachable commits allowed all 398 unique historical file versions to be scanned. The defined credential, restricted-marker and private-path patterns had no matches; author and committer emails used noreply addresses. That scan describes its reviewed history, not a guarantee about future changes.
+
+On 2026-09-08, the local suite reported 114 passed, one optional bundled-runtime test skipped, and zero failed. Frozen replay, validation and status passed; all 53 canonical files were unchanged. The suite includes relative-link, public-path, cache, symlink-containment and evidence-binding checks. The skipped adapter test does not establish a fresh native-runtime rebuild. These are software checks, not a human user study or scientific validation.
+
+## Remaining publication steps
+
+Apply the checklist to the final candidate, including edits made after the recorded checks. A historical pass does not automatically check a new tree.
 
 - [ ] Verify the final cleanup and all canonical fidelity-v2 file hashes without changing artifact bytes.
 - [ ] Review the exact proposed file set and diff; exclude local prototypes, caches, build output, and unapproved assets.
@@ -35,7 +41,7 @@ That review passed targeted tests and verified the four canonical main-output ha
 - [ ] Run frozen replay, validation, and status in a fresh external output directory.
 - [ ] Complete personal-path, credential, cache, symlink, asset-provenance, Markdown-link, and reachable-history checks on that candidate.
 - [ ] Obtain owner authorization for the exact local commit contents.
-- [ ] Create the authorized commit or commits using the reviewed GitHub noreply identity; record their hashes.
+- [ ] Commit any remaining approved local changes using the reviewed GitHub noreply identity; record their hashes.
 - [ ] Push the reviewed local commits only under separate authorization.
 - [ ] Confirm remote Actions pass for that exact pushed commit; record the run URL and commit hash.
 - [ ] Perform the final privacy and canonical-hash check after remote CI.
