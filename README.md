@@ -13,6 +13,23 @@
 
 </div>
 
+## From a hand-drawn sketch to an editable figure
+
+One verified Deep Image Prior example: the researcher's original sketch, followed by the approved, case-specific reconstruction.
+
+<table>
+  <tr>
+    <th width="40%">1. Original hand-drawn sketch</th>
+    <th width="60%">2. Editable result — PNG preview</th>
+  </tr>
+  <tr>
+    <td valign="top"><a href="examples/deep_image_prior/sketch.png"><img src="examples/deep_image_prior/sketch.png" alt="Original hand-drawn Deep Image Prior sketch with generator, measurement operator, and optimization equation" width="100%"></a></td>
+    <td valign="top"><a href="examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md"><img src="examples/deep_image_prior/editable_delivery_c_fidelity_v2/preview.png" alt="Preview of the fidelity-v2 editable reconstruction, with network layers, measurement plots, arrows, and equations" width="100%"></a></td>
+  </tr>
+</table>
+
+**Sketch → clarification → five visual proposals → researcher selection → region-aware reconstruction.** The right-hand image is a preview, not the editable file. Open the [editable SVG package](examples/deep_image_prior/editable_delivery_c_fidelity_v2/delivery/svg/) or [PowerPoint](examples/deep_image_prior/editable_delivery_c_fidelity_v2/delivery/pptx/figure.pptx); keep the SVG's `assets/` folder beside `master.svg`. This case includes two approved, replaceable image regions; scientific judgment remains with the researcher.
+
 ## Quick start
 
 1. Clone or download this repository, then open its folder in **Codex**:
@@ -128,8 +145,6 @@ The [Deep Image Prior example](examples/deep_image_prior/README.md) uses an orig
 [![Five separately generated Deep Image Prior candidates](examples/deep_image_prior/candidate-comparison.png)](examples/deep_image_prior/README.md)
 
 The researcher approved **candidate C** as the visual reference, recorded in the [hash-bound selection](examples/deep_image_prior/candidate_selection_c_only.json). Its eight-region map guides reconstruction into native/vector scientific objects with two explicitly approved, replaceable image regions.
-
-[![Candidate C fidelity-v2 review draft](examples/deep_image_prior/editable_delivery_c_fidelity_v2/preview.png)](examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md)
 
 The canonical [fidelity-v2 package](examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md) preserves the selected noise and synthetic mountain regions as exactly two unresampled, replaceable raster atoms referenced through relative SVG sidecars. Network layers, frames, plots, connectors, labels, and nine aspect-preserving LaTeX-derived equations remain native or vector objects in SVG/PPTX. The image atoms are not pixel-editable or scientific evidence. The draw.io file is an experimental structural view: the official CLI currently renders major colored regions as black blocks and equations as raw LaTeX, so it is not visual-fidelity evidence. Structural checks pass, and the frozen case records a separate human visual approval bound to the artifact-manifest hash. Approval provenance and the distinction between frozen replay state and tag-level owner decisions are documented in the [reference-case record](examples/deep_image_prior/reference_case_v0_1.md#approval-state).
 
