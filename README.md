@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-2EA44F.svg)](LICENSE)
 [![Codex skill](https://img.shields.io/badge/Codex-repository%20skill-111827.svg)](.agents/skills/sketch-to-scientific-figure/SKILL.md)
 
-[Quick start](#quick-start) · [v0.1 reference case](examples/deep_image_prior/reference_case_v0_1.md) · [Support status](#support-status) · [Science Day demo](docs/science-day-demo.md) · [Chinese guide](START_HERE_中文.md)
+[Quick start](#quick-start) · [v0.1 reference case](examples/deep_image_prior/reference_case_v0_1.md) · [Support status](#support-status) · [Chinese guide](START_HERE_中文.md)
 
 </div>
 
@@ -38,7 +38,7 @@ sketch → focused clarification → five separate ImageGen calls
 
 The **live Codex path** uses built-in ImageGen when that capability is available in the current Codex environment. It does not require a repository-managed or user-supplied `OPENAI_API_KEY`. Repository Python records and validates artifacts; it does not pretend to call Codex's built-in image tool.
 
-The **offline reference path** replays frozen, hash-bound evidence. It does not rerun ImageGen. This is the stable primary path for Science Day and the only v0.1 case whose reconstruction and artifact structure have been verified here.
+The **offline reference path** replays frozen, hash-bound evidence. It does not rerun ImageGen. Use it to inspect the editable outputs and reproduce their structural checks. This is the only v0.1 case whose reconstruction and artifact structure have been verified here.
 
 ## Quick start
 
@@ -61,7 +61,7 @@ python scripts/replay_reference_case.py status \
 
 If the default `python3` is older, replace it consistently with an installed supported interpreter such as `python3.11`.
 
-The replay copies the frozen reference package into `/tmp/sketch-figure-reference-v0-1`, verifies the five recorded candidate events and Candidate C selection, consumes the approved region map, recomputes structural evidence, registers the exact delivery, and imports its hash-bound visual approval. Expected stage: `VISUAL_APPROVED`. Its governance fields remain `PENDING` because replay preserves the pre-authorization snapshot; the annotated `v0.1.0` tag separately records the owner's scientific-content, Science Day-use, and public-release approvals for the exact release tree.
+The replay copies the frozen reference package into `/tmp/sketch-figure-reference-v0-1`, verifies the five recorded candidate events and Candidate C selection, consumes the approved region map, recomputes structural evidence, registers the exact delivery, and imports its hash-bound visual approval. Expected stage: `VISUAL_APPROVED`. Its governance fields remain `PENDING` because replay preserves the pre-authorization snapshot. The separate tag-level owner approvals and their exact scope are explained in the [reference-case record](examples/deep_image_prior/reference_case_v0_1.md#approval-state).
 
 This v0.1 repository is an executable Codex workflow, not an importable Python library or an installed console application. The dependency command above intentionally installs only the declared runtime packages and does not create `*.egg-info` in the checkout.
 
@@ -96,7 +96,7 @@ $sketch-to-scientific-figure
 
 Codex asks only material clarification questions, then makes five separate calls for slots A–E. The five outputs are separate original files; a labeled comparison sheet may be assembled afterward. A live result remains blocked until the researcher explicitly approves one exact selection and the case-specific region map. Availability and pixels may vary by Codex environment.
 
-For a 3–5 minute narrated walkthrough, full-runtime command, fallback path, and recovery notes, use the [Science Day demo guide](docs/science-day-demo.md).
+For reconstruction dependencies and recovery when native tools are unavailable, see [runtime requirements](docs/runtime_requirements.md).
 
 ## What you get
 
@@ -117,7 +117,7 @@ The researcher ultimately approved **candidate C alone** as the visual reference
 
 [![Candidate C fidelity-v2 review draft](examples/deep_image_prior/editable_delivery_c_fidelity_v2/preview.png)](examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md)
 
-The canonical [fidelity-v2 package](examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md) preserves the selected noise and synthetic mountain regions as exactly two unresampled, replaceable raster atoms referenced through relative SVG sidecars. Network layers, frames, plots, connectors, labels, and nine aspect-preserving LaTeX-derived equations remain native or vector objects in SVG/PPTX. The image atoms are not pixel-editable or scientific evidence. The draw.io file is an experimental structural view: the official CLI currently renders major colored regions as black blocks and equations as raw LaTeX, so it is not visual-fidelity evidence. Structural checks pass, and the frozen case records a separate human visual approval bound to the artifact-manifest hash. Its checked-in governance fields preserve the pre-authorization snapshot state; the annotated `v0.1.0` tag records project-owner approval for scientific content, Science Day use, and public release of that exact tree.
+The canonical [fidelity-v2 package](examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md) preserves the selected noise and synthetic mountain regions as exactly two unresampled, replaceable raster atoms referenced through relative SVG sidecars. Network layers, frames, plots, connectors, labels, and nine aspect-preserving LaTeX-derived equations remain native or vector objects in SVG/PPTX. The image atoms are not pixel-editable or scientific evidence. The draw.io file is an experimental structural view: the official CLI currently renders major colored regions as black blocks and equations as raw LaTeX, so it is not visual-fidelity evidence. Structural checks pass, and the frozen case records a separate human visual approval bound to the artifact-manifest hash. Approval provenance and the distinction between frozen replay state and tag-level owner decisions are documented in the [reference-case record](examples/deep_image_prior/reference_case_v0_1.md#approval-state).
 
 ## Developer checks
 
@@ -212,7 +212,6 @@ Automated checks support these decisions. They do not make them.
 - [`scripts/imagegen_workflow.py`](scripts/imagegen_workflow.py) — local evidence ledger for five active candidate slots, explicit selection and region-map approval, validation-gated delivery registration, and separate approvals; it never invokes ImageGen.
 - [`scripts/`](scripts/) — comparison-sheet builder, compilers, renderers, adapters, orchestration, and validators.
 - [`tests/`](tests/) — deterministic pass/fail fixtures and workflow regression tests.
-- [`docs/science-day-demo.md`](docs/science-day-demo.md) — a 3–5 minute demo centered on the frozen offline replay, with an optional live ImageGen extension.
 - [`docs/technical_reference.md`](docs/technical_reference.md) — full artifact and workflow reference.
 - [`ASSETS.md`](ASSETS.md) — provenance and reuse boundaries for the public sketch, candidates, crops, and derived outputs.
 

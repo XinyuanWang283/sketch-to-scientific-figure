@@ -80,7 +80,6 @@ class PublicRepositoryTests(unittest.TestCase):
             Path("prompts/02_selected_proposal_to_svg.md"),
             Path("examples/deep_image_prior/README.md"),
             Path("examples/deep_image_prior/reference_case_v0_1.md"),
-            Path("docs/science-day-demo.md"),
             Path("docs/release_checklist.md"),
             Path("docs/technical_reference.md"),
         ]
@@ -119,6 +118,14 @@ class PublicRepositoryTests(unittest.TestCase):
                     )
 
         self.assertEqual(problems, [])
+
+    def test_public_navigation_has_no_event_runbook(self) -> None:
+        event_runbook = "science-day-demo.md"
+        self.assertFalse((REPOSITORY_ROOT / "docs" / event_runbook).exists())
+        for path in public_text_files():
+            if path.suffix.lower() == ".md":
+                with self.subTest(path=path.relative_to(REPOSITORY_ROOT)):
+                    self.assertNotIn(event_runbook, path.read_text(encoding="utf-8"))
 
     def test_no_local_absolute_paths_or_cache_artifacts(self) -> None:
         local_prefixes = [

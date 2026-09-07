@@ -32,7 +32,7 @@ The live path can produce different pixels on another run. Its scientific conten
 
 ### 2. Offline frozen replay
 
-The offline path replays the checked-in reference case. It **does not rerun ImageGen**, regenerate A–E, or prove which backend produced the recorded candidates. It is the deterministic primary path for a Science Day demonstration because it avoids network and generation variance while preserving the recorded decision and artifact evidence.
+The offline path replays the checked-in reference case. It **does not rerun ImageGen**, regenerate A–E, or prove which backend produced the recorded candidates. It avoids network and generation variance while preserving the recorded decision and artifact evidence for inspection and reproducible structural checks.
 
 From the repository root, write only to a new directory outside the repository:
 
@@ -47,7 +47,7 @@ python scripts/replay_reference_case.py status \
   --run-dir /tmp/sketch-figure-reference-v0-1
 ```
 
-Use a different new output directory for every replay. The optional live Science Day branch may show focused clarification and fresh A–E generation, but it is non-deterministic and must stop if the researcher has not approved an exact direction. Continue the presentation with the frozen reference case rather than presenting an unapproved live branch as complete.
+Use a different new output directory for every replay. To work on your own sketch, use the live Codex workflow instead. Fresh A–E generation is non-deterministic, and reconstruction must wait for the researcher's approval of one exact candidate; replaying this reference case does not approve a new sketch.
 
 ## Responsibility boundary
 
@@ -110,4 +110,4 @@ python scripts/build_deep_image_prior_c_fidelity_v2.py \
 
 The builder refuses to overwrite an existing output directory. A complete rebuild also depends on the documented native PDF/preview runtime. Rebuilding does not grant visual, scientific, Science Day, or public-release approval.
 
-For the event narrative, use the deterministic frozen replay as the primary path and treat fresh built-in ImageGen calls as an optional, explicitly non-deterministic branch. See the [Science Day runbook](../../docs/science-day-demo.md) for timing and fallback guidance.
+If native rebuild tools are unavailable, use the frozen replay to inspect the reference artifacts; do not describe that replay as a fresh reconstruction.

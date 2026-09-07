@@ -28,7 +28,7 @@ The live path uses the built-in image-generation capability only when the Codex 
 | Researcher | Correct scientific meaning and approve one exact candidate and region map |
 | Reconstruction code | Build case-specific SVG, PPTX, draw.io, and PDF artifacts |
 | Automated validation | Check hashes, files, paths, objects, and programmable topology constraints |
-| Researcher | Decide visual quality, scientific correctness, Science Day use, and public release |
+| Researcher | Decide visual quality, scientific correctness, intended use, and public release |
 
 Automated validation never establishes scientific correctness or creates a human approval.
 

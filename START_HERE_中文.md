@@ -92,13 +92,12 @@ SVG 和 PPTX 是本案例的主要可编辑输出。draw.io 包含可编辑 grap
 | 重建 | 生成原生对象和格式 | 视觉表达是否忠实且可用 |
 | Validation | 检查文件、对象、哈希、路径和基础拓扑 | 科学是否正确、是否可用于演示或公开发布 |
 
-自动 validation 不能证明科学正确，也不会自动创建 visual、scientific、Science Day-use 或 public-release approval。
+自动 validation 不能证明科学正确，也不会自动创建视觉、科学内容、用途或公开发布批准。
 
 ## 更多信息
 
 - [English README](README.md)
 - [Technical reference](docs/technical_reference.md)
-- [Science Day demo guide](docs/science-day-demo.md)
 - [Reference-case evidence](examples/deep_image_prior/reference_case_v0_1.md)
 - [Asset provenance and licensing boundaries](ASSETS.md)
 

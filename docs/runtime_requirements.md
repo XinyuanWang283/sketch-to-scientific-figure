@@ -70,7 +70,7 @@ python scripts/build_deep_image_prior_c_fidelity_v2.py \
   --output-dir /tmp/sketch-figure-fidelity-v2-rebuild-01
 ```
 
-The builder refuses an existing output directory. This rebuild is case-specific, may produce structurally equivalent but byte-different PPTX/PDF archives, and does not inherit the canonical visual approval. If any preflight item is unavailable, use `scripts/replay_reference_case.py replay`; that is the stable Science Day path and needs none of these native tools.
+The builder refuses an existing output directory. This rebuild is case-specific, may produce structurally equivalent but byte-different PPTX/PDF archives, and does not inherit the canonical visual approval. If any preflight item is unavailable, use `scripts/replay_reference_case.py replay`; the frozen reference replay needs none of these native tools.
 
 When the bundled presentation runtime is unavailable, the unit test that exercises the entire adapter chain is skipped. That skip means the core workflow was checked, not that every delivery format was regenerated on that machine.
 

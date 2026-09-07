@@ -41,15 +41,15 @@ That review passed targeted tests and verified the four canonical main-output ha
 - [ ] Perform the final privacy and canonical-hash check after remote CI.
 - [ ] Change repository visibility only under a separate explicit owner instruction.
 
-## Recommended presentation improvements
+## Optional repository improvements
 
 - [x] Add a repository description and topic tags on GitHub.
 - [x] Keep an original publication-safe sketch, five candidates, and the frozen fidelity-v2 evidence.
 - [ ] Obtain one colleague's README-only dry-run feedback.
 - [ ] Add a small social preview image if the repository will be made public.
 
-## Science Day evidence
+## Reference-case evidence
 
-Use the [Science Day demo guide](science-day-demo.md) and the canonical [`editable_delivery_c_fidelity_v2/`](../examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md) case. Fidelity v2 binds eight source regions to Candidate C, retains two approved synthetic raster atoms, and rebuilds the remaining structure with native/vector objects and intrinsic-aspect LaTeX-derived equations. draw.io is an experimental structural view; PDF is preview/export. The primary offline replay executes no ImageGen or remote call.
+Review the [reference-case record](../examples/deep_image_prior/reference_case_v0_1.md) and canonical [`editable_delivery_c_fidelity_v2/`](../examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md) case. Fidelity v2 binds eight source regions to Candidate C, retains two approved synthetic raster atoms, and rebuilds the remaining structure with native/vector objects and intrinsic-aspect LaTeX-derived equations. draw.io is an experimental structural view; PDF is preview/export. The offline replay executes no ImageGen or remote call.
 
-On stage, distinguish structural validation from scientific correctness. Do not present this case as a human study, time-saving benchmark, universal converter, or evidence of cross-sketch performance.
+Distinguish structural validation from scientific correctness. Do not describe this case as a human study, time-saving benchmark, universal converter, or evidence of cross-sketch performance. Historical event-use approvals remain provenance records, not the product's purpose or a requirement to prepare a talk.
