@@ -2,7 +2,9 @@
 
 # Sketch to Scientific Figure
 
-**A Codex workflow that turns a researcher's sketch into five separate visual proposals, then reconstructs an approved direction as editable artifacts.**
+**Your ideas deserve more time than your drawing tools.**
+
+From your sketch to an editable scientific figure—with Codex doing the drawing and you making the scientific decisions.
 
 [![Tests](https://github.com/XinyuanWang283/sketch-to-scientific-figure/actions/workflows/tests.yml/badge.svg)](https://github.com/XinyuanWang283/sketch-to-scientific-figure/actions/workflows/tests.yml)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776AB.svg)](https://www.python.org/)
