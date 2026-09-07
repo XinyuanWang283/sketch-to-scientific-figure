@@ -10,6 +10,10 @@
 
 v0.1 提供可复用 workflow 和一个经过验证的 Deep Image Prior 参考案例；它不是适用于任意草图的通用转换器，也不保证跨草图重建效果。
 
+**直接查看参考成果：** [SVG 文件夹](examples/deep_image_prior/editable_delivery_c_fidelity_v2/delivery/svg/) · [PowerPoint](examples/deep_image_prior/editable_delivery_c_fidelity_v2/delivery/pptx/figure.pptx) · [PDF 预览](examples/deep_image_prior/editable_delivery_c_fidelity_v2/delivery/pdf/publication.pdf) · [draw.io 实验性结构视图](examples/deep_image_prior/editable_delivery_c_fidelity_v2/delivery/drawio/figure.drawio)
+
+SVG 的 `master.svg` 必须与旁边的 `assets/` 文件夹一起保存，否则会缺少两个图像区域。请克隆或下载仓库，或运行下面的离线 replay 获取完整文件包；PPTX 可单独打开。这些是冻结参考成果，不是对你的草图新生成的结果。
+
 ## 路径一：用于你自己的草图
 
 1. 在支持内置图像生成的 Codex App 会话中打开本仓库并附上草图。
@@ -58,6 +62,8 @@ python scripts/replay_reference_case.py status \
 如果默认 `python` 低于 3.11，请把四条命令统一换成可用的 `python3.11` 或更新版本。replay 输出目录必须位于仓库外且尚不存在。
 
 这条路径只验证和复制冻结证据，不调用 ImageGen、网络或远程服务，也不会生成新的人工批准。预期 workflow stage 为 `VISUAL_APPROVED`。checked-in governance fields 保留冻结时的状态；annotated `v0.1.0` tag 另行记录该发布 tree 的 owner attestation。
+
+可选的 fidelity-v2 **重新构建**与 replay 不同：除 Python 依赖外，还需要 Codex bundled runtime 中的 `@oai/artifact-tool`、Node.js、LaTeX/dvisvgm、LibreOffice 和 Poppler。脱离该 bundled runtime 的独立安装方案尚未验证；缺少这些工具时使用 replay，不要把复制冻结成果称为重新生成。具体要求见 [runtime requirements](docs/runtime_requirements.md)。
 
 ## Deep Image Prior 参考案例
 

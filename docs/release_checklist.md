@@ -1,6 +1,6 @@
 # Release and public-visibility checklist
 
-Release `v0.1.0` exists in the still-Private GitHub repository. Its tag and owner attestations bind only that exact release tree; they do not approve later local or `main` changes.
+The last recorded remote check (2026-09-04) found Release `v0.1.0` in a Private GitHub repository. Recheck current remote state before publication. Its tag and owner attestations bind only that exact release tree; they do not approve later local or `main` changes.
 
 ## Verified remote facts — 2026-09-04
 
@@ -23,16 +23,21 @@ Release `v0.1.0` exists in the still-Private GitHub repository. Its tag and owne
 - [x] The annotated `v0.1.0` tag separately records owner approval for scientific content, Science Day use, and public release of that exact tree.
 - [x] Author and committer history uses the reviewed GitHub noreply identity.
 
-## Required before the next push or public visibility
+## Current publication candidate — pending
 
-- [x] Finish the local cleanup without changing the canonical fidelity-v2 artifact bytes.
-- [x] Review the exact proposed file set and diff; exclude local prototypes, caches, build output, and unapproved assets.
-- [x] Run the full suite and focused workflow tests on the final local tree.
-- [x] Run personal-path, credential, cache, symlink, asset-provenance, and Markdown-link checks on the proposed snapshot.
-- [x] Obtain explicit owner approval for the exact local commit contents.
-- [x] Create two focused local commits using the reviewed GitHub noreply identity.
+The 2026-09-07 review started from `0a6d69bec7c331ea81a61364141369dd1023dadd` plus uncommitted legacy cleanup. Historical checks above apply to `v0.1.0`, not to this candidate. Record the final candidate commit and its verification evidence when available; do not carry forward checked boxes from a different tree.
+
+That review passed targeted tests and verified the four canonical main-output hashes, but full tests, replay, and the complete privacy scan were interrupted by file-read stalls. Git history inspection timed out, and dependency downloads and the GitHub API were unavailable. These are incomplete checks, not passing release evidence or a diagnosis of a code defect.
+
+- [ ] Verify the final cleanup and all canonical fidelity-v2 file hashes without changing artifact bytes.
+- [ ] Review the exact proposed file set and diff; exclude local prototypes, caches, build output, and unapproved assets.
+- [ ] Run clean dependency installation, the full suite, and focused workflow tests on that final tree; record commands and results.
+- [ ] Run frozen replay, validation, and status in a fresh external output directory.
+- [ ] Complete personal-path, credential, cache, symlink, asset-provenance, Markdown-link, and reachable-history checks on that candidate.
+- [ ] Obtain owner authorization for the exact local commit contents.
+- [ ] Create the authorized commit or commits using the reviewed GitHub noreply identity; record their hashes.
 - [ ] Push the reviewed local commits only under separate authorization.
-- [ ] Confirm remote Actions pass for that exact pushed commit.
+- [ ] Confirm remote Actions pass for that exact pushed commit; record the run URL and commit hash.
 - [ ] Perform the final privacy and canonical-hash check after remote CI.
 - [ ] Change repository visibility only under a separate explicit owner instruction.
 

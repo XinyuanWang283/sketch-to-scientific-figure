@@ -13,6 +13,10 @@
 
 </div>
 
+**Open the reference result:** [SVG folder](examples/deep_image_prior/editable_delivery_c_fidelity_v2/delivery/svg/) · [PowerPoint](examples/deep_image_prior/editable_delivery_c_fidelity_v2/delivery/pptx/figure.pptx) · [PDF preview](examples/deep_image_prior/editable_delivery_c_fidelity_v2/delivery/pdf/publication.pdf) · [draw.io — experimental structural view](examples/deep_image_prior/editable_delivery_c_fidelity_v2/delivery/drawio/figure.drawio)
+
+To edit the SVG, keep `master.svg` and its sibling `assets/` folder together; downloading only `master.svg` loses two image regions. Clone or download the repository, or run the [offline replay](#quick-start) to obtain the complete package. The PowerPoint file can be opened on its own. These are frozen reference outputs, not a new conversion of your sketch.
+
 Scientific figures are not ordinary image-generation tasks: a polished image can still reverse an arrow, invent an equation, or hide the fact that it is only a flattened bitmap. This repository uses Codex to clarify material ambiguity, generate five distinct visual proposals with built-in ImageGen, preserve the researcher's choice, map that exact candidate into reviewable regions, and rebuild the approved direction as an editable composition. Native vector is the default; a narrowly approved image region remains an explicit, replaceable atom rather than a hidden whole-canvas flattening. In the checked-in example, generator provenance is operator-attested rather than independently proven by repository code.
 
 > **Status:** experimental `v0.1`: a reusable Codex workflow plus one checked-in, structurally verified reference case. It is not a universal converter, human-subject study, benchmark result, or claim of scientific correctness or time saved.
@@ -80,7 +84,7 @@ python scripts/build_deep_image_prior_c_fidelity_v2.py \
   --output-dir /tmp/sketch-figure-fidelity-v2-rebuild-01
 ```
 
-This rebuild depends on the documented local native tools and does not inherit the frozen visual approval.
+This rebuild requires the Codex-bundled `@oai/artifact-tool` module as well as the documented native tools; installing the Python requirements alone is not enough. An independent setup outside that bundled runtime has not been verified. The rebuild does not inherit the frozen visual approval.
 
 ### Optional live Codex path
 
@@ -109,7 +113,7 @@ The [Deep Image Prior example](examples/deep_image_prior/README.md) uses an orig
 
 [![Five separately generated Deep Image Prior candidates](examples/deep_image_prior/candidate-comparison.png)](examples/deep_image_prior/README.md)
 
-The researcher ultimately approved **candidate C alone** as the visual reference. Compact history capsules preserve earlier rejected attempts without making them part of the active path. The current review package records eight Candidate C regions, then rebuilds the figure with two exact, replaceable image atoms and native/vector scientific structure.
+The researcher ultimately approved **candidate C alone** as the visual reference. [Selection history](examples/deep_image_prior/selection_history.json) records earlier rejected attempts; their packages remain in the immutable [v0.1.0 history](https://github.com/XinyuanWang283/sketch-to-scientific-figure/tree/v0.1.0/examples/deep_image_prior), not as active delivery directories on `main`. The current review package records eight Candidate C regions, then rebuilds the figure with two exact, replaceable image atoms and native/vector scientific structure.
 
 [![Candidate C fidelity-v2 review draft](examples/deep_image_prior/editable_delivery_c_fidelity_v2/preview.png)](examples/deep_image_prior/editable_delivery_c_fidelity_v2/README.md)
 
@@ -127,7 +131,7 @@ python -m pip install -r requirements.txt
 python -m unittest discover -s tests -v
 ```
 
-The optional Deep Image Prior fidelity-v2 rebuild additionally needs Node.js with the local artifact-tool module, LaTeX/dvisvgm, LibreOffice, and Poppler. See [runtime requirements](docs/runtime_requirements.md).
+The optional Deep Image Prior fidelity-v2 rebuild additionally needs Node.js with the Codex-bundled `@oai/artifact-tool` module, LaTeX/dvisvgm, LibreOffice, and Poppler. A standalone replacement for that module is not verified. See [runtime requirements](docs/runtime_requirements.md).
 
 ## How the default workflow works
 

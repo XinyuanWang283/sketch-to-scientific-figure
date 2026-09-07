@@ -44,7 +44,9 @@ The optional Deep Image Prior fidelity-v2 rebuild has a stricter runtime than th
 - LibreOffice `soffice` for PPTX-to-PDF export;
 - Poppler `pdftoppm` for the PNG preview and visual review evidence.
 
-In a Codex workspace, ask Codex to resolve the bundled workspace dependency paths. Outside Codex, install equivalent local tools. Do not copy paths from another machine. Set the three environment-specific paths, then run this preflight from the repository root:
+The PPTX exporter imports the specific `@oai/artifact-tool/dist/artifact_tool.mjs` module from the Codex bundled runtime. A different presentation library is not a drop-in replacement. This repository does not provide a verified standalone installation recipe or replacement for that module; installing `requirements.txt` does not install it.
+
+In a Codex workspace that provides bundled dependencies, ask Codex to resolve the actual Node.js and module paths. Availability depends on the environment. If that module is unavailable, use the frozen replay instead; rebuilding outside this bundled runtime is unverified. Do not copy paths from another machine. Replace all four placeholder paths below with resolved paths, then run this preflight from the repository root:
 
 ```bash
 export RUNTIME_NODE=/absolute/path/to/node

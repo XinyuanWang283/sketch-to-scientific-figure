@@ -23,7 +23,7 @@ The candidate files were observed to contain Content Credentials when the refere
 
 ## Superseded previews
 
-Compact preview images from rejected reconstruction attempts may remain in the current tree as decision-history evidence. They are not supported deliverables. Complete superseded packages remain available in the immutable `v0.1.0` release history.
+The current tree retains [selection history](examples/deep_image_prior/selection_history.json), not the five superseded delivery directories. Rejected previews and complete superseded packages remain available in the immutable [v0.1.0 release history](https://github.com/XinyuanWang283/sketch-to-scientific-figure/tree/v0.1.0/examples/deep_image_prior). They are historical evidence, not supported deliverables.
 
 ## Source readings and external links
 
